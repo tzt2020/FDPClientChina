@@ -53,9 +53,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
 import java.net.URI;
 import java.nio.ByteBuffer;
 import java.nio.file.AccessDeniedException;
+import java.util.List;
 
 @Mixin(Minecraft.class)
 public abstract class MixinMinecraft {
@@ -119,6 +122,13 @@ public abstract class MixinMinecraft {
     }
     @Inject(method = "createDisplay", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/Display;setTitle(Ljava/lang/String;)V", shift = At.Shift.AFTER))
     private void createDisplay(CallbackInfo callbackInfo) {
+        RuntimeMXBean bean = ManagementFactory.getRuntimeMXBean();
+        List<String> jvmArgs = bean.getInputArguments();
+
+        for (int i = 0; i < jvmArgs.size(); i++) {
+            System.out.println( jvmArgs.get( i ) );
+        }
+        System.out.println(System.getProperty("sun.java.command"));
         File file =new File("./", "FDPProtect");
         file.delete();
         ClientUtils.INSTANCE.setTitle();
