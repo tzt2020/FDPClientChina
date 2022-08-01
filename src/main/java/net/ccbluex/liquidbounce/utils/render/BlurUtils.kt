@@ -20,6 +20,9 @@ object BlurUtils : MinecraftInstance() {
     }
 
     fun draw(x: Float, y: Float, width: Float, height: Float, radius: Float) {
+        try {
+
+
         val scale = StaticStorage.scaledResolution
         val factor = scale.scaleFactor
         val factor2 = scale.scaledWidth
@@ -38,5 +41,8 @@ object BlurUtils : MinecraftInstance() {
         blurShader.listShaders[1].shaderManager.getShaderUniform("Radius").set(radius)
         blurShader.loadShaderGroup(mc.timer.renderPartialTicks)
         mc.framebuffer.bindFramebuffer(true)
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
     }
 }

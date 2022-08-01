@@ -1,5 +1,8 @@
 package net.ccbluex.liquidbounce.utils.render;
 
+import net.ccbluex.liquidbounce.utils.ClientUtils;
+import net.minecraft.client.Minecraft;
+
 import java.awt.Color;
 
 public class ColorManager {
@@ -44,11 +47,18 @@ public class ColorManager {
         float rainbow = (double)((float)(d / 360.0)) < 0.5 ? -((float)(delay / 360.0)) : (float)((delay %= 360.0) / 360.0);
         return Color.getHSBColor(rainbow, 0.5f, 1.0f).getRGB();
     }
-
+    public static int rainbowTick=0;
     public static int astolfoRainbow(int delay, int offset, int index) {
-        double rainbowDelay = Math.ceil(System.currentTimeMillis() + (long)(delay * index)) / offset;
-        return Color.getHSBColor((double)((float)((rainbowDelay %= 360.0) / 360.0)) < 0.5 ? -((float)(rainbowDelay / 360.0)) : (float)(rainbowDelay / 360.0), 0.5F, 1.0F).getRGB();
+        //if (++rainbowTick > 50) {
+        //    rainbowTick = 0;
+        //}
+        Color rainbow = new Color(Color.HSBtoRGB(
+                (float) ((double) Minecraft.getMinecraft().thePlayer.ticksExisted / 50.0 + Math.sin((double) rainbowTick / 50.0 * 1.6))
+                        % 1.0f,
+                0.5f, 1.0f));
+        return rainbow.getRGB();
     }
+
 
     public static Color rainbow(long time, float count, float fade) {
         float hue = ((float)time + (1.0f + count) * 2.0E8f) / 1.0E10f % 1.0f;

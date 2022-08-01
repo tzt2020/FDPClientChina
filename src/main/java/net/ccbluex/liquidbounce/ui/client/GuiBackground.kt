@@ -25,7 +25,7 @@ class GuiBackground(val prevGui: GuiScreen) : GuiScreen() {
     companion object {
         var enabled = true
         var particles = false
-        var blur = false
+        var blur = true
     }
 
     private lateinit var enabledButton: GuiButton

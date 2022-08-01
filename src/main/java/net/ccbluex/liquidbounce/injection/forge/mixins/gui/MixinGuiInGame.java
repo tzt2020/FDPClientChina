@@ -12,6 +12,8 @@ import net.ccbluex.liquidbounce.features.module.modules.client.HUD;
 import net.ccbluex.liquidbounce.features.module.modules.render.AntiBlind;
 import net.ccbluex.liquidbounce.features.module.modules.render.Crosshair;
 import net.ccbluex.liquidbounce.injection.access.StaticStorage;
+import net.ccbluex.liquidbounce.ui.client.hud.Hotbar;
+import net.ccbluex.liquidbounce.utils.render.ColorManager;
 import net.ccbluex.liquidbounce.utils.render.ColorUtils;
 import net.ccbluex.liquidbounce.utils.render.RenderUtils;
 import net.minecraft.client.Minecraft;
@@ -76,25 +78,23 @@ public abstract class MixinGuiInGame extends MixinGui {
 
         if(Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityPlayer) {
             boolean canBetterHotbar = hud.getState() && hud.getBetterHotbarValue().get();
-            Minecraft mc = Minecraft.getMinecraft();
-
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             mc.getTextureManager().bindTexture(widgetsTexPath);
             EntityPlayer entityplayer = (EntityPlayer) mc.getRenderViewEntity();
             int i = sr.getScaledWidth() / 2;
             float f = this.zLevel;
             this.zLevel = -90.0F;
             int itemX = i - 91 + HUD.INSTANCE.getHotbarEasePos(entityplayer.inventory.currentItem * 20);
+            if(canBetterHotbar) {
+                //GlStateManager.disableTexture2D();
+                Hotbar.render(sr,itemX);
+                //GlStateManager.enableTexture2D();
+            }
+            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+
             GlStateManager.enableRescaleNormal();
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-            if(canBetterHotbar) {
-                GlStateManager.disableTexture2D();
-                RenderUtils.quickDrawRect(i - 91, sr.getScaledHeight() - 22, i + 91, sr.getScaledHeight(), new Color(0, 0, 0, HUD.INSTANCE.getHotbarAlphaValue().get()));
-                RenderUtils.quickDrawRect(itemX, sr.getScaledHeight() - 22, itemX + 22, sr.getScaledHeight() - 21, ColorUtils.INSTANCE.rainbow());
-                RenderUtils.quickDrawRect(itemX, sr.getScaledHeight() - 21, itemX + 22, sr.getScaledHeight(), new Color(0, 0, 0, HUD.INSTANCE.getHotbarAlphaValue().get()));
-                GlStateManager.enableTexture2D();
-            } else {
+            if(!canBetterHotbar) {
                 this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
                 this.drawTexturedModalRect(itemX - 1, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
             }

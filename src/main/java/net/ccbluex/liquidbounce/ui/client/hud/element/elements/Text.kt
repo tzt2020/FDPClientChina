@@ -195,19 +195,19 @@ class Text(
                 }, shadow.get()
             )
         }else{
-            FontLoaders.F40.drawStringWithShadow(
+            FontLoaders.F40.drawString(
 
-                getClientName(0,3), 5.0, 0.0,Color(255,255,255,180).rgb
+                getClientName(0,3), 5.0f, 0.0f,Color(255,255,255,220).rgb
             )
             FontLoaders.C16.drawString(
-                getClientName(3,9), 5F + FontLoaders.F40.getStringWidth("FDP"), 13.0f,Color(255,255,255,180).rgb
+                "CN", 5F + FontLoaders.F40.getStringWidth("FDP"), 13.0f,Color(255,255,255,220).rgb
             )
-            RenderUtils.drawRect(5f,22.5f,70f,22.8f,Color(200,200,200,120).rgb)
+            RenderUtils.drawRect(5f,22.5f,70f,22.8f,Color(200,200,200,220).rgb)
             FontLoaders.C14.drawString(
-                LiquidBounce.CLIENT_VERSION + " | "+LiquidBounce.VERSIONTYPE, 5.0f, 27.0f,Color(255,255,255,180).rgb
+                LiquidBounce.CLIENT_VERSION + " | "+LiquidBounce.VERSIONTYPE, 5.0f, 27.0f,Color(255,255,255,220).rgb
             )
             FontLoaders.C14.drawString(
-                "FDPCN 2022Q3", 5.0f, 37.0f,Color(255,255,255,180).rgb
+                "CN 2022Q3 | RainbowPie UI", 5.0f, 37.0f,Color(255,255,255,220).rgb
             )
         }
 

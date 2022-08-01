@@ -38,40 +38,40 @@ class Arraylist(
     side: Side = Side(Horizontal.RIGHT, Vertical.UP)
 ) : Element(x, y, scale, side) {
 
-    private val colorModeValue = ListValue("Text-Color", arrayOf("Custom", "Random", "Rainbow", "AnotherRainbow", "Slowly", "SkyRainbow", "Astolfo"), "Astolfo")
-    private val colorRedValue = IntegerValue("Text-R", 0, 0, 255)
-    private val colorGreenValue = IntegerValue("Text-G", 111, 0, 255)
-    private val colorBlueValue = IntegerValue("Text-B", 255, 0, 255)
-    private val tagColorModeValue = ListValue("Tag-Color", arrayOf("Custom", "Random", "Rainbow", "AnotherRainbow", "Slowly", "SkyRainbow", "Astolfo"), "Custom")
-    private val tagColorRedValue = IntegerValue("Tag-R", 195, 0, 255)
-    private val tagColorGreenValue = IntegerValue("Tag-G", 195, 0, 255)
-    private val tagColorBlueValue = IntegerValue("Tag-B", 195, 0, 255)
-    private val astolfoRainbowOffset = IntegerValue("AstolfoRainbowOffset", 5, 1, 20)
-    private val astolfoRainbowIndex = IntegerValue("AstolfoRainbowIndex", 109, 1, 300)
-    private val rectColorModeValue = ListValue("Rect-Color", arrayOf("Custom", "Random", "Rainbow", "AnotherRainbow", "Slowly", "SkyRainbow", "Astolfo"), "Rainbow")
-    private val rectColorRedValue = IntegerValue("Rect-R", 255, 0, 255)
-    private val rectColorGreenValue = IntegerValue("Rect-G", 255, 0, 255)
-    private val rectColorBlueValue = IntegerValue("Rect-B", 255, 0, 255)
-    private val rectColorBlueAlpha = IntegerValue("Rect-Alpha", 255, 0, 255)
-    private val saturationValue = FloatValue("Random-Saturation", 0.9f, 0f, 1f)
-    private val brightnessValue = FloatValue("Random-Brightness", 1f, 0f, 1f)
+    private val ModeValue = ListValue("Mode", arrayOf("None", "Outline", "FDPNew"), "FDPNew")
+    //private val colorRedValue = IntegerValue("Text-R", 0, 0, 255)
+    //private val colorGreenValue = IntegerValue("Text-G", 111, 0, 255)
+    //private val colorBlueValue = IntegerValue("Text-B", 255, 0, 255)
+    //private val tagColorModeValue = ListValue("Tag-Color", arrayOf("Custom", "Random", "Rainbow", "AnotherRainbow", "Slowly", "SkyRainbow", "Astolfo"), "Custom")
+    //private val tagColorRedValue = IntegerValue("Tag-R", 195, 0, 255)
+    //private val tagColorGreenValue = IntegerValue("Tag-G", 195, 0, 255)
+    //private val tagColorBlueValue = IntegerValue("Tag-B", 195, 0, 255)
+    //private val astolfoRainbowOffset = IntegerValue("AstolfoRainbowOffset", 5, 1, 20)
+    //private val astolfoRainbowIndex = IntegerValue("AstolfoRainbowIndex", 109, 1, 300)
+    //private val rectColorModeValue = ListValue("Rect-Color", arrayOf("Custom", "Random", "Rainbow", "AnotherRainbow", "Slowly", "SkyRainbow", "Astolfo"), "Rainbow")
+    //private val rectColorRedValue = IntegerValue("Rect-R", 255, 0, 255)
+    //private val rectColorGreenValue = IntegerValue("Rect-G", 255, 0, 255)
+    //private val rectColorBlueValue = IntegerValue("Rect-B", 255, 0, 255)
+    //private val rectColorBlueAlpha = IntegerValue("Rect-Alpha", 255, 0, 255)
+    //private val saturationValue = FloatValue("Random-Saturation", 0.9f, 0f, 1f)
+    //private val brightnessValue = FloatValue("Random-Brightness", 1f, 0f, 1f)
     private val tagsValue = ListValue("TagsStyle", arrayOf("-", "|", "()", "[]", "<>", "Space", "None"), "Space")
     private val shadow = BoolValue("ShadowText", true)
     private val split = BoolValue("SplitName", false)
     private val slideInAnimation = BoolValue("SlideInAnimation", true)
     private val noRenderModules = BoolValue("NoRenderModules", true)
-    private val backgroundColorModeValue = ListValue("Background-Color", arrayOf("Custom", "Random", "Rainbow", "AnotherRainbow", "Slowly", "SkyRainbow", "Astolfo"), "Custom")
-    private val backgroundColorRedValue = IntegerValue("Background-R", 0, 0, 255)
-    private val backgroundColorGreenValue = IntegerValue("Background-G", 0, 0, 255)
-    private val backgroundColorBlueValue = IntegerValue("Background-B", 0, 0, 255)
-    private val backgroundColorAlphaValue = IntegerValue("Background-Alpha", 100, 0, 255)
-    private val backgroundExpand = IntegerValue("Background-Expand", 2, 0, 10)
-    private val rainbowSpeed = IntegerValue("RainbowSpeed", 1, 1, 10)
-    private val rectValue = ListValue("Rect", arrayOf("None", "Left", "Right", "Outline", "Special", "Top"), "None")
+    //private val backgroundColorModeValue = ListValue("Background-Color", arrayOf("Custom", "Random", "Rainbow", "AnotherRainbow", "Slowly", "SkyRainbow", "Astolfo"), "Custom")
+    //private val backgroundColorRedValue = IntegerValue("Background-R", 0, 0, 255)
+    //private val backgroundColorGreenValue = IntegerValue("Background-G", 0, 0, 255)
+    //private val backgroundColorBlueValue = IntegerValue("Background-B", 0, 0, 255)
+    //private val backgroundColorAlphaValue = IntegerValue("Background-Alpha", 100, 0, 255)
+    //private val backgroundExpand = IntegerValue("Background-Expand", 2, 0, 10)
+    //private val rainbowSpeed = IntegerValue("RainbowSpeed", 1, 1, 10)
+    //private val rectValue = ListValue("Rect", arrayOf("None", "Left", "Right", "Outline", "Special", "Top"), "None")
     private val caseValue = ListValue("Case", arrayOf("Upper", "Normal", "Lower"), "Normal")
-    private val spaceValue = FloatValue("Space", 0F, 0F, 5F)
-    private val textHeightValue = FloatValue("TextHeight", 11F, 1F, 20F)
-    private val textYValue = FloatValue("TextY", 2.4F, 0F, 20F)
+    //private val spaceValue = FloatValue("Space", 0F, 0F, 5F)
+    //private val textHeightValue = FloatValue("TextHeight", 11F, 1F, 20F)
+    //private val textYValue = FloatValue("TextY", 2.4F, 0F, 20F)
     private val fontValue = FontValue("Font", Fonts.font32)
 
     private var x2 = 0
@@ -124,194 +124,125 @@ class Arraylist(
         }
 
         // Draw arraylist
-        val colorMode = colorModeValue.get()
-        val rectColorMode = rectColorModeValue.get()
-        val backgroundColorMode = backgroundColorModeValue.get()
-        val customColor = Color(colorRedValue.get(), colorGreenValue.get(), colorBlueValue.get())
-        val tagCustomColor = Color(tagColorRedValue.get(), tagColorGreenValue.get(), tagColorBlueValue.get())
-        val rectCustomColor = Color(rectColorRedValue.get(), rectColorGreenValue.get(), rectColorBlueValue.get(), rectColorBlueAlpha.get())
-        val space = spaceValue.get()
-        val textHeight = textHeightValue.get()
-        val textY = textYValue.get()
-        val rectMode = rectValue.get()
-        val backgroundCustomColor = Color(backgroundColorRedValue.get(), backgroundColorGreenValue.get(), backgroundColorBlueValue.get(), backgroundColorAlphaValue.get())
         val textShadow = shadow.get()
-        val textSpacer = textHeight + space
-        val saturation = saturationValue.get()
-        val brightness = brightnessValue.get()
+        val textSpacer = 11f
 
-        when (side.horizontal) {
-            Horizontal.RIGHT, Horizontal.MIDDLE -> {
+        when (ModeValue.get().toLowerCase()) {
+            "none" -> {
                 modules.forEachIndexed { index, module ->
                     val xPos = -module.slide - 2
-                    val realYPos = if (slideInAnimation.get() && !module.state) { if (side.vertical == Vertical.DOWN) { 0f } else { -textHeight } } else { (if (side.vertical == Vertical.DOWN) -textSpacer else textSpacer) *
-                            if (side.vertical == Vertical.DOWN) index + 1 else index }
+                    val a= (if (side.vertical == Vertical.DOWN) index + 1f else index).toFloat()
+                    val realYPos = if (slideInAnimation.get() && !module.state) { if (side.vertical == Vertical.DOWN) { 0f } else { -11f } } else { (if (side.vertical == Vertical.DOWN) -textSpacer else textSpacer) * a }
                     val yPos = module.yPos
                     if (yPos != realYPos) {
                         module.yPos = realYPos
                     }
-                    val moduleColor = Color.getHSBColor(module.hue, saturation, brightness).rgb
 
-                    val rectX = xPos - if (rectMode.equals("right", true)) 5 else 2
-                    blur(rectX - backgroundExpand.get(), yPos, if (rectMode.equals("right", true)) -3F else 0F, yPos + textHeight)
+                    val rectX = xPos -  5
+                    blur(rectX - 10, yPos,  -3F, yPos + 11)
                     RenderUtils.drawRect(
-                        rectX - backgroundExpand.get(),
+                        rectX - 2,
                         yPos,
-                        if (rectMode.equals("right", true)) -3F else 0F,
-                        yPos + textHeight,
-                        when (backgroundColorMode.lowercase()) {
-                            "rainbow" -> ColorUtils.hslRainbow(index + 1, indexOffset = 100 * rainbowSpeed.get()).rgb
-                            "random" -> moduleColor
-                            "skyrainbow" -> ColorUtils.skyRainbow(index, saturationValue.get(), brightnessValue.get(), rainbowSpeed.get().toDouble()).rgb
-                            "Astolfo" -> ColorManager.astolfoRainbow(delay[0] * 100, astolfoRainbowOffset.get(), astolfoRainbowIndex.get())
-                            "slowly" -> ColorUtils.slowlyRainbow(System.nanoTime(), index * 30 * rainbowSpeed.get(), saturationValue.get(), brightnessValue.get()).rgb
-                            "anotherrainbow" -> ColorUtils.fade(backgroundCustomColor, 100, index + 1).rgb
-                            else -> backgroundCustomColor.rgb
-                        }
+                        0f,
+                        yPos + 11,
+                        Color(0,0,0,100)
                     )
 
                     val mName = changeCase(getModuleName(module))
                     val mTag = changeCase(getModuleTag(module))
-                    fontRenderer.drawString(mName, xPos - if (rectMode.equals("right", true)) 3 else 0, yPos + textY,
-                        when (colorMode.lowercase()) {
-                            "rainbow" -> ColorUtils.hslRainbow(index + 1, indexOffset = 100 * rainbowSpeed.get()).rgb
-                            "random" -> moduleColor
-                            "skyrainbow" -> ColorUtils.skyRainbow(index, saturationValue.get(), brightnessValue.get(), rainbowSpeed.get().toDouble()).rgb
-                            "Astolfo" -> ColorManager.astolfoRainbow(delay[0] * 100, astolfoRainbowOffset.get(), astolfoRainbowIndex.get())
-                            "slowly" -> ColorUtils.slowlyRainbow(System.nanoTime(), index * 30 * rainbowSpeed.get(), saturationValue.get(), brightnessValue.get()).rgb
-                            "anotherrainbow" -> ColorUtils.fade(customColor, 100, index + 1).rgb
-                            else -> customColor.rgb
-                        }, textShadow)
+                    fontRenderer.drawString(mName, xPos - 3, yPos + 2.4f,
+                        ColorManager.astolfoRainbow(0,0,0), textShadow)
 
-                    fontRenderer.drawString(mTag, xPos - (if (rectMode.equals("right", true)) 3 else 0) + fontRenderer.getStringWidth(mName), yPos + textY,
-                        ColorUtils.reverseColor(when (tagColorModeValue.get().lowercase()) {
-                            "rainbow" -> ColorUtils.reverseColor(ColorUtils.hslRainbow(index + 1, indexOffset = 100 * rainbowSpeed.get()))
-                            "random" -> Color(moduleColor)
-                            "skyrainbow" -> ColorUtils.skyRainbow(index, saturationValue.get(), brightnessValue.get(), rainbowSpeed.get().toDouble())
-                            "Astolfo" -> Color(ColorManager.astolfoRainbow(delay[0] * 100, astolfoRainbowOffset.get(), astolfoRainbowIndex.get()))
-                            "slowly" -> ColorUtils.slowlyRainbow(System.nanoTime(), index * 30 * rainbowSpeed.get(), saturationValue.get(), brightnessValue.get())
-                            "anotherrainbow" -> ColorUtils.reverseColor(ColorUtils.fade(tagCustomColor, 100, index + 1))
-                            else -> ColorUtils.reverseColor(tagCustomColor)
-                        }).rgb, textShadow)
-
-                    if (!rectMode.equals("none", true)) {
-                        val rectColor = when (rectColorMode.lowercase()) {
-                            "rainbow" -> ColorUtils.hslRainbow(index + 1, indexOffset = 100 * rainbowSpeed.get()).rgb
-                            "random" -> moduleColor
-                            "skyrainbow" -> ColorUtils.skyRainbow(index, saturationValue.get(), brightnessValue.get(), rainbowSpeed.get().toDouble()).rgb
-                            "Astolfo" -> ColorManager.astolfoRainbow(delay[0] * 100, astolfoRainbowOffset.get(), astolfoRainbowIndex.get())
-                            "slowly" -> ColorUtils.slowlyRainbow(System.nanoTime(), index * 30 * rainbowSpeed.get(), saturationValue.get(), brightnessValue.get()).rgb
-                            "anotherrainbow" -> ColorUtils.fade(rectCustomColor, 100, index + 1).rgb
-                            else -> rectCustomColor.rgb
-                        }
-
-                        when (rectMode.lowercase()) {
-                            "left" -> RenderUtils.drawRect(xPos - 5, yPos, xPos - 2, yPos + textHeight,
-                                rectColor)
-                            "right" -> RenderUtils.drawRect(-3F, yPos, 0F,
-                                yPos + textHeight, rectColor)
-                            "outline" -> {
-                                RenderUtils.drawRect(-1F, yPos - 1F, 0F,
-                                    yPos + textHeight, rectColor)
-                                RenderUtils.drawRect(xPos - 3, yPos, xPos - 2, yPos + textHeight,
-                                    rectColor)
-                                if (module != modules[0]) {
-                                    RenderUtils.drawRect(xPos - 3 - (modules[index - 1].width - module.width), yPos, xPos - 2, yPos + 1,
-                                        rectColor)
-                                    if (module == modules[modules.size - 1]) {
-                                        RenderUtils.drawRect(xPos - 3, yPos + textHeight, 0.0F, yPos + textHeight + 1,
-                                            rectColor)
-                                    }
-                                }
-                            }
-                            "special" -> {
-                                if (module == modules[0]) {
-                                    RenderUtils.drawRect(xPos - 2, yPos, 0F, yPos - 1, rectColor)
-                                }
-                                if (module == modules[modules.size - 1]) {
-                                    RenderUtils.drawRect(xPos - 2, yPos + textHeight, 0F, yPos + textHeight + 1, rectColor)
-                                }
-                            }
-                            "top" -> {
-                                if (module == modules[0]) {
-                                    RenderUtils.drawRect(xPos - 2, yPos, 0F, yPos - 1, rectColor)
-                                }
-                            }
-                        }
-                    }
+                    fontRenderer.drawString(mTag, xPos -  3 + fontRenderer.getStringWidth(mName), yPos + 2.4f,
+                        Color(245,245,245,150).rgb, textShadow)
                 }
             }
-
-            Horizontal.LEFT -> {
+            "outline" -> {
                 modules.forEachIndexed { index, module ->
-                    val xPos = -(module.width - module.slide) + if (rectMode.equals("left", true)) 5 else 2
-                    val realYPos = if (slideInAnimation.get() && !module.state) { if (side.vertical == Vertical.DOWN) { 0f } else { -textHeight } } else { (if (side.vertical == Vertical.DOWN) -textSpacer else textSpacer) *
-                            if (side.vertical == Vertical.DOWN) index + 1 else index }
+                    val xPos = -module.slide - 2
+                    val a= (if (side.vertical == Vertical.DOWN) index + 1f else index).toFloat()
+                    var b= (if((index+1)==modules.size) 0f else -modules.get(index+1).slide - 7)
+                    val realYPos = if (slideInAnimation.get() && !module.state) { if (side.vertical == Vertical.DOWN) { 0f } else { -11f } } else { (if (side.vertical == Vertical.DOWN) -textSpacer else textSpacer) * a }
                     val yPos = module.yPos
                     if (yPos != realYPos) {
                         module.yPos = realYPos
                     }
-                    val moduleColor = Color.getHSBColor(module.hue, saturation, brightness).rgb
 
-                    blur(0F, yPos, xPos + module.width + if (rectMode.equals("right", true)) 5 else 2 + backgroundExpand.get(), yPos + textHeight)
+                    val rectX = xPos -  5
+                    blur(rectX - 10, yPos,  -3F, yPos + 11)
+                    if(index==0) {
+                        RenderUtils.drawRect(
+                            rectX - 1,
+                            yPos - 1,
+                            0f,
+                            yPos,
+                            ColorManager.astolfoRainbow(0, 0, 0)
+                        )
+                    }
                     RenderUtils.drawRect(
-                        0F,
+                        0f,
+                        yPos-1,
+                        1f,
+                        yPos+11,
+                        ColorManager.astolfoRainbow(0,0,0)
+                    )
+                    RenderUtils.drawRect(
+                        rectX - 1,
                         yPos,
-                        xPos + module.width + if (rectMode.equals("right", true)) 5 else 2 + backgroundExpand.get(),
-                        yPos + textHeight,
-                        when (backgroundColorMode.lowercase()) {
-                            "rainbow" -> ColorUtils.hslRainbow(index + 1, indexOffset = 100 * rainbowSpeed.get()).rgb
-                            "random" -> moduleColor
-                            "skyrainbow" -> ColorUtils.skyRainbow(index, saturationValue.get(), brightnessValue.get(), rainbowSpeed.get().toDouble()).rgb
-                            "Astolfo" -> ColorManager.astolfoRainbow(delay[0] * 100, astolfoRainbowOffset.get(), astolfoRainbowIndex.get())
-                            "slowly" -> ColorUtils.slowlyRainbow(System.nanoTime(), index * 30 * rainbowSpeed.get(), saturationValue.get(), brightnessValue.get()).rgb
-                            "anotherrainbow" -> ColorUtils.fade(backgroundCustomColor, 100, index + 1).rgb
-                            else -> backgroundCustomColor.rgb
-                        }
+                        0f,
+                        yPos + 11,
+                        Color(0,0,0,100)
+                    )
+                    RenderUtils.drawRect(
+                        rectX - 1,
+                        yPos-1,
+                        rectX,
+                        yPos + 11,
+                        ColorManager.astolfoRainbow(0,0,0)
+                    )
+                    RenderUtils.drawRect(
+                        rectX - 1,
+                        yPos+10,
+                        if((index+1)==modules.size) 0f else ((-modules.get(index+1).slide - 8)),
+                        yPos + 11,
+                        ColorManager.astolfoRainbow(0,0,0)
+                    )
+                    val mName = changeCase(getModuleName(module))
+                    val mTag = changeCase(getModuleTag(module))
+                    fontRenderer.drawString(mName, xPos - 1, yPos + 2.4f,
+                        ColorManager.astolfoRainbow(0,0,0), textShadow)
+
+                    fontRenderer.drawString(mTag, xPos -  1 + fontRenderer.getStringWidth(mName), yPos + 2.4f,
+                        Color(245,245,245,150).rgb, textShadow)
+                }
+            }
+            "newfdp" -> {
+                modules.forEachIndexed { index, module ->
+                    val xPos = -module.slide - 2
+                    val a= (if (side.vertical == Vertical.DOWN) index + 1f else index).toFloat()
+                    val realYPos = if (slideInAnimation.get() && !module.state) { if (side.vertical == Vertical.DOWN) { 0f } else { -11f } } else { (if (side.vertical == Vertical.DOWN) -textSpacer else textSpacer) * a }
+                    val yPos = module.yPos
+                    if (yPos != realYPos) {
+                        module.yPos = realYPos
+                    }
+
+                    val rectX = xPos -  5
+                    blur(rectX - 10, yPos,  -3F, yPos + 11)
+                    RenderUtils.drawRect(
+                        rectX - 2,
+                        yPos,
+                        0f,
+                        yPos + 11,
+                        Color(0,0,0,100)
                     )
 
                     val mName = changeCase(getModuleName(module))
                     val mTag = changeCase(getModuleTag(module))
-                    fontRenderer.drawString(mName, xPos, yPos + textY, when (colorMode.lowercase()) {
-                        "rainbow" -> ColorUtils.hslRainbow(index + 1, indexOffset = 100 * rainbowSpeed.get()).rgb
-                        "random" -> moduleColor
-                        "skyrainbow" -> ColorUtils.skyRainbow(index, saturationValue.get(), brightnessValue.get(), rainbowSpeed.get().toDouble()).rgb
-                        "Astolfo" -> ColorManager.astolfoRainbow(delay[0] * 100, astolfoRainbowOffset.get(), astolfoRainbowIndex.get())
-                        "slowly" -> ColorUtils.slowlyRainbow(System.nanoTime(), index * 30 * rainbowSpeed.get(), saturationValue.get(), brightnessValue.get()).rgb
-                        "anotherrainbow" -> ColorUtils.fade(customColor, 100, index + 1).rgb
-                        else -> customColor.rgb
-                    }, textShadow)
+                    fontRenderer.drawString(mName, xPos - 3, yPos + 2.4f,
+                        ColorManager.astolfoRainbow(0,0,0), textShadow)
 
-                    fontRenderer.drawString(mTag, xPos + fontRenderer.getStringWidth(mName), yPos + textY,
-                        ColorUtils.reverseColor(when (tagColorModeValue.get().lowercase()) {
-                            "rainbow" -> ColorUtils.reverseColor(ColorUtils.hslRainbow(index + 1, indexOffset = 100 * rainbowSpeed.get()))
-                            "random" -> Color(moduleColor)
-                            "skyrainbow" -> ColorUtils.skyRainbow(index, saturationValue.get(), brightnessValue.get(), rainbowSpeed.get().toDouble())
-                            "Astolfo" -> Color(ColorManager.astolfoRainbow(delay[0] * 100, astolfoRainbowOffset.get(), astolfoRainbowIndex.get()))
-                            "slowly" -> ColorUtils.slowlyRainbow(System.nanoTime(), index * 30 * rainbowSpeed.get(), saturationValue.get(), brightnessValue.get())
-                            "anotherrainbow" -> ColorUtils.reverseColor(ColorUtils.fade(tagCustomColor, 100, index + 1))
-                            else -> ColorUtils.reverseColor(tagCustomColor)
-                        }).rgb, textShadow)
-
-                    if (!rectMode.equals("none", true)) {
-                        val rectColor = when (rectColorMode.lowercase()) {
-                            "rainbow" -> ColorUtils.hslRainbow(index + 1, indexOffset = 100 * rainbowSpeed.get()).rgb
-                            "random" -> moduleColor
-                            "skyrainbow" -> ColorUtils.skyRainbow(index, saturationValue.get(), brightnessValue.get(), rainbowSpeed.get().toDouble()).rgb
-                            "Astolfo" -> ColorManager.astolfoRainbow(delay[0] * 100, astolfoRainbowOffset.get(), astolfoRainbowIndex.get())
-                            "slowly" -> ColorUtils.slowlyRainbow(System.nanoTime(), index * 30 * rainbowSpeed.get(), saturationValue.get(), brightnessValue.get()).rgb
-                            "anotherrainbow" -> ColorUtils.fade(rectCustomColor, 100, index + 1).rgb
-                            else -> rectCustomColor.rgb
-                        }
-
-                        when {
-                            rectMode.equals("left", true) -> RenderUtils.drawRect(0F,
-                                yPos - 1, 3F, yPos + textHeight, rectColor)
-                            rectMode.equals("right", true) ->
-                                RenderUtils.drawRect(xPos + module.width + 2, yPos, xPos + module.width + 2 + 3,
-                                    yPos + textHeight, rectColor)
-                        }
-                    }
+                    fontRenderer.drawString(mTag, xPos -  3 + fontRenderer.getStringWidth(mName), yPos + 2.4f,
+                        Color(245,245,245,150).rgb, textShadow)
                 }
             }
         }
@@ -340,7 +271,7 @@ class Arraylist(
                     }
                 }
             }
-            y2 = (if (side.vertical == Vertical.DOWN) -textSpacer else textSpacer) * modules.size
+            y2 = ((if (side.vertical == Vertical.DOWN) -textSpacer else textSpacer) * modules.size)
 
             return Border(0F, 0F, x2 - 7F, y2 - if (side.vertical == Vertical.DOWN) 1F else 0F)
         }
