@@ -14,10 +14,8 @@ import net.ccbluex.liquidbounce.features.module.modules.client.button.AbstractBu
 import net.ccbluex.liquidbounce.features.module.modules.client.button.FLineButtonRenderer
 import net.ccbluex.liquidbounce.features.module.modules.client.button.RiseButtonRenderer
 import net.ccbluex.liquidbounce.features.module.modules.client.button.RoundedButtonRenderer
-import net.ccbluex.liquidbounce.injection.access.StaticStorage
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
 import net.ccbluex.liquidbounce.utils.render.Animation
-import net.ccbluex.liquidbounce.utils.render.BlurUtils.draw
 import net.ccbluex.liquidbounce.utils.render.EaseUtils
 import net.ccbluex.liquidbounce.value.BoolValue
 import net.ccbluex.liquidbounce.value.FloatValue
@@ -25,9 +23,7 @@ import net.ccbluex.liquidbounce.value.IntegerValue
 import net.ccbluex.liquidbounce.value.ListValue
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.GuiChat
-import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.util.ResourceLocation
-import org.lwjgl.opengl.GL11
 
 @ModuleInfo(name = "HUD", category = ModuleCategory.CLIENT, array = false, defaultOn = true)
 object HUD : Module() {
@@ -99,10 +95,10 @@ object HUD : Module() {
             alert("You need to reload FDPClient to apply changes!")
         }
         //if (betterHotbarValue.get()){
-            //GL11.glPushMatrix()
+        //GL11.glPushMatrix()
 
-            //GL11.glPopMatrix()
-       /// }
+        //GL11.glPopMatrix()
+        /// }
     }
 
     @EventTarget
