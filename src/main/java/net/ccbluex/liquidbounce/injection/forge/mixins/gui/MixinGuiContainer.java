@@ -4,6 +4,7 @@ import net.ccbluex.liquidbounce.LiquidBounce;
 import net.ccbluex.liquidbounce.event.KeyEvent;
 import net.ccbluex.liquidbounce.features.module.modules.client.Animations;
 import net.ccbluex.liquidbounce.features.module.modules.world.ChestStealer;
+import net.ccbluex.liquidbounce.ui.client.hud.Hotbar;
 import net.ccbluex.liquidbounce.utils.extensions.RendererExtensionKt;
 import net.ccbluex.liquidbounce.utils.render.EaseUtils;
 import net.minecraft.client.Minecraft;
@@ -58,23 +59,22 @@ public abstract class MixinGuiContainer extends MixinGuiScreen {
                 callbackInfo.cancel();
             }
         } else {
-            mc.currentScreen.drawWorldBackground(0);
-
+            //mc.currentScreen.drawWorldBackground(0);
             final Animations animations = Animations.INSTANCE;
             double pct = Math.max(animations.getInvTimeValue().get() - (System.currentTimeMillis() - guiOpenTime), 0) / ((double) animations.getInvTimeValue().get());
+            double scale;
             if (pct != 0) {
                 GL11.glPushMatrix();
 
                 pct = EaseUtils.INSTANCE.apply(EaseUtils.EnumEasingType.valueOf(animations.getInvEaseModeValue().get()),
                         EaseUtils.EnumEasingOrder.valueOf(animations.getInvEaseOrderModeValue().get()), pct);
-
+                scale = 1 - pct;
                 switch (animations.getInvModeValue().get().toLowerCase()) {
                     case "slide": {
                         GL11.glTranslated(0, -(guiTop + ySize) * pct, 0);
                         break;
                     }
                     case "zoom": {
-                        double scale = 1 - pct;
                         GL11.glScaled(scale, scale, scale);
                         GL11.glTranslated(((guiLeft + (xSize * 0.5 * pct)) / scale) - guiLeft,
                                 ((guiTop + (ySize * 0.5d * pct)) / scale) - guiTop,
@@ -83,7 +83,10 @@ public abstract class MixinGuiContainer extends MixinGuiScreen {
                 }
 
                 translated = true;
+            }else{
+                scale = 1 - pct;
             }
+            Hotbar.drawGuiBackground(scale);
         }
     }
 

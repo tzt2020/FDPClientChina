@@ -1,12 +1,14 @@
 package net.ccbluex.liquidbounce.features.module.modules.client.button
 
 import net.ccbluex.liquidbounce.utils.ClientUtils
+import net.ccbluex.liquidbounce.utils.render.BlurUtils
 import net.ccbluex.liquidbounce.utils.render.EaseUtils
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.opengl.GL11
+import skidunion.destiny.utils.render.NewRenderUtils
 import java.awt.Color
 
 class RoundedButtonRenderer(button: GuiButton) : AbstractButtonRenderer(button) {
@@ -20,12 +22,12 @@ class RoundedButtonRenderer(button: GuiButton) : AbstractButtonRenderer(button) 
             GL11.glPushMatrix()
             //val fontrenderer: UnicodeFontRenderer = Client.instance.fontMgr.wqy18
             //mc.getTextureManager().bindTexture(buttonTextures);
-            GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f)
+            //GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f)
             button.hovered =
                 mouseX >= button.xPosition && mouseY >= button.yPosition && mouseX < button.xPosition + button.width && mouseY < button.yPosition + button.height
-            GlStateManager.enableBlend()
-            GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0)
-            GlStateManager.blendFunc(770, 771)
+            //GlStateManager.enableBlend()
+            //GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0)
+            //GlStateManager.blendFunc(770, 771)
             //button.drawTexturedModalRect(button.xPosition, button.yPosition, 0, 46 + i * 20, button.width / 2, button.height);
             //button.drawTexturedModalRect(button.xPosition + button.width / 2, button.yPosition, 200 - button.width / 2, 46 + i * 20, button.width / 2, button.height);
             //button.mouseDragged(mc, mouseX, mouseY)
@@ -35,12 +37,21 @@ class RoundedButtonRenderer(button: GuiButton) : AbstractButtonRenderer(button) 
 
             val percent = EaseUtils.easeInOutQuad(animation)
             val al=if(140 + ((percent*50).toInt()) in 1..254) 140 + ((percent*50).toInt()) else 140;
+
+            NewRenderUtils.drawShadowWithCustomAlpha(button.xPosition.toFloat(),
+                button.yPosition.toFloat(),
+                button.width.toFloat(),
+                button.height.toFloat(), 240f)
+            BlurUtils.draw(button.xPosition.toFloat(),
+                button.yPosition.toFloat(),
+                button.width.toFloat(),
+                button.height.toFloat(),10f)
             RenderUtils.drawRoundedCornerRect(
                 button.xPosition.toFloat(),
                 button.yPosition.toFloat(),
                 button.xPosition.toFloat() + button.width.toFloat(),
                 button.yPosition.toFloat() + button.height.toFloat(),
-                2F,
+                1F,
                 Color(0, 0, 0, al).rgb
             )
             //ClientUtils.displayChatMessage(percent.toString())

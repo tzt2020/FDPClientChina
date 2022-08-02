@@ -1,7 +1,7 @@
 /*
  * FDPClient Hacked Client
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge by LiquidBounce.
- * https://github.com/UnlegitMC/FDPClient/
+ * https://github.com/UnlegitMinecraft/FDPClient/
  */
 package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
@@ -216,7 +216,7 @@ class Arraylist(
                         Color(245,245,245,150).rgb, textShadow)
                 }
             }
-            "newfdp" -> {
+            "fdpnew" -> {
                 modules.forEachIndexed { index, module ->
                     val xPos = -module.slide - 2
                     val a= (if (side.vertical == Vertical.DOWN) index + 1f else index).toFloat()
@@ -227,22 +227,29 @@ class Arraylist(
                     }
 
                     val rectX = xPos -  5
-                    blur(rectX - 10, yPos,  -3F, yPos + 11)
-                    RenderUtils.drawRect(
-                        rectX - 2,
-                        yPos,
-                        0f,
-                        yPos + 11,
-                        Color(0,0,0,100)
+                    blur(rectX - 5, yPos,  -3F, yPos + 11)
+                    RenderUtils.drawGradientSidewaysH(
+                        rectX - 5.0,
+                        yPos-0.0,
+                        0.0,
+                        yPos + 11.0,
+                        Color(0,0,0,150).rgb,
+                        Color(0,0,0,200).rgb
                     )
-
+                    RenderUtils.drawRect(
+                        -1f,
+                        yPos-1,
+                        0f,
+                        yPos+11,
+                        Color(52, 97, 237).rgb
+                    )
                     val mName = changeCase(getModuleName(module))
                     val mTag = changeCase(getModuleTag(module))
                     fontRenderer.drawString(mName, xPos - 3, yPos + 2.4f,
-                        ColorManager.astolfoRainbow(0,0,0), textShadow)
+                        Color(52, 97, 237).rgb, false)
 
                     fontRenderer.drawString(mTag, xPos -  3 + fontRenderer.getStringWidth(mName), yPos + 2.4f,
-                        Color(245,245,245,150).rgb, textShadow)
+                        Color(176,176,176).rgb, false)
                 }
             }
         }

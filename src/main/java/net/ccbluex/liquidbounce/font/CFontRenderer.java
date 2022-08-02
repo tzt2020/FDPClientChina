@@ -287,8 +287,6 @@ public class CFontRenderer extends CFont {
         return drawString(text,Double.valueOf(x),Double.valueOf(y),color,shadow);
     }
     public float drawString(String text, double x, double y, int color, boolean shadow) {
-        GlStateManager.enableBlend();
-        GlStateManager.disableBlend();
         double x2 = x - 1.0d;
         if (text == null) {
             return 0.0f;
@@ -311,15 +309,16 @@ public class CFontRenderer extends CFont {
         char c = (char) (x2 * 2.0d);
         double y2 = (y - 3.0d) * 2.0d;
         if (1 != 0) {
+            final boolean texture = GL11.glIsEnabled(GL11.GL_TEXTURE_2D);
+            final boolean blend = GL11.glIsEnabled(GL11.GL_BLEND);
             GL11.glPushMatrix();
             GlStateManager.scale(0.5d, 0.5d, 0.5d);
-            GlStateManager.enableBlend();
+            if(!blend) GlStateManager.enableBlend();
             GlStateManager.blendFunc(770, 771);
             GlStateManager.color(((float) ((color >> 16) & 255)) / 255.0f, ((float) ((color >> 8) & 255)) / 255.0f, ((float) (color & 255)) / 255.0f, alpha);
             int size = text.length();
-            GlStateManager.enableTexture2D();
+            if(!texture) GL11.glEnable(GL11.GL_TEXTURE_2D);
             GlStateManager.bindTexture(this.tex.getGlTextureId());
-            GL11.glBindTexture(3553, this.tex.getGlTextureId());
             int i = 0;
             while (i < size) {
                 char character = text.charAt(i);
@@ -393,14 +392,14 @@ public class CFontRenderer extends CFont {
                 }
                 i++;
             }
+            if(!blend) GlStateManager.disableBlend();
+            if(!texture) GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glHint(3155, 4352);
             GL11.glPopMatrix();
         }
         return ((float) c) / 2.0f;
     }
     public int drawStringi(String text, double x, double y, int color, boolean shadow) {
-        GlStateManager.enableBlend();
-        GlStateManager.disableBlend();
         double x2 = x - 1.0d;
         if (text == null) {
             return 0;
@@ -423,15 +422,16 @@ public class CFontRenderer extends CFont {
         char c = (char) (x2 * 2.0d);
         double y2 = (y - 3.0d) * 2.0d;
         if (1 != 0) {
+            final boolean texture = GL11.glIsEnabled(GL11.GL_TEXTURE_2D);
+            final boolean blend = GL11.glIsEnabled(GL11.GL_BLEND);
             GL11.glPushMatrix();
             GlStateManager.scale(0.5d, 0.5d, 0.5d);
-            GlStateManager.enableBlend();
+            if(!blend) GlStateManager.enableBlend();
             GlStateManager.blendFunc(770, 771);
             GlStateManager.color(((float) ((color >> 16) & 255)) / 255.0f, ((float) ((color >> 8) & 255)) / 255.0f, ((float) (color & 255)) / 255.0f, alpha);
             int size = text.length();
-            GlStateManager.enableTexture2D();
+            if(!texture) GL11.glEnable(GL11.GL_TEXTURE_2D);
             GlStateManager.bindTexture(this.tex.getGlTextureId());
-            GL11.glBindTexture(3553, this.tex.getGlTextureId());
             int i = 0;
             while (i < size) {
                 char character = text.charAt(i);
@@ -505,6 +505,8 @@ public class CFontRenderer extends CFont {
                 }
                 i++;
             }
+            if(!blend) GlStateManager.disableBlend();
+            if(!texture) GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glHint(3155, 4352);
             GL11.glPopMatrix();
         }

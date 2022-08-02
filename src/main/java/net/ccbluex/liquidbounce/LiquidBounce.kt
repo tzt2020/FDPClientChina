@@ -1,7 +1,7 @@
 /*
  * FDPClient Hacked Client
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge by LiquidBounce.
- * https://github.com/UnlegitMC/FDPClient/
+ * https://github.com/UnlegitMinecraft/FDPClient/
  */
 package net.ccbluex.liquidbounce
 
@@ -43,17 +43,17 @@ object LiquidBounce {
 
 
     // Client information
-    const val CLIENT_NAME = "FDPCLIENT"
+    const val CLIENT_NAME = "FDPCN CLIENT"
 
     var CLIENTTEXT = "Waiting..."
     var Darkmode = true
-    const val COLORED_NAME = "§b[§b!§7] §b§lFDPCLIENT §b» "
+    const val COLORED_NAME = "§7[§b!§7] §b§lFDPCLIENT §b» "
     const val CLIENT_CREATOR = "CCBlueX & UnlegitMC"
     const val CLIENT_WEBSITE = "FDPClient.Club"
     val venti = ResourceLocation("fdpclient/imgs/GenshinImpact/venti.png")
     val lumine = ResourceLocation("fdpclient/imgs/GenshinImpact/lumine.png")
     const val MINECRAFT_VERSION = "1.8.9"
-    const val VERSIONTYPE = "Preview"
+    const val VERSIONTYPE = "CN Preview"
 
     @JvmField
     val gitInfo = Properties().also {
@@ -67,11 +67,11 @@ object LiquidBounce {
 
     // 自动读取客户端版本
     @JvmField
-    val CLIENT_VERSION = gitInfo["git.commit.id.abbrev"]?.let { "git-$it" } ?: "unknown"
+    val CLIENT_VERSION = gitInfo["git.commit.id.abbrev"]?.let { "cn-$it" } ?: "unknown"
 
     @JvmField
     val CLIENT_BRANCH = (gitInfo["git.branch"] ?: "unknown").let {
-        if (it == "main") "Main Reborn" else it
+        if (it == "main") "CHINA" else it
     }
 
     var isStarting = true
@@ -228,7 +228,7 @@ object LiquidBounce {
 
     private fun checkUpdate() {
         try {
-            val get = HttpUtils.get("https://api.github.com/repos/UnlegitMC/FDPClient/commits/${gitInfo["git.branch"]}")
+            val get = HttpUtils.get("https://api.github.com/repos/UnlegitMinecraft/FDPClientChina/commits/${gitInfo["git.branch"]}")
 
             val jsonObj = JsonParser()
                 .parse(get).asJsonObject

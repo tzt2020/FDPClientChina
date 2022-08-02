@@ -1,7 +1,7 @@
 /*
  * FDPClient Hacked Client
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge by LiquidBounce.
- * https://github.com/UnlegitMC/FDPClient/
+ * https://github.com/UnlegitMinecraft/FDPClient/
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
@@ -88,10 +88,13 @@ public abstract class MixinGuiScreen {
             e.printStackTrace();
         }
     }
-    @Inject(method = "drawWorldBackground", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "drawWorldBackground", at = @At("HEAD"), cancellable = true)
     private void drawWorldBackground2(final CallbackInfo callbackInfo) {
         try {
             if(mc.thePlayer != null) {
+                callbackInfo.cancel();
+                if(HUD.INSTANCE.getBlurValue().get())
+                    BlurUtils.INSTANCE.draw(0, 0, this.width, this.height, 50);
                 int defaultHeight1 = (this.height);
                 int defaultWidth1 = (this.width);
                 GL11.glPushMatrix();
@@ -146,6 +149,7 @@ public abstract class MixinGuiScreen {
             GlStateManager.resetColor();
             if (GuiBackground.Companion.getParticles())
                 ParticleUtils.drawParticles(Mouse.getX() * width / mc.displayWidth, height - Mouse.getY() * height / mc.displayHeight - 1);
+
         }
     }
 

@@ -70,9 +70,9 @@ class TestBtn : GuiButton {
         var wi = 0
         hovered =
             mouseX >= xPosition && mouseY >= yPosition && mouseX < xPosition + width && mouseY < yPosition + height
-        GlStateManager.enableBlend()
-        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0)
-        GlStateManager.blendFunc(770, 771)
+        //GlStateManager.enableBlend()
+        //GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0)
+        //GlStateManager.blendFunc(770, 771)
         var yOffset=0;
         var offsetLength=2;
 

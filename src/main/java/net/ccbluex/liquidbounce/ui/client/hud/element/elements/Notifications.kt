@@ -1,7 +1,7 @@
 /*
  * FDPClient Hacked Client
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge by LiquidBounce.
- * https://github.com/UnlegitMC/FDPClient/
+ * https://github.com/UnlegitMinecraft/FDPClient/
  */
 package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
@@ -20,6 +20,7 @@ import net.ccbluex.liquidbounce.value.BoolValue
 import net.ccbluex.liquidbounce.value.IntegerValue
 import net.minecraft.client.gui.FontRenderer
 import org.lwjgl.opengl.GL11
+import skidunion.destiny.utils.render.NewRenderUtils
 import java.awt.Color
 import kotlin.math.max
 
@@ -163,6 +164,11 @@ class Notification(
 //        GL11.glEnable(GL11.GL_SCISSOR_TEST)
 //        GL11.glScissor(width-(width*pct).toFloat(),0F, width.toFloat(),height.toFloat())
         var colors=Color(type.renderColor.red,type.renderColor.green,type.renderColor.blue,alpha/3);
+
+        NewRenderUtils.drawShadowWithCustomAlpha(4f,
+            1F,
+            width.toFloat() + 7f,
+            height.toFloat() - 6f, 240f)
         if(MotionBlur) {
             when (fadeState) {
                 FadeState.IN -> {

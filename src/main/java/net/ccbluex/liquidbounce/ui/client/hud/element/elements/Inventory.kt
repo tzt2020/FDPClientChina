@@ -15,6 +15,7 @@ import net.ccbluex.liquidbounce.value.ListValue
 import net.minecraft.client.gui.FontRenderer
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.RenderHelper
+import skidunion.destiny.utils.render.NewRenderUtils
 import java.awt.Color
 
 /**
@@ -49,6 +50,7 @@ class Inventory : Element(300.0, 50.0, 1F, Side(Side.Horizontal.RIGHT, Side.Vert
 
         // draw rect
         RenderUtils.drawRect(0F, startY, 174F, 66F, backgroundColor)
+        NewRenderUtils.drawShadowWithCustomAlpha(0F, startY, 174F, 66F-startY, 255f)
 
         if(themeValue.equals("CS:GO")) {
             RenderUtils.drawRect(0F, startY, 174F, startY + 1f, borderColor)
