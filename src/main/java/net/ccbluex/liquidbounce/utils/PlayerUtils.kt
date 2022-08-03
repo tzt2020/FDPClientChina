@@ -1,10 +1,14 @@
 package net.ccbluex.liquidbounce.utils
 
+import net.ccbluex.liquidbounce.LiquidBounce
+import net.ccbluex.liquidbounce.features.module.modules.combat.KillAura
 import net.ccbluex.liquidbounce.utils.MinecraftInstance.mc
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.item.ItemBucketMilk
 import net.minecraft.item.ItemFood
 import net.minecraft.item.ItemPotion
 import net.minecraft.util.AxisAlignedBB
+import net.minecraft.util.MathHelper
 
 object PlayerUtils {
     fun randomUnicode(str: String): String {
@@ -18,6 +22,19 @@ object PlayerUtils {
         }
         return stringBuilder.toString()
     }
+
+    fun getAr(player : EntityLivingBase):Double{
+        var arPercentage: Double = (player!!.totalArmorValue / player!!.maxHealth).toDouble()
+        arPercentage = MathHelper.clamp_double(arPercentage, 0.0, 1.0)
+        return 100 * arPercentage
+    }
+    fun getHp(player : EntityLivingBase):Double{
+        val heal = player.health.toInt().toFloat()
+        var hpPercentage: Double = (heal / player.maxHealth).toDouble()
+        hpPercentage = MathHelper.clamp_double(hpPercentage, 0.0, 1.0)
+        return 100 * hpPercentage
+    }
+
     fun isUsingFood(): Boolean {
         val usingItem = mc.thePlayer.itemInUse.item
         return if (mc.thePlayer.itemInUse != null) {

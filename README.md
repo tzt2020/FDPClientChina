@@ -1,17 +1,17 @@
 # FDPClient
 [![State-of-the-art Shitcode](https://img.shields.io/static/v1?label=State-of-the-art&message=Shitcode&color=7B5804)](https://github.com/trekhleb/state-of-the-art-shitcode)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/UnlegitMinecraft/FDPClient)
-![GitHub lines of code](https://tokei.rs/b1/github/UnlegitMinecraft/FDPClient)
-[![Maintainability](https://api.codeclimate.com/v1/badges/a41ae7bde63c143e426a/maintainability)](https://codeclimate.com/github/UnlegitMinecraft/FDPClient/maintainability)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/UnlegitMinecraft/FDPClientChina)
+![GitHub lines of code](https://tokei.rs/b1/github/UnlegitMinecraft/FDPClientChina)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a41ae7bde63c143e426a/maintainability)](https://codeclimate.com/github/UnlegitMinecraft/FDPClientChina/maintainability)
 ![Minecraft](https://img.shields.io/badge/game-Minecraft-brightgreen)  
 A free mixin-based injection hacked-client for Minecraft using Minecraft Forge based on LiquidBounce.
 
 Website: https://FDPClient.club 
-Latest: [github-actions](https://github.com/UnlegitMinecraft/FDPClient/actions/workflows/build.yml?query=event%3Apush)    
+Latest: [github-actions](https://github.com/UnlegitMinecraft/FDPClientChina/actions/workflows/build.yml?query=event%3Apush)    
 Discord: https://discord.gg/55x7TaHWXG  
 
 ## Issues
-If you notice any bugs or missing features, you can let us know by opening an issue [here](https://github.com/UnlegitMinecraft/FDPClient/issues).
+If you notice any bugs or missing features, you can let us know by opening an issue [here](https://github.com/UnlegitMinecraft/FDPClientChina/issues).
 
 ## License
 This project is subject to the [GNU General Public License v3.0](LICENSE). This does only apply for source code located directly in this clean repository. During the development and compilation process, additional source code may be used to which we have obtained no rights. Such code is not covered by the GPL license.
@@ -32,7 +32,7 @@ Do the above and share your source code with everyone; just like we do.
 
 ## Setting up a Workspace
 FDPClient uses gradle, so make sure that it is installed properly. Instructions can be found on [Gradle's website](https://gradle.org/install/).
-1. Clone the repository using `git clone --recurse-submodules https://github.com/UnlegitMinecraft/FDPClient.git`. 
+1. Clone the repository using `git clone --recurse-submodules https://github.com/UnlegitMinecraft/FDPClientChina.git`. 
 2. CD into the local repository folder.
 3. Depending on which IDE you are using execute either of the following commands:
     - For IntelliJ: `gradlew --debug setupDevWorkspace idea genIntellijRuns build`

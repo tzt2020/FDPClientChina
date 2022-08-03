@@ -1,7 +1,7 @@
 /*
  * FDPClient Hacked Client
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge by LiquidBounce.
- * https://github.com/UnlegitMinecraft/FDPClient/
+ * https://github.com/UnlegitMinecraft/FDPClientChina/
  */
 package net.ccbluex.liquidbounce.features.module.modules.client
 
@@ -23,6 +23,7 @@ import net.ccbluex.liquidbounce.value.IntegerValue
 import net.ccbluex.liquidbounce.value.ListValue
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.gui.GuiChat
+import net.minecraft.client.gui.inventory.GuiContainer
 import net.minecraft.util.ResourceLocation
 
 @ModuleInfo(name = "HUD", category = ModuleCategory.CLIENT, array = false, defaultOn = true)
@@ -112,7 +113,7 @@ object HUD : Module() {
             return
         }
 
-        if (state && blurValue.get() && !mc.entityRenderer.isShaderActive && event.guiScreen != null && !(event.guiScreen is GuiChat || event.guiScreen is GuiHudDesigner)) {
+        if (!(event.guiScreen is GuiContainer) && state && blurValue.get() && !mc.entityRenderer.isShaderActive && event.guiScreen != null && !(event.guiScreen is GuiChat || event.guiScreen is GuiHudDesigner)) {
             mc.entityRenderer.loadShader(ResourceLocation("fdpclient/blur.json"))
         } else if (mc.entityRenderer.shaderGroup != null && mc.entityRenderer.shaderGroup!!.shaderGroupName.contains("fdpclient/blur.json")) {
             mc.entityRenderer.stopUseShader()

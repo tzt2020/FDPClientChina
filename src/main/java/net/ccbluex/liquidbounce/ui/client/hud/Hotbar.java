@@ -1,6 +1,7 @@
 package net.ccbluex.liquidbounce.ui.client.hud;
 
 import net.ccbluex.liquidbounce.LiquidBounce;
+import net.ccbluex.liquidbounce.features.module.modules.client.HUD;
 import net.ccbluex.liquidbounce.font.FontLoaders;
 import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.ccbluex.liquidbounce.utils.render.BlurUtils;
@@ -37,7 +38,7 @@ public class Hotbar {
         if (s<=0.1 || s>1.0) return;
         ScaledResolution scaledResolution = new ScaledResolution(Minecraft.getMinecraft());
         GL11.glPushMatrix();
-        BlurUtils.INSTANCE.draw( 0,0,scaledResolution.getScaledWidth(),scaledResolution.getScaledHeight(),(float)(70.0*s));
+        if(!HUD.INSTANCE.getBlurValue().get()) BlurUtils.INSTANCE.draw( 0,0,scaledResolution.getScaledWidth(),scaledResolution.getScaledHeight(),(float)(70.0*s));
         RenderUtils.drawGradientSidewaysV(-4*scaledResolution.getScaledHeight(),scaledResolution.getScaledHeight()/2,scaledResolution.getScaledWidth()*4,scaledResolution.getScaledHeight()+150+(2*scaledResolution.getScaledHeight()*(1-s)),new Color(0,0,0,0).getRGB(),new Color(0,165,255, (int) (255*s)).getRGB());
         FontLoaders.F24.drawCenteredString(LiquidBounce.CLIENT_NAME+" CHINA",scaledResolution.getScaledWidth()/2,scaledResolution.getScaledHeight()-40.0,new Color(255,255,255,(int) (255*s)).getRGB());
         GL11.glPopMatrix();

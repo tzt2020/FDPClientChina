@@ -1,7 +1,7 @@
 /*
  * FDPClient Hacked Client
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge by LiquidBounce.
- * https://github.com/UnlegitMinecraft/FDPClient/
+ * https://github.com/UnlegitMinecraft/FDPClientChina/
  */
 package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
@@ -180,6 +180,7 @@ public abstract class MixinGuiNewChat {
                                     RenderUtils.drawRect(i2 - 2, j2 - 9, i2 + l + 4, j2, l1 / 2 << 24);
                                 }
                                 GlStateManager.enableBlend();
+                                GlStateManager.enableAlpha();
                                 if(hud.getChatRectValue().get()) {
                                     if (canFont)
                                         FontLoaders.C16.DisplayFont(chatline.getChatComponent().getFormattedText(), (float) i2, (float) (j2 - 8), new Color(255, 255, 255).getRGB(), FontLoaders.C16);

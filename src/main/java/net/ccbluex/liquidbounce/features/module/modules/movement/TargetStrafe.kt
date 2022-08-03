@@ -1,7 +1,7 @@
 /*
  * FDPClient Hacked Client
  * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge by LiquidBounce.
- * https://github.com/UnlegitMinecraft/FDPClient/
+ * https://github.com/UnlegitMinecraft/FDPClientChina/
  */
 package net.ccbluex.liquidbounce.features.module.modules.movement
 
@@ -88,7 +88,7 @@ class TargetStrafe : Module() {
     }
 
     private val canStrafe: Boolean
-        get() = killAura!!.state && killAura.target != null && !mc.thePlayer.isSneaking
+        get() = killAura!!.state && killAura!!.target != null && !mc.thePlayer.isSneaking
 
     private fun checkVoid(): Boolean {
         for (x in -2..2) for (z in -2..2) if (isVoid(x, z)) return true
