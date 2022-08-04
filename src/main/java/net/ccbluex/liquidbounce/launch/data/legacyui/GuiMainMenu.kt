@@ -225,7 +225,7 @@ class GuiMainMenu : GuiScreen(), GuiYesNoCallback {
         )
 
         FontLoaders.F16.drawString(
-            "Made by UnlegitMC",
+            "Made by UnlegitMinecraft",
             10f,
             this.height - 15f,
             Color(255, 255, 255, 170).rgb
@@ -311,7 +311,7 @@ class GuiMainMenu : GuiScreen(), GuiYesNoCallback {
             0 -> mc.displayGuiScreen(GuiOptions(this, mc.gameSettings))
             1 -> mc.displayGuiScreen(GuiSelectWorld(this))
             2 -> mc.displayGuiScreen(GuiMultiplayer(this))
-            4 -> mc.shutdown()
+            4 -> MiscUtils.showURL("https://github.com/UnlegitMinecraft/FDPClientChina/releases")
             100 -> mc.displayGuiScreen(GuiAltManager(this))
             102 -> displayed = false
             103 -> mc.displayGuiScreen(GuiModList(this))

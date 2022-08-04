@@ -13,16 +13,17 @@ import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
 import net.ccbluex.liquidbounce.ui.client.hud.element.Side
+import net.ccbluex.liquidbounce.ui.realpha
 import net.ccbluex.liquidbounce.utils.render.BlurUtils
 import net.ccbluex.liquidbounce.utils.render.EaseUtils
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.ccbluex.liquidbounce.value.BoolValue
 import net.ccbluex.liquidbounce.value.IntegerValue
-import net.minecraft.client.gui.FontRenderer
 import org.lwjgl.opengl.GL11
 import skidunion.destiny.utils.render.NewRenderUtils
 import java.awt.Color
 import kotlin.math.max
+
 
 /**
  * CustomHUD Notification element
@@ -165,80 +166,37 @@ class Notification(
 //        GL11.glScissor(width-(width*pct).toFloat(),0F, width.toFloat(),height.toFloat())
         var colors=Color(type.renderColor.red,type.renderColor.green,type.renderColor.blue,alpha/3);
 
-        NewRenderUtils.drawShadowWithCustomAlpha(4f,
-            1F,
-            width.toFloat() + 7f,
-            height.toFloat() - 6f, 240f)
-        if(MotionBlur) {
-            when (fadeState) {
-                FadeState.IN -> {
-                    //RenderUtils.drawRoundedCornerRect(3F+1f, 0F, width.toFloat()+1f, height.toFloat()-5f,2f ,colors.rgb)
-                    RenderUtils.drawRoundedCornerRect(
-                        3f,
-                        0F,
-                        width.toFloat() + 5f,
-                        height.toFloat() - 5f,
-                        2f,
-                        colors.rgb
-                    )
-                    RenderUtils.drawRoundedCornerRect(
-                        3F,
-                        0F,
-                        width.toFloat() + 5f,
-                        height.toFloat() - 5f,
-                        2f,
-                        colors.rgb
-                    )
-                }
+        NewRenderUtils.drawShadowWithCustomAlpha(2f,
+            0F,
+            width.toFloat() + 5f,
+            height.toFloat() - 5f, 250f)
 
-                FadeState.STAY -> {
-                    RenderUtils.drawRoundedCornerRect(
-                        3f,
-                        0F,
-                        width.toFloat() + 5f,
-                        height.toFloat() - 5f,
-                        2f,
-                        colors.rgb
-                    )
-                    RenderUtils.drawRoundedCornerRect(
-                        3F,
-                        0F,
-                        width.toFloat() + 5f,
-                        height.toFloat() - 5f,
-                        2f,
-                        colors.rgb
-                    )
-                }
+        RenderUtils.drawRect(
+            2.0,
+            0.0,
+            4.0,
+            height.toFloat() - 5.0,
+            colors.rgb,
+        )
+        RenderUtils.drawRect(
+            3F,
+            0F,
+            width.toFloat() + 5f,
+            height.toFloat() - 5f,
+            Color(0,0,0,150)
+        )
+        RenderUtils.drawGradientSidewaysH(
+            3.0,
+            0.0,
+            20.0,
+            height.toFloat() - 5.0,
+            colors.rgb,
+            Color(0,0,0,0).rgb
+        )
+        RenderUtils.drawRect(2f, height.toFloat()-6f, max(width - width * ((nowTime - displayTime) / (animeTime * 2F + time))+5f, 0F), height.toFloat()-5f ,Color(52, 97, 237).rgb)
 
-                FadeState.OUT -> {
-                    RenderUtils.drawRoundedCornerRect(
-                        4F,
-                        0F,
-                        width.toFloat() + 5f,
-                        height.toFloat() - 5f,
-                        2f,
-                        colors.rgb
-                    )
-                    RenderUtils.drawRoundedCornerRect(
-                        5F,
-                        0F,
-                        width.toFloat() + 5f,
-                        height.toFloat() - 5f,
-                        2f,
-                        colors.rgb
-                    )
-                }
-            }
-        }else{
-            RenderUtils.drawRoundedCornerRect(0F+3f, 0F, width.toFloat()+5f, height.toFloat()-5f,2f ,colors.rgb)
-            RenderUtils.drawRoundedCornerRect(0F+3f, 0F, width.toFloat()+5f, height.toFloat()-5f,2f ,colors.rgb)
-        }
-        RenderUtils.drawRoundedCornerRect(0F+3f, 0F, width.toFloat()+5f, height.toFloat()-5f,2f ,colors.rgb)
-        RenderUtils.drawRoundedCornerRect(0F+3f, 0F, max(width - width * ((nowTime - displayTime) / (animeTime * 2F + time))+5f, 0F), height.toFloat()-5f,2f ,Color(0,0,0,26).rgb)
-        //RenderUtils.drawRoundedCornerRect(2F, 2F, width.toFloat()-2F, height.toFloat()-7F,1f ,Color(242,242,242, 100).rgb)
-        //font.DisplayFont2(FontLoaders.C16,content, 4F, 9F, Color(31,41,55).rgb,true)
-        FontLoaders.C12.DisplayFont2(FontLoaders.C12,title, 4F, 3F, Color(31,41,55).rgb,TitleShadow)
-        font.DisplayFont2(font,content, 4F, 10F, Color(31,41,55).rgb,ContentShadow)
+        FontLoaders.C12.DisplayFont2(FontLoaders.C12,title, 4F, 3F, Color(245,245,245).rgb,TitleShadow)
+        font.DisplayFont2(font,content, 4F, 10F, Color(255,255,255).rgb,ContentShadow)
         return false
     }
 }

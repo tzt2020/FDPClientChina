@@ -21,6 +21,7 @@ import net.ccbluex.liquidbounce.launch.data.GuiLaunchOptionSelectMenu
 import net.ccbluex.liquidbounce.launch.data.legacyui.scriptOnline.ScriptSubscribe
 import net.ccbluex.liquidbounce.launch.data.legacyui.scriptOnline.Subscriptions
 import net.ccbluex.liquidbounce.script.ScriptManager
+import net.ccbluex.liquidbounce.ui.RenderLeave
 import net.ccbluex.liquidbounce.ui.cape.GuiCapeManager
 import net.ccbluex.liquidbounce.ui.client.hud.HUD
 import net.ccbluex.liquidbounce.ui.client.keybind.KeyBindManager
@@ -44,7 +45,8 @@ object LiquidBounce {
 
     // Client information
     const val CLIENT_NAME = "FDPCN CLIENT"
-
+    var RENDERLEAVE=RenderLeave.HIGH;
+    var RENDERLEAVESELECTED=0;
     var CLIENTTEXT = "Waiting..."
     var Darkmode = true
     const val COLORED_NAME = "§7[§b!§7] §b§lFDPCLIENT §b» "
@@ -228,7 +230,7 @@ object LiquidBounce {
 
     private fun checkUpdate() {
         try {
-            val get = HttpUtils.get("https://api.github.com/repos/UnlegitMinecraft/FDPClientChinaChina/commits/${gitInfo["git.branch"]}")
+            val get = HttpUtils.get("https://api.github.com/repos/UnlegitMinecraft/FDPClientChina/commits/${gitInfo["git.branch"]}")
 
             val jsonObj = JsonParser()
                 .parse(get).asJsonObject

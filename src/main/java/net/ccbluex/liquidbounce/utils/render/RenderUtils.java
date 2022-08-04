@@ -526,7 +526,21 @@ public final class RenderUtils extends MinecraftInstance {
         glColor(color);
         quickDrawRect(x, y, x2, y2);
     }
+    public static void quickDrawBorderedRect(final float x, final float y, final float x2, final float y2, final float width, final int color1, final int color2) {
+        quickDrawRect(x, y, x2, y2, color2);
 
+        glColor(color1);
+        glLineWidth(width);
+
+        glBegin(GL_LINE_LOOP);
+
+        glVertex2d(x2, y);
+        glVertex2d(x, y);
+        glVertex2d(x, y2);
+        glVertex2d(x2, y2);
+
+        glEnd();
+    }
     public static void quickDrawRect(final float x, final float y, final float x2, final float y2, final Color color) {
         quickDrawRect(x, y, x2, y2, color.getRGB());
     }

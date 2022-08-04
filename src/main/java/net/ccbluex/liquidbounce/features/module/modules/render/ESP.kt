@@ -5,6 +5,7 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.render
 
+import net.ccbluex.liquidbounce.LiquidBounce
 import net.ccbluex.liquidbounce.event.EventTarget
 import net.ccbluex.liquidbounce.event.Render2DEvent
 import net.ccbluex.liquidbounce.event.Render3DEvent
@@ -12,6 +13,9 @@ import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.font.FontLoaders
+import net.ccbluex.liquidbounce.ui.RenderLeave
+import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
+import net.ccbluex.liquidbounce.ui.client.hud.element.elements.NotifyType
 import net.ccbluex.liquidbounce.ui.font.GameFontRenderer.Companion.getColorIndex
 import net.ccbluex.liquidbounce.utils.EntityUtils
 import net.ccbluex.liquidbounce.utils.extensions.drawCenteredString
@@ -40,7 +44,7 @@ class ESP : Module() {
     val modeValue = ListValue(
         "Mode",
         arrayOf("Box", "OtherBox", "WireFrame", "2D", "Real2D", "CSGO", "CSGO-Old", "Outline", "ShaderOutline", "ShaderGlow", "Jello"),
-        "Jello"
+        "OtherBox"
     )
     private val outlineWidthValue = FloatValue("Outline-Width", 3f, 0.5f, 5f).displayable { modeValue.equals("Outline") }
     val wireframeWidthValue = FloatValue("WireFrame-Width", 2f, 0.5f, 5f).displayable { modeValue.equals("WireFrame") }
@@ -247,6 +251,10 @@ class ESP : Module() {
         val partialTicks = event.partialTicks
 
         if (mode.equals("jello", ignoreCase = true)) {
+            if(LiquidBounce.RENDERLEAVE== RenderLeave.LOW){
+                this.state=false;
+                LiquidBounce.hud.addNotification(Notification("Performance", "For performance, don't use jello style ESP", NotifyType.WARNING))
+            }
             val hurtingEntities = ArrayList<EntityLivingBase>()
             var shader: FramebufferShader = GlowShader.GLOW_SHADER
             var radius = 3f
@@ -308,6 +316,10 @@ class ESP : Module() {
                 }
                 entityMap[color]!!.add(entityLiving)
             }
+        }
+        if(LiquidBounce.RENDERLEAVE== RenderLeave.LOW){
+            this.state=false;
+            LiquidBounce.hud.addNotification(Notification("Performance", "For performance, don't use GLOW_SHADER or OUTLINE_SHADER style ESP", NotifyType.WARNING))
         }
         // draw
         for ((key, value) in entityMap) {

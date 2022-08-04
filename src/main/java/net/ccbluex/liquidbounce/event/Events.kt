@@ -61,6 +61,10 @@ class ClientShutdownEvent : Event()
 class JumpEvent(var motion: Float) : CancellableEvent()
 
 /**
+ * Called when an entity receives damage
+ */
+class EntityDamageEvent(val damagedEntity: Entity): Event()
+/**
  * Called when user press a key once
  *
  * @param key Pressed key

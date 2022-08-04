@@ -8,6 +8,7 @@ import net.ccbluex.liquidbounce.launch.data.legacyui.ClickGUIModule
 import net.ccbluex.liquidbounce.launch.data.legacyui.ClickGuiConfig
 import net.ccbluex.liquidbounce.launch.data.legacyui.GuiMainMenu
 import net.ccbluex.liquidbounce.launch.data.legacyui.clickgui.ClickGui
+import net.ccbluex.liquidbounce.ui.client.GuiSelectPerformance
 import java.io.File
 
 @LaunchFilterInfo([EnumLaunchFilter.LEGACY_UI])
@@ -20,7 +21,7 @@ object LegacyUiLaunchOption : LaunchOption() {
     lateinit var clickGuiConfig: ClickGuiConfig
 
     override fun start() {
-        LiquidBounce.mainMenu = GuiMainMenu()
+        LiquidBounce.mainMenu = GuiSelectPerformance()
         LiquidBounce.moduleManager.registerModule(ClickGUIModule())
 
         clickGui = ClickGui()

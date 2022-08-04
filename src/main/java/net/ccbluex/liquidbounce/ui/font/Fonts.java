@@ -20,16 +20,16 @@ import java.util.List;
 
 public class Fonts {
 
-    @FontDetails(fontName = "Small", fontSize = 35, fileName = "regular.ttf")
+    @FontDetails(fontName = "Small", fontSize = 35, fileName = "misans.ttf")
     public static GameFontRenderer font35;
 
-    @FontDetails(fontName = "Light", fontSize = 32, fileName = "regular.ttf")
+    @FontDetails(fontName = "Light", fontSize = 32, fileName = "misans.ttf")
     public static GameFontRenderer font32;
 
-    @FontDetails(fontName = "Medium", fontSize = 40, fileName = "regular.ttf")
+    @FontDetails(fontName = "Medium", fontSize = 40, fileName = "misans.ttf")
     public static GameFontRenderer font40;
 
-//    @FontDetails(fontName = "Huge", fontSize = 60, fileName = "regular.ttf")
+//    @FontDetails(fontName = "Huge", fontSize = 60, fileName = "misans.ttf")
 //    public static GameFontRenderer font60;
 
     @FontDetails(fontName = "Minecraft Font")
@@ -99,7 +99,7 @@ public class Fonts {
 
     private static void initFonts() {
         try {
-            initSingleFont("regular.ttf","assets/minecraft/fdpclient/font/regular.ttf");
+            initSingleFont("misans.ttf","assets/minecraft/fdpclient/font/misans.ttf");
         }catch(IOException e) {
             e.printStackTrace();
         }
