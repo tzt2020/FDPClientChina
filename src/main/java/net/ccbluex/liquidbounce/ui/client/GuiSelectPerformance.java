@@ -77,7 +77,7 @@ public class GuiSelectPerformance extends GuiScreen {
             GL11.glPopMatrix();
             RenderUtils.drawRect(0, 0, StaticStorage.scaledResolution.getScaledWidth(), StaticStorage.scaledResolution.getScaledHeight(), new Color(81, 174, 204, i));
             RenderUtils.drawGradientSidewaysH(-100, 0, StaticStorage.scaledResolution.getScaledWidth(), StaticStorage.scaledResolution.getScaledHeight(), new Color(0, 165, 255, i).getRGB(), new Color(0, 165, 255, 0).getRGB());
-            FontLoaders.F50.DisplayFonts(FontLoaders.F40, "Select Your Performance Leve", 30, 30, new Color(255, 255, 255, i).getRGB());
+            FontLoaders.F50.DisplayFonts(FontLoaders.F40, "Select Your Performance Level", 30, 30, new Color(255, 255, 255, i).getRGB());
 
             int h = (StaticStorage.scaledResolution.getScaledHeight() / 5);
             int b = i;
@@ -113,7 +113,7 @@ public class GuiSelectPerformance extends GuiScreen {
             drawBackground(0);
             RenderUtils.drawRect(0, 0, StaticStorage.scaledResolution.getScaledWidth(), StaticStorage.scaledResolution.getScaledHeight(), new Color(81, 174, 204, i));
             RenderUtils.drawGradientSidewaysH(-100, 0, StaticStorage.scaledResolution.getScaledWidth(), StaticStorage.scaledResolution.getScaledHeight(), new Color(0, 165, 255, i).getRGB(), new Color(0, 165, 255, 0).getRGB());
-            FontLoaders.F50.DisplayFonts(FontLoaders.F40, "Select Your Performance Leave", 30, 30, new Color(255, 255, 255, i).getRGB());
+            FontLoaders.F50.DisplayFonts(FontLoaders.F40, "Select Your Performance Level", 30, 30, new Color(255, 255, 255, i).getRGB());
             FontLoaders.F20.DisplayFonts(FontLoaders.F20, "High | 高性能-完整的视觉(推荐)", 30, (2 * h), new Color(255, 255, 255, i).getRGB());
             FontLoaders.F20.DisplayFonts(FontLoaders.F20, "Normal | 中性能-将会禁用模糊(Tips: ESP中的Jello,OUTLINE,GLOW模式会大幅度降低帧率)", 30, (3 * h), new Color(255, 255, 255, i).getRGB());
             FontLoaders.F20.DisplayFonts(FontLoaders.F20, "Low | 低性能-将会禁用模糊和阴影并停止使用部分视觉(禁用模糊状态下可能会出现离奇的渲染错误)", 30, (4 * h), new Color(255, 255, 255, i).getRGB());
