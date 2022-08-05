@@ -17,13 +17,13 @@ import java.util.*
 import java.util.concurrent.LinkedBlockingQueue
 import net.minecraft.client.settings.GameSettings
 
-class MinemoraFly : FlyMode("Minemora") {
+class MinemoraBlinkFly : FlyMode("Minemora") {
     
     private var tick = 0
     private val packetBuffer = LinkedBlockingQueue<Packet<INetHandlerPlayServer>>()
 
     override fun onEnable() {
-        tick = 11451 //4
+        tick = 11451 //悲
         mc.gameSettings.keyBindJump.pressed = false
         mc.gameSettings.keyBindSneak.pressed = false
     }

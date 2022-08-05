@@ -34,6 +34,7 @@ import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.InventoryUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.ccbluex.liquidbounce.utils.misc.HttpUtils
+import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.util.ResourceLocation
@@ -49,6 +50,8 @@ object LiquidBounce {
     var RENDERLEAVESELECTED=0;
     var CLIENTTEXT = "Waiting..."
     var Darkmode = true
+    var FPSLime=200
+    var FPSFlash=MSTimer()
     const val COLORED_NAME = "§7[§b!§7] §b§lFDPCLIENT §b» "
     const val CLIENT_CREATOR = "CCBlueX & UnlegitMC"
     const val CLIENT_WEBSITE = "FDPClient.Club"

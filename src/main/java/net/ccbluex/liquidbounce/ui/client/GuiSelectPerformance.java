@@ -33,6 +33,7 @@ public class GuiSelectPerformance extends GuiScreen {
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+        if(α>=1000) return;
         if (!click.hasTimePassed(200)) super.mouseClicked(mouseX, mouseY, mouseButton);
         else {
             int h = (StaticStorage.scaledResolution.getScaledHeight() / 5);

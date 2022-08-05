@@ -311,9 +311,9 @@ class GuiMainMenu : GuiScreen(), GuiYesNoCallback {
             0 -> mc.displayGuiScreen(GuiOptions(this, mc.gameSettings))
             1 -> mc.displayGuiScreen(GuiSelectWorld(this))
             2 -> mc.displayGuiScreen(GuiMultiplayer(this))
-            4 -> MiscUtils.showURL("https://github.com/UnlegitMinecraft/FDPClientChina/releases")
+            4 -> mc.shutdown()
             100 -> mc.displayGuiScreen(GuiAltManager(this))
-            102 -> displayed = false
+            102 -> MiscUtils.showURL("https://github.com/UnlegitMinecraft/FDPClientChina/releases")
             103 -> mc.displayGuiScreen(GuiModList(this))
             104 -> mc.displayGuiScreen(GuiBackground(this))
             514 -> MiscUtils.showURL("https://${LiquidBounce.CLIENT_WEBSITE}/discord.html")
