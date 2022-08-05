@@ -18,9 +18,9 @@ import java.awt.*;
 
 public class Hotbar {
     public static void render(ScaledResolution sr, int itemX,float partialTicks) {
-        RenderUtils.quickDrawRect(0, sr.getScaledHeight() - 23, sr.getScaledWidth(), sr.getScaledHeight(), new Color(0, 0, 0, 100));
-        RenderUtils.quickDrawRect(itemX, sr.getScaledHeight() - 23, itemX + 22, sr.getScaledHeight(), new Color(0, 0, 0, 100));
-        BlurUtils.INSTANCE.draw(
+        if(HUD.INSTANCE.getHotbarRect().get()) RenderUtils.quickDrawRect(0, sr.getScaledHeight() - 23, sr.getScaledWidth(), sr.getScaledHeight(), new Color(0, 0, 0, 100));
+        if(HUD.INSTANCE.getHotbarRect().get()) RenderUtils.quickDrawRect(itemX, sr.getScaledHeight() - 23, itemX + 22, sr.getScaledHeight(), new Color(0, 0, 0, 100));
+        if(HUD.INSTANCE.getHotbarBlur().get())  BlurUtils.INSTANCE.draw(
                 0f,
                 (sr.getScaledHeight() - 23),
                 sr.getScaledWidth(),

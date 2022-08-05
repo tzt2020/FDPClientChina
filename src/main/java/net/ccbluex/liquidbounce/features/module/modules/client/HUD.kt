@@ -29,7 +29,9 @@ import net.minecraft.util.ResourceLocation
 @ModuleInfo(name = "HUD", category = ModuleCategory.CLIENT, array = false, defaultOn = true)
 object HUD : Module() {
     val betterHotbarValue = BoolValue("BetterHotbar", true)
-    val hotbarAlphaValue = IntegerValue("HotbarAlpha", 70, 0, 255).displayable { betterHotbarValue.get() }
+    val HotbarBlur = BoolValue("HotbarBlur", true)
+    val HotbarRect = BoolValue("HotbarRect", true)
+    //val hotbarAlphaValue = IntegerValue("HotbarAlpha", 70, 0, 255).displayable { betterHotbarValue.get() }
     val hotbarEaseValue = BoolValue("HotbarEase", true)
     private val hotbarAnimSpeedValue = IntegerValue("HotbarAnimSpeed", 10, 5, 20).displayable { hotbarEaseValue.get() }
     private val hotbarAnimTypeValue =
