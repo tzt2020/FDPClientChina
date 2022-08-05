@@ -10,6 +10,9 @@ Website: https://FDPClient.club
 Latest: [github-actions](https://github.com/UnlegitMinecraft/FDPClientChina/actions/workflows/build.yml?query=event%3Apush)    
 Discord: https://discord.gg/55x7TaHWXG  
 
+## About SkidderMC
+SkidderMC并不是原先的开发人员，而是谋权篡位的非中国人。辱华客户端滚出去！
+
 ## Issues
 If you notice any bugs or missing features, you can let us know by opening an issue [here](https://github.com/UnlegitMinecraft/FDPClientChina/issues).
 
