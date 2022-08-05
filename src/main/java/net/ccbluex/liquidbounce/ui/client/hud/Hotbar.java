@@ -3,6 +3,7 @@ package net.ccbluex.liquidbounce.ui.client.hud;
 import net.ccbluex.liquidbounce.LiquidBounce;
 import net.ccbluex.liquidbounce.features.module.modules.client.HUD;
 import net.ccbluex.liquidbounce.font.FontLoaders;
+import net.ccbluex.liquidbounce.ui.client.GuiSelectPerformance;
 import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.ccbluex.liquidbounce.utils.render.BlurUtils;
 import net.ccbluex.liquidbounce.utils.render.ColorManager;
@@ -20,7 +21,7 @@ public class Hotbar {
     public static void render(ScaledResolution sr, int itemX,float partialTicks) {
         if(HUD.INSTANCE.getHotbarRect().get()) RenderUtils.quickDrawRect(0, sr.getScaledHeight() - 23, sr.getScaledWidth(), sr.getScaledHeight(), new Color(0, 0, 0, 100));
         if(HUD.INSTANCE.getHotbarRect().get()) RenderUtils.quickDrawRect(itemX, sr.getScaledHeight() - 23, itemX + 22, sr.getScaledHeight(), new Color(0, 0, 0, 100));
-        if(HUD.INSTANCE.getHotbarBlur().get())  BlurUtils.INSTANCE.draw(
+        if(HUD.INSTANCE.getHotbarBlur().get() && !GuiSelectPerformance.offblur)  BlurUtils.INSTANCE.draw(
                 0f,
                 (sr.getScaledHeight() - 23),
                 sr.getScaledWidth(),

@@ -1,5 +1,6 @@
 package net.ccbluex.liquidbounce.features.module.modules.client.button
 
+import net.ccbluex.liquidbounce.ui.client.GuiSelectPerformance
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.render.BlurUtils
 import net.ccbluex.liquidbounce.utils.render.EaseUtils
@@ -42,7 +43,7 @@ class RoundedButtonRenderer(button: GuiButton) : AbstractButtonRenderer(button) 
                 button.yPosition.toFloat(),
                 button.width.toFloat(),
                 button.height.toFloat(), 240f)
-            BlurUtils.draw(button.xPosition.toFloat(),
+            if(!GuiSelectPerformance.offblur) BlurUtils.draw(button.xPosition.toFloat(),
                 button.yPosition.toFloat(),
                 button.width.toFloat(),
                 button.height.toFloat(),10f)

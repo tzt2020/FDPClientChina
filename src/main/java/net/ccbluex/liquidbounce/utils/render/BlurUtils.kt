@@ -24,9 +24,9 @@ object BlurUtils : MinecraftInstance() {
     }
 
     fun draw(x: Float, y: Float, width: Float, height: Float, radius: Float) {
+        if(GuiSelectPerformance.offblur) return;
         if(LiquidBounce.RENDERLEAVE==RenderLeave.LOW) return;
         if(LiquidBounce.RENDERLEAVE==RenderLeave.NORMAL) return;
-        if(GuiSelectPerformance.offblur) return;
         if(Minecraft.getDebugFPS()<=35) return;
         try {
 
