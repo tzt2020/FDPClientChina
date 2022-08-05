@@ -32,7 +32,7 @@ public class Hotbar {
         RenderUtils.quickDrawRect(0, sr.getScaledHeight() - 23, 2, sr.getScaledHeight(), ColorManager.astolfoRainbow(0, 0, 0));
         FontLoaders.C16.DisplayFonts(FontLoaders.C14, LiquidBounce.CLIENT_NAME + " " + LiquidBounce.CLIENT_VERSION, 7, sr.getScaledHeight() - 18, new Color(255, 255, 255).getRGB());
 
-        FontLoaders.C16.DisplayFonts(FontLoaders.C14, "Language：" + Minecraft.getMinecraft().gameSettings.language, 7, sr.getScaledHeight() - 10, new Color(255, 255, 255).getRGB());
+        FontLoaders.C16.DisplayFonts(FontLoaders.C14, "Language：" + Minecraft.getMinecraft().gameSettings.language+" | "+LiquidBounce.INSTANCE.getRENDERLEAVE()+" PERFORMANCE", 7, sr.getScaledHeight() - 10, new Color(255, 255, 255).getRGB());
     }
 
     public static void drawGuiBackground(double s) {
