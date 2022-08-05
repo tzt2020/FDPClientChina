@@ -24,8 +24,12 @@ public class GuiSelectPerformance extends GuiScreen {
 
     @Override
     public void initGui() {
-        if(System.getProperty("blurdisable").contains("true")){
-            offblur=true;
+        try {
+            if (System.getProperty("blurdisable").contains("true")) {
+                offblur = true;
+            }
+        }catch (Exception e){
+            offblur=false;
         }
         StaticStorage.scaledResolution = new ScaledResolution(mc);
         if (LiquidBounce.INSTANCE.getRENDERLEAVESELECTED() == 1) {
