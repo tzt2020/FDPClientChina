@@ -20,9 +20,13 @@ public class GuiSelectPerformance extends GuiScreen {
     public MSTimer msTimer = new MSTimer();
     public MSTimer click = new MSTimer();
     public int α = 255;
+    public static boolean offblur=false;
 
     @Override
     public void initGui() {
+        if(System.getProperty("blurdisable").contains("true")){
+            offblur=true;
+        }
         StaticStorage.scaledResolution = new ScaledResolution(mc);
         if (LiquidBounce.INSTANCE.getRENDERLEAVESELECTED() == 1) {
             mc.displayGuiScreen(new GuiMainMenu());
@@ -72,7 +76,7 @@ public class GuiSelectPerformance extends GuiScreen {
             }
             if (1 != 255)
                 RenderUtils.drawImage(new ResourceLocation("fdpclient/misc/splash.png"), 0, 0, StaticStorage.scaledResolution.getScaledWidth(), StaticStorage.scaledResolution.getScaledHeight());
-            if (1 != 255)
+            if (1 != 255 && !offblur)
                 BlurUtils.INSTANCE.draw((float) 0, (float) 0, (float) StaticStorage.scaledResolution.getScaledWidth(), (float) StaticStorage.scaledResolution.getScaledHeight(), (float) (50.0f * bfb));
             GL11.glPopMatrix();
             RenderUtils.drawRect(0, 0, StaticStorage.scaledResolution.getScaledWidth(), StaticStorage.scaledResolution.getScaledHeight(), new Color(81, 174, 204, i));

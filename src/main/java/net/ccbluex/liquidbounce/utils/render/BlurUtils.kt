@@ -3,6 +3,7 @@ package net.ccbluex.liquidbounce.utils.render
 import net.ccbluex.liquidbounce.LiquidBounce
 import net.ccbluex.liquidbounce.injection.access.StaticStorage
 import net.ccbluex.liquidbounce.ui.RenderLeave
+import net.ccbluex.liquidbounce.ui.client.GuiSelectPerformance
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import net.minecraft.client.Minecraft
 import net.minecraft.client.shader.Framebuffer
@@ -25,6 +26,7 @@ object BlurUtils : MinecraftInstance() {
     fun draw(x: Float, y: Float, width: Float, height: Float, radius: Float) {
         if(LiquidBounce.RENDERLEAVE==RenderLeave.LOW) return;
         if(LiquidBounce.RENDERLEAVE==RenderLeave.NORMAL) return;
+        if(GuiSelectPerformance.offblur) return;
         if(Minecraft.getDebugFPS()<=35) return;
         try {
 
