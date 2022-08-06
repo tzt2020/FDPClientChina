@@ -10,6 +10,10 @@ Website: https://FDPClient.club
 Latest: [github-actions](https://github.com/UnlegitMinecraft/FDPClientChina/actions/workflows/build.yml?query=event%3Apush)    
 Discord: https://discord.gg/55x7TaHWXG  
 
+## About Website
+OOps 因为使用OVHCloud的服务器，众所周知，OVH以耐造著称（物理 如着火(Just kidding)），所以很不幸，FDPCNClient的网站因为一些不可抗力，死亡了。ooooops
+
+
 ## About SkidderMC
 SkidderMC并不是原先的开发人员，而是谋权篡位的非中国人。辱华客户端滚出去！
 
