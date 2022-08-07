@@ -1,9 +1,9 @@
 package net.ccbluex.liquidbounce.utils
 
-import net.ccbluex.liquidbounce.LiquidBounce
-import net.ccbluex.liquidbounce.features.module.modules.combat.KillAura
 import net.ccbluex.liquidbounce.utils.MinecraftInstance.mc
+import net.minecraft.block.BlockSlime
 import net.minecraft.entity.EntityLivingBase
+import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemBucketMilk
 import net.minecraft.item.ItemFood
 import net.minecraft.item.ItemPotion
@@ -22,7 +22,6 @@ object PlayerUtils {
         }
         return stringBuilder.toString()
     }
-
     fun getAr(player : EntityLivingBase):Double{
         var arPercentage: Double = (player!!.totalArmorValue / player!!.maxHealth).toDouble()
         arPercentage = MathHelper.clamp_double(arPercentage, 0.0, 1.0)
@@ -57,5 +56,16 @@ object PlayerUtils {
             off += 2
         }
         return false
+    }
+
+    fun findSlimeBlock(): Int? {
+        for (i in 0..8) {
+            val itemStack = mc.thePlayer.inventory.getStackInSlot(i)
+            if (itemStack != null && itemStack.item != null) if (itemStack.item is ItemBlock) {
+                val block = itemStack.item as ItemBlock
+                if (block.getBlock() is BlockSlime) return Integer.valueOf(i)
+            }
+        }
+        return Integer.valueOf(-1)
     }
 }

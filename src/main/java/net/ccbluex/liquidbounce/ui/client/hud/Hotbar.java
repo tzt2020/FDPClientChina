@@ -19,8 +19,10 @@ import java.awt.*;
 
 public class Hotbar {
     public static void render(ScaledResolution sr, int itemX,float partialTicks) {
-        if(HUD.INSTANCE.getHotbarRect().get()) RenderUtils.quickDrawRect(0, sr.getScaledHeight() - 23, sr.getScaledWidth(), sr.getScaledHeight(), new Color(0, 0, 0, 100));
-        if(HUD.INSTANCE.getHotbarRect().get()) RenderUtils.quickDrawRect(itemX, sr.getScaledHeight() - 23, itemX + 22, sr.getScaledHeight(), new Color(0, 0, 0, 100));
+        GL11.glPushMatrix();
+        if(HUD.INSTANCE.getHotbarRect().get()) RenderUtils.drawRect(0, sr.getScaledHeight() - 23, sr.getScaledWidth(), sr.getScaledHeight(), new Color(0, 0, 0, 100));
+        if(HUD.INSTANCE.getHotbarRect().get()) RenderUtils.drawRect(itemX, sr.getScaledHeight() - 23, itemX + 22, sr.getScaledHeight(), new Color(0, 0, 0, 100));
+        GL11.glPopMatrix();
         if(HUD.INSTANCE.getHotbarBlur().get() && !GuiSelectPerformance.offblur)  BlurUtils.INSTANCE.draw(
                 0f,
                 (sr.getScaledHeight() - 23),
@@ -28,8 +30,8 @@ public class Hotbar {
                 sr.getScaledHeight(),
                 10f
         );
-        RenderUtils.quickDrawRect(itemX, sr.getScaledHeight() - 23, itemX + 22, sr.getScaledHeight() - 21, new Color(0, 165, 255));
-        RenderUtils.quickDrawRect(0, sr.getScaledHeight() - 23, 2, sr.getScaledHeight(), ColorManager.astolfoRainbow(0, 0, 0));
+        RenderUtils.drawRect(itemX, sr.getScaledHeight() - 23, itemX + 22, sr.getScaledHeight() - 21, new Color(0, 165, 255));
+        RenderUtils.drawRect(0, sr.getScaledHeight() - 23, 2, sr.getScaledHeight(), ColorManager.astolfoRainbow(0, 0, 0));
         FontLoaders.C16.DisplayFonts(FontLoaders.C14, LiquidBounce.CLIENT_NAME + " " + LiquidBounce.CLIENT_VERSION, 7, sr.getScaledHeight() - 18, new Color(255, 255, 255).getRGB());
 
         FontLoaders.C16.DisplayFonts(FontLoaders.C14, "Language：" + Minecraft.getMinecraft().gameSettings.language+" | "+LiquidBounce.INSTANCE.getRENDERLEAVE()+" PERFORMANCE", 7, sr.getScaledHeight() - 10, new Color(255, 255, 255).getRGB());

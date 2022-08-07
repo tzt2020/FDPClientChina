@@ -61,7 +61,7 @@ public class Effects extends Element {
             state = Math.max(state, 2.0F);
             potionData.translate.interpolate(0, y, 0.1);
             potionData.animationX = (float) getAnimationState(potionData.getAnimationX(), 1.2F * state, Math.max(10.0F, Math.abs(potionData.animationX - 1.2F * state) * 15.0F) * 0.3F);
-            BlurUtils.INSTANCE.draw(0, potionData.translate.getY(), 120, potionData.translate.getY() + 30F,15f);
+            //BlurUtils.INSTANCE.draw(0, potionData.translate.getY(), 120, potionData.translate.getY() + 30F,15f);
 //            System.out.println(potionData.translate.getY());
             RenderUtils.drawRect(0, potionData.translate.getY(), 120, potionData.translate.getY() + 30F, realpha.reAlpha(new Color(50,50,50).getRGB(), 0.5F));
             RenderUtils.drawRect(0, potionData.translate.getY(), potionData.animationX, potionData.translate.getY() + 30F, realpha.reAlpha((new Color(0, 0, 0)).brighter().getRGB(), 0.55F));

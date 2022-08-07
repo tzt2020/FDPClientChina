@@ -97,10 +97,6 @@ public abstract class MixinMinecraft {
      */
     @Overwrite
     public int getLimitFramerate() {
-        /*if(LiquidBounce.INSTANCE.getFPSFlash().hasTimePassed(1000)){
-            LiquidBounce.INSTANCE.getFPSFlash().reset();
-            LiquidBounce.INSTANCE.setFPSLime(PerformanceUtils.FPSLime());
-        }*/
         return this.gameSettings.limitFramerate;
     }
 
