@@ -34,7 +34,6 @@ object NewRenderUtils {
     @JvmStatic
     fun drawTexturedRectWithCustomAlpha(x: Float, y: Float, width: Float, height: Float, image: String, alpha: Float) {
         glPushMatrix()
-        var texture: Boolean = glIsEnabled(GL_TEXTURE_2D)
         val enableBlend = glIsEnabled(GL_BLEND)
         val disableAlpha = !glIsEnabled(GL_ALPHA_TEST)
         if (!enableBlend) glEnable(GL_BLEND)
@@ -53,7 +52,6 @@ object NewRenderUtils {
         )
         if (!enableBlend) glDisable(GL_BLEND)
         if (!disableAlpha) glEnable(GL_ALPHA_TEST)
-        if(texture) glDisable(GL_TEXTURE_2D);
         GlStateManager.resetColor()
         glPopMatrix()
     }
