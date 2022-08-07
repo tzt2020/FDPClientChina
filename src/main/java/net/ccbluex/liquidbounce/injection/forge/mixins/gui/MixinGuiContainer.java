@@ -86,7 +86,7 @@ public abstract class MixinGuiContainer extends MixinGuiScreen {
             }else{
                 scale = 1 - pct;
             }
-            Hotbar.drawGuiBackground(scale);
+             Hotbar.drawGuiBackground(scale);
         }
     }
 
