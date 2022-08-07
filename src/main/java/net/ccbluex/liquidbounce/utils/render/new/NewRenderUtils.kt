@@ -1,16 +1,14 @@
 package skidunion.destiny.utils.render
 
 import net.ccbluex.liquidbounce.LiquidBounce
+import net.ccbluex.liquidbounce.features.module.modules.client.HUD
 import net.ccbluex.liquidbounce.ui.RenderLeave
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.*
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.*
+import org.lwjgl.opengl.GL11
 import org.lwjgl.opengl.GL11.*
-import org.lwjgl.opengl.GL11.GL_BLEND
-import org.lwjgl.opengl.GL11.glDisable
-import org.lwjgl.opengl.GL11.glEnable
-import net.minecraft.client.renderer.GlStateManager
 
 
 object NewRenderUtils {
@@ -23,6 +21,7 @@ object NewRenderUtils {
     @JvmStatic
     fun drawShadowWithCustomAlpha(x: Float, y: Float, width: Float, height: Float, alpha: Float) {
         if(LiquidBounce.RENDERLEAVE== RenderLeave.LOW) return;
+        if(!HUD.shadowValue.get()) return;
         drawTexturedRectWithCustomAlpha(x - 9, y - 9, 9f, 9f, "paneltopleft", alpha)
         drawTexturedRectWithCustomAlpha(x - 9, y + height, 9f, 9f, "panelbottomleft", alpha)
         drawTexturedRectWithCustomAlpha(x + width, y + height, 9f, 9f, "panelbottomright", alpha)
@@ -35,6 +34,7 @@ object NewRenderUtils {
     @JvmStatic
     fun drawTexturedRectWithCustomAlpha(x: Float, y: Float, width: Float, height: Float, image: String, alpha: Float) {
         glPushMatrix()
+        var texture: Boolean = glIsEnabled(GL_TEXTURE_2D)
         val enableBlend = glIsEnabled(GL_BLEND)
         val disableAlpha = !glIsEnabled(GL_ALPHA_TEST)
         if (!enableBlend) glEnable(GL_BLEND)
@@ -53,6 +53,7 @@ object NewRenderUtils {
         )
         if (!enableBlend) glDisable(GL_BLEND)
         if (!disableAlpha) glEnable(GL_ALPHA_TEST)
+        if(texture) glDisable(GL_TEXTURE_2D);
         GlStateManager.resetColor()
         glPopMatrix()
     }

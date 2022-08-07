@@ -40,6 +40,7 @@ object HUD : Module() {
         EaseUtils.getEnumEasingOrderList("HotbarAnimOrder").displayable { hotbarEaseValue.get() }
     val inventoryParticle = BoolValue("InventoryParticle", false)
     val blurValue = BoolValue("Blur", false)
+    val shadowValue = BoolValue("Shadow", false)
     val fontChatValue = BoolValue("FontChat", false)
     val chatRectValue = BoolValue("ChatRect", true)
     val chatCombineValue = BoolValue("ChatCombine", true)

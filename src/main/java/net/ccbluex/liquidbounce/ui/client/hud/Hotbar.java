@@ -30,6 +30,7 @@ public class Hotbar {
                 sr.getScaledHeight(),
                 10f
         );
+
         RenderUtils.drawRect(itemX, sr.getScaledHeight() - 23, itemX + 22, sr.getScaledHeight() - 21, new Color(0, 165, 255));
         RenderUtils.drawRect(0, sr.getScaledHeight() - 23, 2, sr.getScaledHeight(), ColorManager.astolfoRainbow(0, 0, 0));
         FontLoaders.C16.DisplayFonts(FontLoaders.C14, LiquidBounce.CLIENT_NAME + " " + LiquidBounce.CLIENT_VERSION, 7, sr.getScaledHeight() - 18, new Color(255, 255, 255).getRGB());
