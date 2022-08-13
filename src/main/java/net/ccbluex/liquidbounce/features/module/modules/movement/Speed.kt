@@ -61,7 +61,7 @@ class Speed : Module() {
     }
 
     @EventTarget
-    fun onMove(event: MoveEvent) {
+    fun onMove(event: MovementEvent) {
         if (mc.thePlayer.isSneaking || (mc.thePlayer.isInWater && noWater.get())) {
             return
         }

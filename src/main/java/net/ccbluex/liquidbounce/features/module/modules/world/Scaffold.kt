@@ -745,7 +745,7 @@ class Scaffold : Module() {
      * @param event
      */
     @EventTarget
-    fun onMove(event: MoveEvent) {
+    fun onMove(event: MovementEvent) {
         if (safeWalkValue.equals("off") || shouldGoDown) return
         if (safeWalkValue.equals("air") || mc.thePlayer.onGround) event.isSafeWalk = true
     }

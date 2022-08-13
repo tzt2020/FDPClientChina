@@ -5,14 +5,14 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.movement.speeds.spectre
 
-import net.ccbluex.liquidbounce.event.MoveEvent
+import net.ccbluex.liquidbounce.event.MovementEvent
 import net.ccbluex.liquidbounce.features.module.modules.movement.speeds.SpeedMode
 import net.ccbluex.liquidbounce.utils.MovementUtils
 import net.minecraft.util.MathHelper
 
 class SpectreOnGround : SpeedMode("SpectreOnGround") {
     private var speedUp = 0
-    override fun onMove(event: MoveEvent) {
+    override fun onMove(event: MovementEvent) {
         if (!MovementUtils.isMoving() || mc.thePlayer.movementInput.jump) return
         if (speedUp >= 10) {
             if (mc.thePlayer.onGround) {

@@ -2,7 +2,7 @@ package net.ccbluex.liquidbounce.features.module.modules.movement.flys.verus
 
 import net.ccbluex.liquidbounce.event.BlockBBEvent
 import net.ccbluex.liquidbounce.event.JumpEvent
-import net.ccbluex.liquidbounce.event.MoveEvent
+import net.ccbluex.liquidbounce.event.MovementEvent
 import net.ccbluex.liquidbounce.features.module.modules.movement.flys.FlyMode
 import net.ccbluex.liquidbounce.utils.MovementUtils
 import net.ccbluex.liquidbounce.value.FloatValue
@@ -23,7 +23,7 @@ class Verus6Fly : FlyMode("Verus6") {
         waitTicks = 0
     }
 
-    override fun onMove(event: MoveEvent) {
+    override fun onMove(event: MovementEvent) {
         if (MovementUtils.isMoving()) {
             if (mc.thePlayer.onGround) {
                 MovementUtils.strafe(groundSpeedValue.get())

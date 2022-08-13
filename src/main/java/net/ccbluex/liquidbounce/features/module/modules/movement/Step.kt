@@ -182,7 +182,7 @@ class Step : Module() {
     }
 
     @EventTarget
-    fun onMove(event: MoveEvent) {
+    fun onMove(event: MovementEvent) {
         val mode = modeValue.get()
 
         // Motion steps

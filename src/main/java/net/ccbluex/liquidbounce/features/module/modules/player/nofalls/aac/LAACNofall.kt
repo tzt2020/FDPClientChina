@@ -1,7 +1,7 @@
 package net.ccbluex.liquidbounce.features.module.modules.player.nofalls.aac
 
 import net.ccbluex.liquidbounce.event.JumpEvent
-import net.ccbluex.liquidbounce.event.MoveEvent
+import net.ccbluex.liquidbounce.event.MovementEvent
 import net.ccbluex.liquidbounce.event.UpdateEvent
 import net.ccbluex.liquidbounce.features.module.modules.player.nofalls.NoFallMode
 
@@ -26,7 +26,7 @@ class LAACNofall : NoFallMode("LAAC") {
         }
     }
 
-    override fun onMove(event: MoveEvent) {
+    override fun onMove(event: MovementEvent) {
         if (!jumped && !mc.thePlayer.onGround && !mc.thePlayer.isOnLadder && !mc.thePlayer.isInWater && !mc.thePlayer.isInWeb && mc.thePlayer.motionY < 0.0) {
             event.x = 0.0
             event.z = 0.0

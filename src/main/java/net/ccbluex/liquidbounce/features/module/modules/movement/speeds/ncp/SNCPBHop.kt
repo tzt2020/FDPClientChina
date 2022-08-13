@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.movement.speeds.ncp
 
-import net.ccbluex.liquidbounce.event.MoveEvent
+import net.ccbluex.liquidbounce.event.MovementEvent
 import net.ccbluex.liquidbounce.features.module.modules.movement.speeds.SpeedMode
 import net.ccbluex.liquidbounce.utils.MovementUtils
 import net.minecraft.potion.Potion
@@ -40,7 +40,7 @@ class SNCPBHop : SpeedMode("SNCPBHop") {
         lastDist = sqrt(xDist * xDist + zDist * zDist)
     }
 
-    override fun onMove(event: MoveEvent) {
+    override fun onMove(event: MovementEvent) {
         ++timerDelay
         timerDelay %= 5
 

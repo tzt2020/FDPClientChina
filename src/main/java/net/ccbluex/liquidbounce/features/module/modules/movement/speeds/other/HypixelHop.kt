@@ -5,16 +5,17 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.movement.speeds.other
 
-import net.ccbluex.liquidbounce.event.MoveEvent
+import net.ccbluex.liquidbounce.event.MovementEvent
 import net.ccbluex.liquidbounce.features.module.modules.movement.speeds.SpeedMode
 import net.ccbluex.liquidbounce.utils.MovementUtils
 import net.ccbluex.liquidbounce.value.FloatValue
 import net.ccbluex.liquidbounce.value.ListValue
+import net.minecraft.client.settings.GameSettings
 
 
 class HypixelHop : SpeedMode("HypixelHop") {
 
-    private val bypassMode = ListValue("${valuePrefix}BypassMode", arrayOf("Stable", "OldSafe", "OldTest"), "Stable")
+    private val bypassMode = ListValue("${valuePrefix}BypassMode", arrayOf("20220813", "OldSafe", "OldTest"), "Stable")
     private val slowdownValue = FloatValue("${valuePrefix}SlowdownValue", 0.15f, 0.01f, 0.5f)
 
     private var watchdogMultiplier = 1.0
@@ -23,6 +24,7 @@ class HypixelHop : SpeedMode("HypixelHop") {
     private var wasOnGround = false
 
     override fun onUpdate() {
+        if(bypassMode.get().lowercase().contains("20220813")) return
         if (!MovementUtils.isMoving()) {
             mc.thePlayer.motionX = 0.0
             mc.thePlayer.motionZ = 0.0
@@ -32,7 +34,7 @@ class HypixelHop : SpeedMode("HypixelHop") {
                 oldMotionX = mc.thePlayer.motionX
                 oldMotionZ = mc.thePlayer.motionZ
 
-                MovementUtils.strafe()
+                //MovementUtils.strafe()
 
                 if (!mc.thePlayer.onGround) {
                     if (!wasOnGround) {
@@ -75,7 +77,32 @@ class HypixelHop : SpeedMode("HypixelHop") {
         }
     }
 
-    override fun onMove(event: MoveEvent) {
+    private var groundTick = 0
+    override fun onPreMotion() {
+        if (MovementUtils.isMoving()) {
+            mc.timer.timerSpeed = 1f;
+
+            when {
+                mc.thePlayer.onGround -> {
+                    if (groundTick >= 0) {
+                        mc.gameSettings.keyBindJump.pressed = GameSettings.isKeyDown(mc.gameSettings.keyBindJump)
+                        mc.timer.timerSpeed = 1f
+                        mc.thePlayer.jump()
+                        MovementUtils.strafe(0.475f)
+                        mc.thePlayer.motionY = 0.40404;
+                    }
+                    groundTick++
+                }
+                else -> {
+                    groundTick = 0
+                    //MovementUtils.move(0.475f * 0.1f)
+                    mc.thePlayer.motionY += 0
+                }
+            }
+        }
+    }
+
+    override fun onMove(event: MovementEvent) {
         when (bypassMode.get().lowercase()) {
             "oldsafe" -> MovementUtils.strafe(( 0.2875 * watchdogMultiplier.toDouble() * ( 1.081237f    - slowdownValue.get()).toDouble()).toFloat())
             "oldtest" -> MovementUtils.strafe(( 0.2875 * watchdogMultiplier.toDouble() * ( 1.0f         - slowdownValue.get()).toDouble()).toFloat())

@@ -116,7 +116,7 @@ class ScriptModule(private val moduleObject: JSObject) : Module() {
     fun onKey(keyEvent: KeyEvent) = callEvent("key", keyEvent)
 
     @EventTarget
-    fun onMove(moveEvent: MoveEvent) = callEvent("move", moveEvent)
+    fun onMove(movementEvent: MovementEvent) = callEvent("move", movementEvent)
 
     @EventTarget
     fun onStep(stepEvent: StepEvent) = callEvent("step", stepEvent)

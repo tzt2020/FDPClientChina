@@ -98,7 +98,7 @@ class StrafeEvent(val strafe: Float, val forward: Float, val friction: Float) : 
  * @param y motion
  * @param z motion
  */
-class MoveEvent(var x: Double, var y: Double, var z: Double) : CancellableEvent() {
+class MovementEvent(var x: Double, var y: Double, var z: Double) : CancellableEvent() {
     var isSafeWalk = false
 
     fun zero() {

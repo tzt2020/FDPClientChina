@@ -1,11 +1,11 @@
 package net.ccbluex.liquidbounce.features.module.modules.movement.flys.other
 
-import net.ccbluex.liquidbounce.event.MoveEvent
+import net.ccbluex.liquidbounce.event.MovementEvent
 import net.ccbluex.liquidbounce.features.module.modules.movement.flys.FlyMode
 import net.ccbluex.liquidbounce.utils.MovementUtils
 
 class ZoneCraftFly : FlyMode("ZoneCraft") {
-    override fun onMove(event: MoveEvent) {
+    override fun onMove(event: MovementEvent) {
         mc.timer.timerSpeed = 1f
         if(mc.thePlayer.onGround) {
             mc.thePlayer.jump()

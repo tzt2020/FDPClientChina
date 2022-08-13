@@ -7,7 +7,7 @@ package net.ccbluex.liquidbounce.features.module.modules.movement.speeds
 
 import net.ccbluex.liquidbounce.LiquidBounce
 import net.ccbluex.liquidbounce.event.MotionEvent
-import net.ccbluex.liquidbounce.event.MoveEvent
+import net.ccbluex.liquidbounce.event.MovementEvent
 import net.ccbluex.liquidbounce.event.PacketEvent
 import net.ccbluex.liquidbounce.features.module.modules.movement.Speed
 import net.ccbluex.liquidbounce.utils.ClassUtils
@@ -29,7 +29,7 @@ abstract class SpeedMode(val modeName: String) : MinecraftInstance() {
     open fun onPreMotion() {}
     open fun onMotion(event: MotionEvent) {}
     open fun onUpdate() {}
-    open fun onMove(event: MoveEvent) {}
+    open fun onMove(event: MovementEvent) {}
     open fun onPacket(event: PacketEvent) {}
     open fun onTick() {}
 

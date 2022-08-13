@@ -104,7 +104,7 @@ class NoFall : Module() {
     }
 
     @EventTarget
-    fun onMove(event: MoveEvent) {
+    fun onMove(event: MovementEvent) {
         mode.onMove(event)
     }
 

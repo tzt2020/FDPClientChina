@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.movement.speeds.ncp
 
-import net.ccbluex.liquidbounce.event.MoveEvent
+import net.ccbluex.liquidbounce.event.MovementEvent
 import net.ccbluex.liquidbounce.features.module.modules.movement.speeds.SpeedMode
 import net.ccbluex.liquidbounce.utils.MovementUtils
 import net.minecraft.block.Block
@@ -43,7 +43,7 @@ class YPort : SpeedMode("YPort") {
         if (!MovementUtils.isMoving()) safeJump = true else if (mc.thePlayer.onGround) safeJump = false
     }
 
-    override fun onMove(event: MoveEvent) {
+    override fun onMove(event: MovementEvent) {
         timerDelay += 1
         timerDelay %= 5
         if (timerDelay != 0) {

@@ -68,7 +68,7 @@ class BoostHypixelFly : FlyMode("BoostHypixel") {
         }
     }
 
-    override fun onMove(event: MoveEvent) {
+    override fun onMove(event: MovementEvent) {
         if (!isMoving()) {
             event.zeroXZ()
             return

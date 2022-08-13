@@ -8,11 +8,13 @@ object MathUtils {
         return degrees * Math.PI / 180
     }
 
-    fun getDistance(x1: Double, y1: Double, x2: Double, y2: Double): Double {
+    fun getDistance(x1: Double, y1: Double, x2: Double, y2: Double): Float {
         return sqrt((x1 - x2).pow((2).toDouble()) + (y1 - y2).pow((2).toDouble()))
     }
     // TODO: 两圆相交坐标求解（月底能有时间弄）（TargetStrafe）
-
+    fun sqrt(a : Double) : Float{
+        return kotlin.math.sqrt(a).toFloat();
+    }
     fun lerp(a: Array<Double>, b: Array<Double>, t: Double) = arrayOf(a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t)
 
     fun distanceSq(a: Array<Double>, b: Array<Double>): Double = (a[0] - b[0]).pow(2) + (a[1] - b[1]).pow(2)

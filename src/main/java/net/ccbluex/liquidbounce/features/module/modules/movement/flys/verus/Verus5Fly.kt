@@ -2,7 +2,7 @@ package net.ccbluex.liquidbounce.features.module.modules.movement.flys.verus
 
 import net.ccbluex.liquidbounce.event.BlockBBEvent
 import net.ccbluex.liquidbounce.event.JumpEvent
-import net.ccbluex.liquidbounce.event.MoveEvent
+import net.ccbluex.liquidbounce.event.MovementEvent
 import net.ccbluex.liquidbounce.features.module.modules.movement.flys.FlyMode
 import net.ccbluex.liquidbounce.utils.MovementUtils
 import net.minecraft.block.BlockAir
@@ -15,7 +15,7 @@ class Verus5Fly : FlyMode("Verus5") {
         ticks = 0
     }
 
-    override fun onMove(event: MoveEvent) {
+    override fun onMove(event: MovementEvent) {
         if (ticks % 10 == 0 && mc.thePlayer.onGround) {
             MovementUtils.strafe(1f)
             event.y = 0.42

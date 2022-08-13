@@ -22,7 +22,7 @@ abstract class FlyMode(val modeName: String) : MinecraftInstance() {
     open fun onUpdate(event: UpdateEvent) {}
     open fun onMotion(event: MotionEvent) {}
     open fun onPacket(event: PacketEvent) {}
-    open fun onMove(event: MoveEvent) {}
+    open fun onMove(event: MovementEvent) {}
     open fun onBlockBB(event: BlockBBEvent) {}
     open fun onJump(event: JumpEvent) {}
     open fun onStep(event: StepEvent) {}

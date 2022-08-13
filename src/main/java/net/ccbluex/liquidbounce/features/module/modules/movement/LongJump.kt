@@ -86,7 +86,7 @@ class LongJump : Module() {
     }
 
     @EventTarget
-    fun onMove(event: MoveEvent) {
+    fun onMove(event: MovementEvent) {
         if(!state) return
         mode.onMove(event)
     }

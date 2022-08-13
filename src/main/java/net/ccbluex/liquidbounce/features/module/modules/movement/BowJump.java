@@ -58,7 +58,7 @@ public class BowJump extends Module {
     }
 
     @EventTarget
-    public void onMove(MoveEvent event) {
+    public void onMove(MovementEvent event) {
         if (mc.thePlayer.onGround && bowState < 3)
             event.cancelEvent();
     }

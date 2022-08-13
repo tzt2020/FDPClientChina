@@ -7,12 +7,11 @@ package net.ccbluex.liquidbounce.features.module.modules.movement
 
 import net.ccbluex.liquidbounce.LiquidBounce
 import net.ccbluex.liquidbounce.event.EventTarget
-import net.ccbluex.liquidbounce.event.MoveEvent
+import net.ccbluex.liquidbounce.event.MovementEvent
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.features.module.modules.combat.KillAura
-import net.ccbluex.liquidbounce.features.module.modules.movement.speeds.ncp.OnGround
 import net.ccbluex.liquidbounce.utils.PlayerUtils
 import net.ccbluex.liquidbounce.utils.RotationUtils
 import net.ccbluex.liquidbounce.value.BoolValue
@@ -31,10 +30,10 @@ class TargetStrafe : Module() {
 
     /**
      *
-     * @param event MoveEvent
+     * @param event MovementEvent
      */
     @EventTarget
-    fun onMove(event: MoveEvent) {
+    fun onMove(event: MovementEvent) {
        val fly = LiquidBounce.moduleManager.getModule(Fly::class.java) as Fly
        val speed = LiquidBounce.moduleManager.getModule(Speed::class.java) as Speed
        if(fly.state || speed.state || ongroundValue.get()) {

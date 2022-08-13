@@ -1,11 +1,11 @@
 package net.ccbluex.liquidbounce.features.module.modules.movement.speeds.other
 
-import net.ccbluex.liquidbounce.event.MoveEvent
+import net.ccbluex.liquidbounce.event.MovementEvent
 import net.ccbluex.liquidbounce.features.module.modules.movement.speeds.SpeedMode
 import net.ccbluex.liquidbounce.utils.MovementUtils
 
 class ZoneCraftSpeed : SpeedMode("ZoneCraft") {
-    override fun onMove(event: MoveEvent) {
+    override fun onMove(event: MovementEvent) {
         if (mc.thePlayer.onGround && MovementUtils.isMoving()) {
             if (mc.thePlayer.ticksExisted % 3 == 0) {
                 MovementUtils.strafe(0.89f)

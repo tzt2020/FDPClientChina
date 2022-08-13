@@ -5,7 +5,7 @@
  */
 package net.ccbluex.liquidbounce.utils
 
-import net.ccbluex.liquidbounce.event.MoveEvent
+import net.ccbluex.liquidbounce.event.MovementEvent
 import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 import net.minecraft.potion.Potion
 import net.minecraft.util.AxisAlignedBB
@@ -149,13 +149,13 @@ object MovementUtils : MinecraftInstance() {
         bps = distance * (20 * mc.timer.timerSpeed)
     }
 
-    fun setSpeed(moveEvent: MoveEvent, moveSpeed: Double, pseudoYaw: Float, pseudoStrafe: Double, pseudoForward: Double) {
+    fun setSpeed(movementEvent: MovementEvent, moveSpeed: Double, pseudoYaw: Float, pseudoStrafe: Double, pseudoForward: Double) {
         var forward = pseudoForward
         var strafe = pseudoStrafe
         var yaw = pseudoYaw
         if (forward == 0.0 && strafe == 0.0) {
-            moveEvent.z = 0.0
-            moveEvent.x = 0.0
+            movementEvent.z = 0.0
+            movementEvent.x = 0.0
         } else {
             if (forward != 0.0) {
                 if (strafe > 0.0) {
@@ -172,8 +172,8 @@ object MovementUtils : MinecraftInstance() {
             }
             val cos = Math.cos(Math.toRadians((yaw + 90.0f).toDouble()))
             val sin = Math.sin(Math.toRadians((yaw + 90.0f).toDouble()))
-            moveEvent.x = forward * moveSpeed * cos + strafe * moveSpeed * sin
-            moveEvent.z = forward * moveSpeed * sin - strafe * moveSpeed * cos
+            movementEvent.x = forward * moveSpeed * cos + strafe * moveSpeed * sin
+            movementEvent.z = forward * moveSpeed * sin - strafe * moveSpeed * cos
         }
     }
 

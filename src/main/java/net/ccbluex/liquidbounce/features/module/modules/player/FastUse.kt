@@ -113,7 +113,7 @@ class FastUse : Module() {
     }
 
     // @EventTarget
-    // fun onMove(event: MoveEvent?) {
+    // fun onMove(event: MovementEvent?) {
     //     if (event == null) return
 
     //     if (!mc.thePlayer.isUsingItem || !modeValue.get().lowercase()=="aac") return
