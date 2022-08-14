@@ -9,7 +9,6 @@ import net.ccbluex.liquidbounce.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.ui.RenderLeave
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.NotifyType
-import net.ccbluex.liquidbounce.ui.i18n.LanguageManager
 
 @ModuleInfo(name = "BetterFont", category = ModuleCategory.RENDER)
 class BetterFont : Module(){

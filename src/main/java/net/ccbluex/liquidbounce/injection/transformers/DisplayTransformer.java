@@ -1,9 +1,6 @@
 package net.ccbluex.liquidbounce.injection.transformers;
 
-import net.ccbluex.liquidbounce.utils.ASMUtils;
 import net.minecraft.launchwrapper.IClassTransformer;
-import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.MethodNode;
 
 public class DisplayTransformer implements IClassTransformer {
     @Override

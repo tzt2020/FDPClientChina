@@ -15,9 +15,6 @@ import net.minecraft.entity.EntityLivingBase;
 
 import java.awt.*;
 
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
-
 
 @ModuleInfo(name = "DuelWinRate", category = ModuleCategory.MISC)
 public class DuelWinRate extends Module {

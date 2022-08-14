@@ -1,7 +1,6 @@
 package net.ccbluex.liquidbounce.utils
 
 import kotlin.math.pow
-import kotlin.math.sqrt
 
 object MathUtils {
     fun radians(degrees: Double): Double {

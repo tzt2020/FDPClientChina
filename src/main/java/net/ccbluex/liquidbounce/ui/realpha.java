@@ -1,10 +1,6 @@
 package net.ccbluex.liquidbounce.ui;
 
-import java.awt.Color;
-
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ChatComponentText;
+import java.awt.*;
 
 public class realpha {
 

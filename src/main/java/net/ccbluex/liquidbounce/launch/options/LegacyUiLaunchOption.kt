@@ -6,7 +6,6 @@ import net.ccbluex.liquidbounce.launch.LaunchFilterInfo
 import net.ccbluex.liquidbounce.launch.LaunchOption
 import net.ccbluex.liquidbounce.launch.data.legacyui.ClickGUIModule
 import net.ccbluex.liquidbounce.launch.data.legacyui.ClickGuiConfig
-import net.ccbluex.liquidbounce.launch.data.legacyui.GuiMainMenu
 import net.ccbluex.liquidbounce.launch.data.legacyui.clickgui.ClickGui
 import net.ccbluex.liquidbounce.ui.client.GuiSelectPerformance
 import java.io.File
