@@ -18,8 +18,8 @@ import net.minecraft.network.play.client.C03PacketPlayer
 import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 import net.minecraft.network.play.server.S08PacketPlayerPosLook
 
-@ModuleInfo(name = "HypixelAntiVoid", category = ModuleCategory.PLAYER)
-class HypixelAntiVoid : Module() {
+@ModuleInfo(name = "BestAntiVoid", category = ModuleCategory.PLAYER)
+class BestAntiVoid : Module() {
     private val pullbackTime = IntegerValue("PullbackTime", 850, 800, 1800)
     private val debug = BoolValue("Debug", false)
     var timer: TimeHelper = TimeHelper()
