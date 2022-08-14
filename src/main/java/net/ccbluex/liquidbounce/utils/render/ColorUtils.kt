@@ -131,11 +131,11 @@ object ColorUtils {
     }
 
     fun rainbow(): Color {
-        return hslRainbow(1)
+        return Color(ColorManager.astolfoRainbow(0,0,0))
     }
 
     fun rainbow(index: Int): Color {
-        return hslRainbow(index)
+        return Color(ColorManager.astolfoRainbow(0,0,index))
     }
 
     fun rainbow(alpha: Float) = reAlpha(hslRainbow(1), alpha)

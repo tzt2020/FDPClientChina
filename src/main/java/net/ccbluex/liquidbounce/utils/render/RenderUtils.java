@@ -593,7 +593,7 @@ public final class RenderUtils extends MinecraftInstance {
     public static void drawLoadingCircle(float x, float y) {
         for (int i = 0; i < 4; i++) {
             int rot = (int) ((System.nanoTime() / 5000000 * i) % 360);
-            drawCircle(x, y, i * 10, rot - 180, rot);
+            drawCircle(x, y, i * 6, rot - 180, rot);
         }
     }
 
@@ -879,7 +879,7 @@ public final class RenderUtils extends MinecraftInstance {
         }
         Map<Integer, Boolean> map = glCapMap.get(scale);
         if(!map.isEmpty()) {
-            ClientUtils.INSTANCE.logWarn("Cap map is not empty! [" + map.size() + "]");
+            //ClientUtils.INSTANCE.logWarn("Cap map is not empty! [" + map.size() + "]");
         }
         map.clear();
     }

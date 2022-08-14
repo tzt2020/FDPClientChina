@@ -1,18 +1,17 @@
 package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
 import net.ccbluex.liquidbounce.LiquidBounce
+import net.ccbluex.liquidbounce.font.FontLoaders
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
 import net.ccbluex.liquidbounce.ui.client.hud.element.Side
 import net.ccbluex.liquidbounce.ui.font.Fonts
+import net.ccbluex.liquidbounce.utils.PlayerUtils
 import net.ccbluex.liquidbounce.utils.extensions.*
 import net.ccbluex.liquidbounce.utils.misc.RandomUtils
-import net.ccbluex.liquidbounce.utils.render.Animation
-import net.ccbluex.liquidbounce.utils.render.ColorUtils
-import net.ccbluex.liquidbounce.utils.render.EaseUtils
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
+import net.ccbluex.liquidbounce.utils.render.*
 import net.ccbluex.liquidbounce.value.*
 import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.entity.EntityLivingBase
@@ -24,7 +23,7 @@ import kotlin.math.roundToInt
 
 @ElementInfo(name = "Targets")
 class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vertical.MIDDLE)) {
-    private val modeValue = ListValue("Mode", arrayOf("FDP", "Novoline", "Novoline2" , "Astolfo", "Liquid", "Flux", "Rise", "RiseNew", "Zamorozka", "Arris", "Tenacity"), "Rise")
+    private val modeValue = ListValue("Mode", arrayOf("FDP", "Novoline", "Novoline2" , "Astolfo", "Liquid", "Flux", "Rise", "RiseNew", "Zamorozka", "Arris", "Tenacity"), "FDP")
     private val animSpeedValue = IntegerValue("AnimSpeed", 10, 5, 20)
     private val hpAnimTypeValue = EaseUtils.getEnumEasingList("HpAnimType")
     private val hpAnimOrderValue = EaseUtils.getEnumEasingOrderList("HpAnimOrder")
@@ -406,8 +405,30 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
     private fun drawFDP(target: EntityLivingBase) {
         val font = fontValue.get()
 
-        RenderUtils.drawRoundedCornerRect(0f, 0f, 150f, 47f, 4f, Color(0, 0, 0, 100).rgb)
-
+        RenderUtils.drawRoundedCornerRect(
+            -1.5f, 2.5f, 152.5f, 52.5f,
+            5.0f, Color(0, 0, 0, 26).rgb
+        )
+        RenderUtils.drawRoundedCornerRect(
+            -1f, 2f, 152f, 52f,
+            5.0f, Color(0, 0, 0, 26).rgb
+        )
+        RenderUtils.drawRoundedCornerRect(
+            -0.5f, 1.5f, 151.5f, 51.5f,
+            5.0f, Color(0, 0, 0, 40).rgb
+        )
+        RenderUtils.drawRoundedCornerRect(
+            -0f, 1f, 151.0f, 51.0f,
+            5.0f, Color(0, 0, 0, 60).rgb
+        )
+        RenderUtils.drawRoundedCornerRect(
+            0.5f, 0.5f, 150.5f, 50.5f,
+            5.0f, Color(0, 0, 0, 50).rgb
+        )
+        RenderUtils.drawRoundedCornerRect(
+            1f, 0f, 150.0f, 50.0f,
+            5.0f, Color(0, 0, 0, 50).rgb
+        )
         val hurtPercent = target.hurtPercent
         val scale = if (hurtPercent == 0f) { 1f } else if (hurtPercent < 0.5f) {
             1 - (0.1f * hurtPercent * 2)
@@ -424,12 +445,18 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
         // 受伤的红色效果
         GL11.glColor4f(1f, 1 - hurtPercent, 1 - hurtPercent, 1f)
         // 绘制头部图片
-        RenderUtils.quickDrawHead(target.skin, 0, 0, size, size)
+        GL11.glColor4f(1f, 1f, 1f, 1f)
+        mc.textureManager.bindTexture(target.skin)
+        RenderUtils.drawScaledCustomSizeModalCircle(5, 5, 8f, 8f, 8, 8, 30, 30, 64f, 64f)
+        RenderUtils.drawScaledCustomSizeModalCircle(5, 5, 40f, 8f, 8, 8, 30, 30, 64f, 64f)
+
         GL11.glPopMatrix()
 
-        font.drawString("Name ${target.name}", 45, 5, Color.WHITE.rgb)
-        font.drawString("Health ${getHealth(target)}", 45, 5 + font.FONT_HEIGHT, Color.WHITE.rgb)
-        RenderUtils.drawRoundedCornerRect(45f, (5 + font.FONT_HEIGHT  + font.FONT_HEIGHT).toFloat(), 45f + (easingHP / target.maxHealth) * 100f, 42f, 3f, ColorUtils.rainbow().rgb)
+        FontLoaders.F20.DisplayFonts("${target.name}", 45f, 12f, Color.WHITE.rgb,FontLoaders.F20)
+        FontLoaders.F14.DisplayFonts("Armor ${(PlayerUtils.getAr(target)*100)}%", 45f, 24f, Color(200,200,200).rgb,FontLoaders.F14)
+        RenderUtils.drawRoundedCornerRect(45f, 32f, 145f, 42f, 5f, Color(0,0,0,100).rgb)
+        RenderUtils.drawRoundedCornerRect(45f, 32f, 45f + (easingHP / target.maxHealth) * 100f, 42f, 5f, ColorUtils.rainbow().rgb)
+        FontLoaders.F14.DisplayFont2(FontLoaders.F14,"${((decimalFormat.format((easingHP / target.maxHealth) * 100)))}%", 80f, 34f, Color(255,255,255).rgb,true)
         
     }
     
