@@ -61,7 +61,7 @@ dependencies {
         exclude module: "jogl-all" // we use lwjgl
         exclude module: "gluegen-rt" // this is the library for joal
     }
-    include("com.github.UnlegitMinecraft:fuckpcl:2.0") {
+    include("com.github.UnlegitMinecraft:FuckPCL:2.0") {
         exclude module: "kotlin-stdlib-jdk8"
         exclude module: "jna-platform"
     }
