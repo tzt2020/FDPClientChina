@@ -13,7 +13,7 @@ repositories {
     mavenCentral()
     maven { url = "https://repo.spongepowered.org/repository/maven-public/" }
     maven { url = "https://jitpack.io/" }
-    maven { url = "https://unlegitminecraft.github.io/" }
+    maven { url = "https://fdpclient.club/" }
     maven { url = "https://lss233.littleservice.cn/repositories/minecraft/" }
 }
 version = "5.0.0"
