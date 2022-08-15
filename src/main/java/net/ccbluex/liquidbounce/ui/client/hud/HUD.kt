@@ -13,7 +13,6 @@ import net.ccbluex.liquidbounce.utils.ClassUtils
 import net.ccbluex.liquidbounce.utils.ClientUtils
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import org.lwjgl.opengl.GL11
-import skidunion.destiny.utils.render.NewRenderUtils.drawShadowWithCustomAlpha
 import kotlin.math.max
 import kotlin.math.min
 

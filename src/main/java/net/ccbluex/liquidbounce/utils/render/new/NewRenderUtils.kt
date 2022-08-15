@@ -4,10 +4,10 @@ import net.ccbluex.liquidbounce.LiquidBounce
 import net.ccbluex.liquidbounce.features.module.modules.client.HUD
 import net.ccbluex.liquidbounce.ui.RenderLeave
 import net.minecraft.client.Minecraft
-import net.minecraft.client.renderer.*
+import net.minecraft.client.renderer.GlStateManager
+import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
-import net.minecraft.util.*
-import org.lwjgl.opengl.GL11
+import net.minecraft.util.ResourceLocation
 import org.lwjgl.opengl.GL11.*
 
 

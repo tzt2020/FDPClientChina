@@ -5,7 +5,6 @@
  */
 package net.ccbluex.liquidbounce.injection.forge;
 
-import net.ccbluex.liquidbounce.injection.transformers.DisplayTransformer;
 import net.ccbluex.liquidbounce.injection.transformers.ForgeNetworkTransformer;
 import net.ccbluex.liquidbounce.injection.transformers.OptimizeTransformer;
 import net.ccbluex.liquidbounce.injection.transformers.ViaForgeSupportTransformer;

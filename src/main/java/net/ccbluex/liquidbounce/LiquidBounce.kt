@@ -11,7 +11,10 @@ import net.ccbluex.liquidbounce.event.EventManager
 import net.ccbluex.liquidbounce.features.command.CommandManager
 import net.ccbluex.liquidbounce.features.macro.MacroManager
 import net.ccbluex.liquidbounce.features.module.ModuleManager
-import net.ccbluex.liquidbounce.features.special.*
+import net.ccbluex.liquidbounce.features.special.AntiForge
+import net.ccbluex.liquidbounce.features.special.CombatManager
+import net.ccbluex.liquidbounce.features.special.DiscordRPC
+import net.ccbluex.liquidbounce.features.special.ServerSpoof
 import net.ccbluex.liquidbounce.file.FileManager
 import net.ccbluex.liquidbounce.file.config.ConfigManager
 import net.ccbluex.liquidbounce.launch.EnumLaunchFilter

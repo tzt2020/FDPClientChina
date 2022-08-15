@@ -12,8 +12,6 @@ import net.ccbluex.liquidbounce.ui.btn.TestBtn
 import net.ccbluex.liquidbounce.ui.client.GuiBackground
 import net.ccbluex.liquidbounce.ui.client.altmanager.GuiAltManager
 import net.ccbluex.liquidbounce.ui.i18n.LanguageManager
-import net.ccbluex.liquidbounce.utils.ClientUtils
-import net.ccbluex.liquidbounce.utils.misc.HttpUtils
 import net.ccbluex.liquidbounce.utils.misc.MiscUtils
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.client.gui.*
@@ -21,7 +19,6 @@ import net.minecraft.client.resources.I18n
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fml.client.GuiModList
 import java.awt.Color
-import java.io.File
 
 class GuiMainMenu : GuiScreen(), GuiYesNoCallback {
     var drawed = false;

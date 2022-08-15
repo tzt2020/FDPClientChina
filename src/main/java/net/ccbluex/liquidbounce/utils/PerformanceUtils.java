@@ -2,8 +2,6 @@ package net.ccbluex.liquidbounce.utils;
 
 
 import com.sun.management.OperatingSystemMXBean;
-import oshi.SystemInfo;
-import oshi.hardware.HardwareAbstractionLayer;
 
 import java.lang.management.ManagementFactory;
 

@@ -37,10 +37,7 @@ class CustomSpeed : SpeedMode("Custom") {
     private val AirSpaceKepPressed = BoolValue("CustomPressSpaceKeyInAir", false)
     private val usePreMotion = BoolValue("CustomUsePreMotion", true)
 
-
-
     private var groundTick = 0
-
 
     override fun onPreMotion() {
         if (!usePreMotion.get()) return

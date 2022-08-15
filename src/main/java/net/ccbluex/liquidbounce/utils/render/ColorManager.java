@@ -1,9 +1,8 @@
 package net.ccbluex.liquidbounce.utils.render;
 
-import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.minecraft.client.Minecraft;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class ColorManager {
     public static int getRainbow(int speed, int offset) {
