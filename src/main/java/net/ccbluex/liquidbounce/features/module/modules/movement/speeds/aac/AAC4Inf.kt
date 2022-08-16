@@ -16,6 +16,7 @@ class AAC4Inf : SpeedMode("AAC4Inf") {
         if (mc.thePlayer.fallDistance > 0.7 && mc.thePlayer.fallDistance < 1.3) {
             mc.timer.timerSpeed = 1.08f
         }
+
     }
 
     override fun onDisable() {
