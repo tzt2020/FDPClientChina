@@ -8,23 +8,31 @@ package net.ccbluex.liquidbounce.features.module.modules.movement.speeds.aac
 import net.ccbluex.liquidbounce.features.module.modules.movement.speeds.SpeedMode
 import net.ccbluex.liquidbounce.utils.MovementUtils
 
-class AAC2BHop : SpeedMode("AAC2BHop") {
-    override fun onPreMotion() {
-        if (mc.thePlayer.isInWater) return
-
-        if (MovementUtils.isMoving()) {
-            if (mc.thePlayer.onGround) {
-                mc.thePlayer.jump()
-                mc.thePlayer.motionX *= 1.02
-                mc.thePlayer.motionZ *= 1.02
-            } else if (mc.thePlayer.motionY > -0.2) {
-                mc.thePlayer.jumpMovementFactor = 0.08f
-                mc.thePlayer.motionY += 0.0143099999999999999999999999999
-                mc.thePlayer.jumpMovementFactor = 0.07f
-            }
-        } else {
-            mc.thePlayer.motionX = 0.0
-            mc.thePlayer.motionZ = 0.0
+class AAC2BHop : SpeedMode("AAC5Long") {
+    override fun onUpdate() {
+        if (mc.thePlayer!!.isInWater) return
+        if (!MovementUtils.isMoving()) {
+            return
         }
+        if (mc.thePlayer.onGround) {
+            mc.gameSettings.keyBindJump.pressed = false
+            mc.thePlayer.jump()
+        }
+        if (!mc.thePlayer.onGround && mc.thePlayer.fallDistance <= 0.1) {
+            mc.thePlayer.speedInAir = 0.02F
+            mc.timer.timerSpeed = 1.5F
+        }
+        if (mc.thePlayer.fallDistance > 0.1 && mc.thePlayer.fallDistance < 1.3) {
+            mc.timer.timerSpeed = 0.7F
+        }
+        if (mc.thePlayer.fallDistance >= 1.3) {
+            mc.timer.timerSpeed = 1F
+            mc.thePlayer.speedInAir = 0.02F
+        }
+    }
+
+    override fun onDisable() {
+        mc.thePlayer!!.speedInAir = 0.02f
+        mc.timer.timerSpeed = 1f
     }
 }
