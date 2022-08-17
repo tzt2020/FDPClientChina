@@ -3,7 +3,6 @@ package cn.hanabi.gui.cloudmusic;
 import cn.hanabi.gui.cloudmusic.api.CloudMusicAPI;
 import cn.hanabi.gui.cloudmusic.impl.Lyric;
 import cn.hanabi.gui.cloudmusic.impl.Track;
-import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import net.ccbluex.liquidbounce.LiquidBounce;
@@ -23,7 +22,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClients;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
