@@ -1,7 +1,12 @@
 package net.ccbluex.liquidbounce.utils.render;
 
+import net.minecraft.client.Minecraft;
+
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 public class ImageUtils {
@@ -9,16 +14,19 @@ public class ImageUtils {
      * Reads the image to a byte buffer that works with LWJGL.
      * @author func16
      */
-    public static ByteBuffer readImageToBuffer(BufferedImage bufferedImage){
-        int[] rgbArray = bufferedImage.getRGB(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight(), null, 0, bufferedImage.getWidth());
+    public static ByteBuffer readImageToBuffer(BufferedImage bufferedimage) {
+        int[] aint = bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), (int[])null, 0, bufferedimage.getWidth());
+        ByteBuffer bytebuffer = ByteBuffer.allocate(4 * aint.length);
+        int[] var5 = aint;
+        int var6 = aint.length;
 
-        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4 * rgbArray.length);
-        for(int rgb : rgbArray){
-            byteBuffer.putInt(rgb << 8 | rgb >> 24 & 255);
+        for(int var7 = 0; var7 < var6; ++var7) {
+            int i = var5[var7];
+            bytebuffer.putInt(i << 8 | i >> 24 & 255);
         }
-        byteBuffer.flip();
 
-        return byteBuffer;
+        bytebuffer.flip();
+        return bytebuffer;
     }
 
     /**

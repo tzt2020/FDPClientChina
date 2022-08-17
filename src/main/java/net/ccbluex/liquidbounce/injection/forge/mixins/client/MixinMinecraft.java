@@ -253,8 +253,12 @@ public abstract class MixinMinecraft {
             if(image.getWidth() != 32 || image.getHeight() != 32) {
                 image = ImageUtils.resizeImage(image, 32, 32);
             }
-            Display.setIcon(new ByteBuffer[]{ImageUtils.readImageToBuffer(ImageUtils.resizeImage(image, 16, 16)),
-                    ImageUtils.readImageToBuffer(image)});
+            try {
+                Display.setIcon(new ByteBuffer[]{ImageUtils.readImageToBuffer(ImageUtils.resizeImage(image, 16, 16)),
+                        ImageUtils.readImageToBuffer(image)});
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             callbackInfo.cancel();
         }
     }

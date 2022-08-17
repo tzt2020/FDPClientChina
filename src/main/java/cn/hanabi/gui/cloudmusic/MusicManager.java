@@ -173,10 +173,8 @@ public class MusicManager {
 
     public void play(Track track) throws Exception {
         this.noUpdate = false;
-
         this.lrcIndex = 0;
         this.tlrcIndex = 0;
-
         if (this.currentTrack != null && this.currentTrack.id == track.id) {
             this.noUpdate = true;
         } else {
