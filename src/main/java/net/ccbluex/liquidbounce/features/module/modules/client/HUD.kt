@@ -5,6 +5,8 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.client
 
+import cn.hanabi.gui.cloudmusic.ui.MusicOverlayRenderer
+import cn.hanabi.utils.RenderUtil
 import net.ccbluex.liquidbounce.LiquidBounce
 import net.ccbluex.liquidbounce.event.*
 import net.ccbluex.liquidbounce.features.module.Module
@@ -17,6 +19,7 @@ import net.ccbluex.liquidbounce.features.module.modules.client.button.RoundedBut
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
 import net.ccbluex.liquidbounce.utils.render.Animation
 import net.ccbluex.liquidbounce.utils.render.EaseUtils
+import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.ccbluex.liquidbounce.value.BoolValue
 import net.ccbluex.liquidbounce.value.FloatValue
 import net.ccbluex.liquidbounce.value.IntegerValue
@@ -31,6 +34,7 @@ object HUD : Module() {
     val betterHotbarValue = BoolValue("BetterHotbar", true)
     val HotbarBlur = BoolValue("HotbarBlur", true)
     val HotbarRect = BoolValue("HotbarRect", true)
+    val MusicDisplay = BoolValue("MusicDisplay", true)
     //val hotbarAlphaValue = IntegerValue("HotbarAlpha", 70, 0, 255).displayable { betterHotbarValue.get() }
     val hotbarEaseValue = BoolValue("HotbarEase", true)
     private val hotbarAnimSpeedValue = IntegerValue("HotbarAnimSpeed", 10, 5, 20).displayable { hotbarEaseValue.get() }
@@ -94,10 +98,13 @@ object HUD : Module() {
     @EventTarget
     fun onUpdate(event: UpdateEvent) {
         LiquidBounce.hud.update()
+        RenderUtil.delta = RenderUtils.deltaTime.toFloat()
         if (mc.currentScreen == null && lastFontEpsilon != fontEpsilonValue.get()) {
             lastFontEpsilon = fontEpsilonValue.get()
             alert("You need to reload FDPClient to apply changes!")
         }
+
+
         //if (betterHotbarValue.get()){
         //GL11.glPushMatrix()
 

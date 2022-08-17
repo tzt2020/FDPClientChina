@@ -100,7 +100,7 @@ class Notification(
      * Draw notification
      */
     fun drawNotification(index: Int, font: CFontRenderer, alpha: Int, blurRadius: Float, x: Float, y: Float, scale: Float,ContentShadow: Boolean,TitleShadow: Boolean,MotionBlur: Boolean): Boolean {
-        this.width = 100.coerceAtLeast(font.getStringWidth(content)
+        this.width = 100.coerceAtLeast(FontLoaders.C12.DisplayFontWidths(font,content)
             .coerceAtLeast(font.getStringWidth(title)) + 15)
         val realY = -(index+1) * height
         val nowTime = System.currentTimeMillis()

@@ -183,7 +183,7 @@ public abstract class MixinGuiScreen {
 
     @Inject(method = "initGui", at = @At("RETURN"))
     private void initGui(CallbackInfo callbackInfo) {
-        try {
+        /*try {
             Field fastRender = GameSettings.class.getDeclaredField("ofFastRender");
             if(fastRender.getBoolean((Object) Minecraft.getMinecraft().gameSettings)){
                 try {
@@ -219,7 +219,7 @@ public abstract class MixinGuiScreen {
             }
         } catch (Exception var1) {
             var1.printStackTrace();
-        }
+        }*/
     }
 
     @ModifyVariable(method = "sendChatMessage(Ljava/lang/String;)V", at = @At("HEAD"))

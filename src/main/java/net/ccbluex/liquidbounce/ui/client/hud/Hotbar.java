@@ -1,5 +1,6 @@
 package net.ccbluex.liquidbounce.ui.client.hud;
 
+import cn.hanabi.gui.cloudmusic.ui.MusicOverlayRenderer;
 import net.ccbluex.liquidbounce.LiquidBounce;
 import net.ccbluex.liquidbounce.features.module.modules.client.HUD;
 import net.ccbluex.liquidbounce.font.FontLoaders;
@@ -32,6 +33,7 @@ public class Hotbar {
         FontLoaders.C16.DisplayFonts(FontLoaders.C14, LiquidBounce.CLIENT_NAME + " " + LiquidBounce.CLIENT_VERSION, 7, sr.getScaledHeight() - 18, new Color(255, 255, 255).getRGB());
 
         FontLoaders.C16.DisplayFonts(FontLoaders.C14, "Language：" + Minecraft.getMinecraft().gameSettings.language+" | "+LiquidBounce.INSTANCE.getRENDERLEAVE()+" PERFORMANCE", 7, sr.getScaledHeight() - 10, new Color(255, 255, 255).getRGB());
+        if(HUD.INSTANCE.getMusicDisplay().get()) MusicOverlayRenderer.INSTANCE.renderOverlay();
     }
 
     public static void drawGuiBackground(double s) {
