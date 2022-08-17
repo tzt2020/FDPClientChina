@@ -1,17 +1,13 @@
 package cn.hanabi.gui.cloudmusic.ui;
 
 import cn.hanabi.gui.cloudmusic.MusicManager;
-import cn.hanabi.utils.RenderUtil;
-import net.ccbluex.liquidbounce.font.CFontRenderer;
 import net.ccbluex.liquidbounce.font.FontLoaders;
 import net.ccbluex.liquidbounce.ui.realpha;
-import net.ccbluex.liquidbounce.utils.ClientUtils;
-import net.ccbluex.liquidbounce.utils.Colors;
+import net.ccbluex.liquidbounce.utils.RenderUtil;
 import net.ccbluex.liquidbounce.utils.extensions.RendererExtensionKt;
 import net.ccbluex.liquidbounce.utils.timer.MSTimer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
@@ -45,8 +41,8 @@ public enum MusicOverlayRenderer {
         }
 
         if (MusicManager.INSTANCE.getCurrentTrack() != null && MusicManager.INSTANCE.getMediaPlayer() != null) {
-            FontLoaders.C18.DisplayFonts(FontLoaders.C18,MusicManager.INSTANCE.getCurrentTrack().name + " - " + MusicManager.INSTANCE.getCurrentTrack().artists, 36f + addonX, 10 + addonY, Color.WHITE.getRGB());
-            FontLoaders.C18.DisplayFonts(FontLoaders.C18,formatSeconds((int) readedSecs) + "/" + formatSeconds((int) totalSecs), 36f + addonX, 20f + addonY, 0xffffffff);
+            FontLoaders.C18.DisplayFonts(FontLoaders.C18, MusicManager.INSTANCE.getCurrentTrack().name + " - " + MusicManager.INSTANCE.getCurrentTrack().artists, 36f + addonX, 10 + addonY, Color.WHITE.getRGB());
+            FontLoaders.C18.DisplayFonts(FontLoaders.C18, formatSeconds((int) readedSecs) + "/" + formatSeconds((int) totalSecs), 36f + addonX, 20f + addonY, 0xffffffff);
 
             if (MusicManager.INSTANCE.circleLocations.containsKey(MusicManager.INSTANCE.getCurrentTrack().id)) {
                 GL11.glPushMatrix();
@@ -66,17 +62,19 @@ public enum MusicOverlayRenderer {
             }
         }
 
-        if(MusicManager.INSTANCE.lyric) { {
+        if (MusicManager.INSTANCE.lyric) {
+            {
 
-            FontRenderer lyricFont = Minecraft.getMinecraft().fontRendererObj;
-            int addonYlyr = 50;
-            //Lyric
-            int col = MusicManager.INSTANCE.tlrc.isEmpty() ? Color.GRAY.getRGB() : 0xff00af87;
-            GlStateManager.disableBlend();
-            RendererExtensionKt.drawCenteredString(lyricFont,MusicManager.INSTANCE.lrcCur.contains("_EMPTY_") ? "等待中......." : MusicManager.INSTANCE.lrcCur, (sr.getScaledWidth() / 2f - 0.5f), sr.getScaledHeight() - 140 - 80 + addonYlyr, 0xff00af87);
-            RendererExtensionKt.drawCenteredString(lyricFont,MusicManager.INSTANCE.tlrcCur.contains("_EMPTY_") ? "Waiting......." : MusicManager.INSTANCE.tlrcCur, (sr.getScaledWidth() / 2f), (sr.getScaledHeight() - 125 + 0.5f - 80 + addonYlyr), col);
-            GlStateManager.enableBlend();
-        }}
+                FontRenderer lyricFont = Minecraft.getMinecraft().fontRendererObj;
+                int addonYlyr = 50;
+                //Lyric
+                int col = MusicManager.INSTANCE.tlrc.isEmpty() ? Color.GRAY.getRGB() : 0xff00af87;
+                GlStateManager.disableBlend();
+                RendererExtensionKt.drawCenteredString(lyricFont, MusicManager.INSTANCE.lrcCur.contains("_EMPTY_") ? "等待中......." : MusicManager.INSTANCE.lrcCur, (sr.getScaledWidth() / 2f - 0.5f), sr.getScaledHeight() - 140 - 80 + addonYlyr, 0xff00af87);
+                RendererExtensionKt.drawCenteredString(lyricFont, MusicManager.INSTANCE.tlrcCur.contains("_EMPTY_") ? "Waiting......." : MusicManager.INSTANCE.tlrcCur, (sr.getScaledWidth() / 2f), (sr.getScaledHeight() - 125 + 0.5f - 80 + addonYlyr), col);
+                GlStateManager.enableBlend();
+            }
+        }
 
         if ((MusicManager.showMsg)) {
             if (firstTime) {

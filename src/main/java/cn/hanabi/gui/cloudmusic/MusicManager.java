@@ -40,11 +40,17 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MusicManager {
     public static MusicManager INSTANCE;
+    public static boolean showMsg = false;
 
     static {
         INSTANCE = new MusicManager();
     }
 
+    // 音乐封面缓存
+    private final HashMap<Long, ResourceLocation> artsLocations = new HashMap<>();
+    // 缓存文件夹
+    private final File musicFolder;
+    private final File artPicFolder;
     // 当前播放和播放列表
     public Track currentTrack = null;
     public ArrayList<Track> playlist = new ArrayList<>();
@@ -59,9 +65,7 @@ public class MusicManager {
     // 歌词
     public Thread lyricAnalyzeThread = null;
     public boolean lyric = false;
-	public static boolean showMsg = false;
-
-//	public ScrollingText songNameScroll;
+    //	public ScrollingText songNameScroll;
 //	public ScrollingText artistsScroll;
     public boolean noUpdate = false;
     public CopyOnWriteArrayList<Lyric> lrc = new CopyOnWriteArrayList<>();
@@ -72,13 +76,8 @@ public class MusicManager {
     public int lrcIndex = 0;
     public int tlrcIndex = 0;
     public File circleImage;
-    // 音乐封面缓存
-    private final HashMap<Long, ResourceLocation> artsLocations = new HashMap<>();
     // I'm stuck with JavaFX MediaPlayer :(
     private MediaPlayer mediaPlayer;
-    // 缓存文件夹
-    private final File musicFolder;
-    private final File artPicFolder;
 
 
     public MusicManager() {
@@ -191,9 +190,9 @@ public class MusicManager {
 
         this.downloadProgress = 0;
 
-		if (!showMsg) {
-			showMsg = true;
-		}
+        if (!showMsg) {
+            showMsg = true;
+        }
 
         if (mediaPlayer != null) {
             mediaPlayer.stop();
@@ -250,7 +249,7 @@ public class MusicManager {
                 if (repeat) {
                     try {
                         play(currentTrack);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 } else {
@@ -286,12 +285,11 @@ public class MusicManager {
                     if (!lyrics[1].equals("")) {
                         if (lyrics[1].equals("_NOLYRIC_")) {
                             this.tlrcCur = "纯音乐, 请欣赏";
-                        } else
-                            if (lyrics[1].equals("_UNCOLLECT_")) {
-                                this.tlrcCur = "该歌曲暂无歌词";
-                            } else {
-                                CloudMusicAPI.INSTANCE.analyzeLyric(this.tlrc, lyrics[1]);
-                            }
+                        } else if (lyrics[1].equals("_UNCOLLECT_")) {
+                            this.tlrcCur = "该歌曲暂无歌词";
+                        } else {
+                            CloudMusicAPI.INSTANCE.analyzeLyric(this.tlrc, lyrics[1]);
+                        }
                     } else {
                         this.tlrcCur = "(解析时发生错误或翻译歌词不存在)";
                         this.tlrc.clear();
@@ -439,7 +437,7 @@ public class MusicManager {
                     }
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -468,7 +466,7 @@ public class MusicManager {
                     }
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -5,8 +5,7 @@
  */
 package net.ccbluex.liquidbounce.features.module.modules.client
 
-import cn.hanabi.gui.cloudmusic.ui.MusicOverlayRenderer
-import cn.hanabi.utils.RenderUtil
+import net.ccbluex.liquidbounce.utils.RenderUtil
 import net.ccbluex.liquidbounce.LiquidBounce
 import net.ccbluex.liquidbounce.event.*
 import net.ccbluex.liquidbounce.features.module.Module
