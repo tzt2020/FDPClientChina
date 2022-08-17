@@ -15,6 +15,9 @@ import java.awt.*;
 import java.text.DecimalFormat;
 
 public class drawCode {
+    /**
+     * stay mad bro~
+     * */
     public static void drawFDP(EntityLivingBase target, DecimalFormat decimalFormat,float easingHP) {
         int n;
         float f;
