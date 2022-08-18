@@ -29,7 +29,7 @@ public class ConnectingUI {
         width=scaledResolution.getScaledWidth();
         height=scaledResolution.getScaledHeight();
         NewRenderUtils.drawShadowWithCustomAlpha((float) ((width / 2) - 120f), (float) ((height / 2) - 50f), 240f,105f,255);
-        BlurUtils.INSTANCE.draw((float) ((width / 2) - 120f), (float) ((height / 2) - 50f), 240f,105f,15f);
+        if(!GuiSelectPerformance.offblur) BlurUtils.INSTANCE.draw((float) ((width / 2) - 120f), (float) ((height / 2) - 50f), 240f,105f,15f);
         Gui.drawRect((int) ((width / 2) - 120), (int) ((height / 2) + 55), (int) ((width / 2) + 120), (int) ((height / 2) - 50), new Color(0, 0, 0, 130).getRGB());
         //Gui.drawRect((int) ((width / 2)-160), (int) ((height / 2)-80), (int) ((width / 2)+160), (int) ((height / 2)-50),new Color(0,0,0,120).getRGB());
         RenderUtils.drawLoadingCircle((float) (width / 2), (float) (height / 2)-20);

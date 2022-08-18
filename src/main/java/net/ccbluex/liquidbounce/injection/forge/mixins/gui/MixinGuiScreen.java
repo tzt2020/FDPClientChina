@@ -7,9 +7,11 @@ package net.ccbluex.liquidbounce.injection.forge.mixins.gui;
 
 import net.ccbluex.liquidbounce.LiquidBounce;
 import net.ccbluex.liquidbounce.features.module.modules.client.HUD;
+import net.ccbluex.liquidbounce.features.module.modules.client.PerformanceLevel;
 import net.ccbluex.liquidbounce.features.special.GradientBackground;
 import net.ccbluex.liquidbounce.font.FontLoaders;
 import net.ccbluex.liquidbounce.ui.client.GuiBackground;
+import net.ccbluex.liquidbounce.ui.client.GuiSelectPerformance;
 import net.ccbluex.liquidbounce.utils.NotiUtils;
 import net.ccbluex.liquidbounce.utils.render.BlurUtils;
 import net.ccbluex.liquidbounce.utils.render.ParticleUtils;
@@ -98,7 +100,7 @@ public abstract class MixinGuiScreen {
         try {
             if (mc.thePlayer != null) {
                 callbackInfo.cancel();
-                if (HUD.INSTANCE.getBlurValue().get())
+                if (HUD.INSTANCE.getBlurValue().get() && !GuiSelectPerformance.offblur)
                     BlurUtils.INSTANCE.draw(0, 0, this.width, this.height, 50);
                 int defaultHeight1 = (this.height);
                 int defaultWidth1 = (this.width);
@@ -251,7 +253,7 @@ public abstract class MixinGuiScreen {
                 mc.getTextureManager().bindTexture(LiquidBounce.INSTANCE.getBackground());
                 Gui.drawModalRectWithCustomSizedTexture(0, 0, 0f, 0f, width, height, width, height);
             }
-            if (GuiBackground.Companion.getBlur()) {
+            if (GuiBackground.Companion.getBlur() && !GuiSelectPerformance.offblur) {
                 BlurUtils.INSTANCE.draw(0, 0, mc.displayWidth, mc.displayHeight, 50);
             }
             GlStateManager.resetColor();

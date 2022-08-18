@@ -7,6 +7,7 @@ import net.ccbluex.liquidbounce.font.FontLoaders;
 import net.ccbluex.liquidbounce.launch.data.legacyui.scriptOnline.ScriptSubscribe;
 import net.ccbluex.liquidbounce.launch.data.legacyui.scriptOnline.Subscriptions;
 import net.ccbluex.liquidbounce.script.Script;
+import net.ccbluex.liquidbounce.ui.client.GuiSelectPerformance;
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification;
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.NotifyType;
 import net.ccbluex.liquidbounce.utils.render.BlurUtils;
@@ -296,7 +297,7 @@ public class GuiScriptLoadMenu extends GuiScreen {
             }
         }
 
-        if (pct == 0 && timer2.timePassed() != 0)
+        if (pct == 0 && timer2.timePassed() != 0 && !GuiSelectPerformance.offblur)
             BlurUtils.INSTANCE.draw(x, y, 120, 300, (float) timer2.timePassed() <= 200f ? 30f * (timer2.timePassed() / 200f) : 30f);
         SmoothRenderUtils.drawRect(x, y, x + 120, y + 300, new Color(31, 31, 31, (int) (180 * (1 - pct))).getRGB());
         SmoothRenderUtils.drawRoundRect(x + 120, y, x + 500, y + 300, 7f, new Color(24, 24, 24, 255).getRGB());

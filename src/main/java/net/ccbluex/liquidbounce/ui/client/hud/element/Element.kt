@@ -6,6 +6,7 @@
 package net.ccbluex.liquidbounce.ui.client.hud.element
 
 import net.ccbluex.liquidbounce.injection.access.StaticStorage
+import net.ccbluex.liquidbounce.ui.client.GuiSelectPerformance
 import net.ccbluex.liquidbounce.utils.ClassUtils
 import net.ccbluex.liquidbounce.utils.MinecraftInstance
 import net.ccbluex.liquidbounce.utils.render.BlurUtils
@@ -124,7 +125,7 @@ abstract class Element(
         val width = abs(border!!.x2 - border!!.x)
         val height = abs(border!!.y2 - border!!.y)
 
-        BlurUtils.draw(posX * scale, posY * scale, width * scale, height * scale, blurRadius)
+        if(!GuiSelectPerformance.offblur) BlurUtils.draw(posX * scale, posY * scale, width * scale, height * scale, blurRadius)
     }
 
     protected fun blur(x: Float, y: Float, x2: Float, y2: Float) {
@@ -132,7 +133,7 @@ abstract class Element(
             return
         }
 
-        BlurUtils.draw((renderX + (x.coerceAtMost(x2))).toFloat() * scale, (renderY + (y.coerceAtMost(y2))).toFloat() * scale, abs(x2 - x) * scale, abs(y2 - y) * scale, blurValue.get())
+        if(!GuiSelectPerformance.offblur) BlurUtils.draw((renderX + (x.coerceAtMost(x2))).toFloat() * scale, (renderY + (y.coerceAtMost(y2))).toFloat() * scale, abs(x2 - x) * scale, abs(y2 - y) * scale, blurValue.get())
     }
 
     /**

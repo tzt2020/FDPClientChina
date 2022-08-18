@@ -8,6 +8,7 @@ package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 import net.ccbluex.liquidbounce.LiquidBounce
 import net.ccbluex.liquidbounce.font.CFontRenderer
 import net.ccbluex.liquidbounce.font.FontLoaders
+import net.ccbluex.liquidbounce.ui.client.GuiSelectPerformance
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
@@ -156,7 +157,7 @@ class Notification(
         val transX = width - (width * pct) - width
         GL11.glTranslated(transX, transY, 0.0)
         if (blurRadius != 0f) {
-            BlurUtils.draw(4 + (x + transX).toFloat() * scale, (y + transY).toFloat() * scale, (width * scale) , (height.toFloat()-5f) * scale, blurRadius)
+            if(!GuiSelectPerformance.offblur) BlurUtils.draw(4 + (x + transX).toFloat() * scale, (y + transY).toFloat() * scale, (width * scale) , (height.toFloat()-5f) * scale, blurRadius)
         }
 
         // draw notify
