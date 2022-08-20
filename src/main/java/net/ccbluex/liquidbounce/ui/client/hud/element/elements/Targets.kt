@@ -404,9 +404,6 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
     private fun drawFDP(target: EntityLivingBase) {
         drawCode.drawFDP(target,decimalFormat,easingHP)
     }
-    
-    
-
 
     private fun drawFlux(target: EntityLivingBase) {
         val width = (38 + target.name.let(Fonts.font40::getStringWidth))

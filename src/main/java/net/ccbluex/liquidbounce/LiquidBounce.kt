@@ -24,6 +24,7 @@ import net.ccbluex.liquidbounce.launch.data.GuiLaunchOptionSelectMenu
 import net.ccbluex.liquidbounce.launch.data.legacyui.scriptOnline.ScriptSubscribe
 import net.ccbluex.liquidbounce.launch.data.legacyui.scriptOnline.Subscriptions
 import net.ccbluex.liquidbounce.script.ScriptManager
+import net.ccbluex.liquidbounce.sound.TipSoundManager
 import net.ccbluex.liquidbounce.ui.RenderLeave
 import net.ccbluex.liquidbounce.ui.cape.GuiCapeManager
 import net.ccbluex.liquidbounce.ui.client.hud.HUD
@@ -31,17 +32,16 @@ import net.ccbluex.liquidbounce.ui.client.keybind.KeyBindManager
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.ui.font.FontsGC
 import net.ccbluex.liquidbounce.ui.i18n.LanguageManager
-import net.ccbluex.liquidbounce.ui.sound.TipSoundManager
-import net.ccbluex.liquidbounce.utils.ClassUtils
-import net.ccbluex.liquidbounce.utils.ClientUtils
-import net.ccbluex.liquidbounce.utils.InventoryUtils
-import net.ccbluex.liquidbounce.utils.RotationUtils
+import net.ccbluex.liquidbounce.utils.*
 import net.ccbluex.liquidbounce.utils.misc.HttpUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiScreen
 import net.minecraft.util.ResourceLocation
+import java.awt.SystemTray
+import java.awt.TrayIcon
 import java.util.*
+import javax.imageio.ImageIO
 import kotlin.concurrent.thread
 
 object LiquidBounce {
@@ -49,8 +49,8 @@ object LiquidBounce {
 
     // Client information
     const val CLIENT_NAME = "FDPCN CLIENT"
-    var RENDERLEAVE=RenderLeave.HIGH;
-    var RENDERLEAVESELECTED=0;
+    var RENDERLEAVE=RenderLeave.HIGH
+    var RENDERLEAVESELECTED=0
     var CLIENTTEXT = "Waiting..."
     var Darkmode = true
     var FPSLime=200
@@ -134,7 +134,7 @@ object LiquidBounce {
      */
     fun initClient() {
         ClientUtils.logInfo("Loading $CLIENT_NAME $CLIENT_VERSION, by $CLIENT_CREATOR")
-        ClientUtils.setTitle("Initializing...");
+        ClientUtils.setTitle("Initializing...")
         val startTime = System.currentTimeMillis()
         // Create file manager
         fileManager = FileManager()
@@ -218,7 +218,7 @@ object LiquidBounce {
         if (CLIENT_VERSION != "unknown") {
             thread(block = this::checkUpdate)
         }
-        ClientUtils.setTitle("Loading script subscripts...");
+        ClientUtils.setTitle("Loading script subscripts...")
         for (subscript in fileManager.subscriptsConfig.subscripts) {
             //println(subscript.url+":"+subscript.name)
             Subscriptions.addSubscribes(ScriptSubscribe(subscript.url, subscript.name))
@@ -230,7 +230,7 @@ object LiquidBounce {
             scriptManager.loadScripts()
             scriptManager.enableScripts()
         }
-        ClientUtils.setTitle();
+        ClientUtils.setTitle()
         ClientUtils.logInfo("$CLIENT_NAME $CLIENT_VERSION loaded in ${(System.currentTimeMillis() - startTime)}ms!")
     }
 
@@ -275,6 +275,8 @@ object LiquidBounce {
         // Set is starting status
         isStarting = false
         isLoadingConfig = false
+        NotifyUtil.start()
+        tipSoundManager.startup.asyncPlay()
 
         ClientUtils.logInfo("$CLIENT_NAME $CLIENT_VERSION started!")
     }
