@@ -13,6 +13,7 @@ import net.ccbluex.liquidbounce.utils.block.BlockUtils;
 import net.ccbluex.liquidbounce.utils.render.glu.DirectTessCallback;
 import net.ccbluex.liquidbounce.utils.render.glu.VertexData;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.*;
@@ -1235,6 +1236,24 @@ public final class RenderUtils extends MinecraftInstance {
     public static int Astolfo(int var2, float st, float bright) {
         double currentColor = Math.ceil(System.currentTimeMillis() + (long) (var2 * 130)) / 6;
         return Color.getHSBColor((double) ((float) ((currentColor %= 360.0) / 360.0)) < 0.5 ? -((float) (currentColor / 360.0)) : (float) (currentColor / 360.0), st, bright).getRGB();
+    }
+
+    public static void startDrawing() {
+        GL11.glEnable(3042);
+        GL11.glEnable(3042);
+        GL11.glBlendFunc(770, 771);
+        GL11.glEnable(2848);
+        GL11.glDisable(3553);
+        GL11.glDisable(2929);
+        Minecraft.getMinecraft().entityRenderer.setupCameraTransform(Minecraft.getMinecraft().timer.renderPartialTicks, 0);
+    }
+
+    public static void stopDrawing() {
+        GL11.glDisable(3042);
+        GL11.glEnable(3553);
+        GL11.glDisable(2848);
+        GL11.glDisable(3042);
+        GL11.glEnable(2929);
     }
 
 }
