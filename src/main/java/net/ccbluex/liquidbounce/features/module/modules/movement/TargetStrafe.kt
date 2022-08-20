@@ -1,9 +1,7 @@
 package net.ccbluex.liquidbounce.features.module.modules.movement
 
 import net.ccbluex.liquidbounce.LiquidBounce
-import net.ccbluex.liquidbounce.event.EventTarget
-import net.ccbluex.liquidbounce.event.MovementEvent
-import net.ccbluex.liquidbounce.event.Render3DEvent
+import net.ccbluex.liquidbounce.event.*
 import net.ccbluex.liquidbounce.features.module.Module
 import net.ccbluex.liquidbounce.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.features.module.ModuleInfo
@@ -20,17 +18,29 @@ import org.lwjgl.opengl.GL11
 import java.awt.Color
 import kotlin.math.*
 
-
 @ModuleInfo(name = "TargetStrafe", category = ModuleCategory.MOVEMENT)
 class TargetStrafe : Module() {
-    private val renderModeValue = ListValue("RenderMode", arrayOf("Circle", "None"), "Pentagon")
+
+    private val renderModeValue = ListValue("RenderMode", arrayOf("Circle", "None"), "Circle")
     private val thirdPersonViewValue = BoolValue("ThirdPersonView", false)
-    val radiusValue = FloatValue("Radius", 0.1f, 0.5f, 5.0f)
+    val radiusValue = FloatValue("Radius", 0.5f, 0.1f, 5.0f)
     val holdSpaceValue = BoolValue("HoldSpace", false)
-    private val onlySpeedValue = BoolValue("OnlySpeed", false)
+    private val onlySpeedValue = BoolValue("OnlySpeed", true)
     private val onlyflyValue = BoolValue("keyFly", false)
     private var direction = -1
-    private val killAura = LiquidBounce.moduleManager[KillAura::class.java] as KillAura
+    private lateinit var killAura :KillAura
+
+    @EventTarget
+    fun onKill(event : EntityKilledEvent) {
+        if (thirdPersonViewValue.get()) mc.gameSettings.thirdPersonView = 0
+    }
+
+    @EventTarget
+    fun onWorld(event: WorldEvent) {
+        if (thirdPersonViewValue.get()) mc.gameSettings.thirdPersonView = 0
+    }
+
+
     /**
      *
      * @param event Render3DEvent
@@ -291,5 +301,18 @@ class TargetStrafe : Module() {
         }
         return true
     }
+
+    fun getData(): Array<Float> {
+        if (killAura.target == null) return arrayOf(0F, 0F, 0F)
+
+        val target = killAura.target!!
+        val rotYaw = RotationUtils.getRotationsEntity(target).yaw
+
+        val forward = if (mc.thePlayer.getDistanceToEntity(target) <= radiusValue.get()) 0F else 1F
+        val strafe = direction.toFloat()
+
+        return arrayOf(rotYaw, strafe, forward)
+    }
+
 
 }
