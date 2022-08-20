@@ -7,7 +7,6 @@ package net.ccbluex.liquidbounce.utils.render;
 
 import net.ccbluex.liquidbounce.injection.access.StaticStorage;
 import net.ccbluex.liquidbounce.ui.font.Fonts;
-import net.ccbluex.liquidbounce.utils.ClientUtils;
 import net.ccbluex.liquidbounce.utils.MathUtils;
 import net.ccbluex.liquidbounce.utils.MinecraftInstance;
 import net.ccbluex.liquidbounce.utils.block.BlockUtils;
@@ -1231,4 +1230,11 @@ public final class RenderUtils extends MinecraftInstance {
 
         return textureId;
     }
+
+    // Astolfo
+    public static int Astolfo(int var2, float st, float bright) {
+        double currentColor = Math.ceil(System.currentTimeMillis() + (long) (var2 * 130)) / 6;
+        return Color.getHSBColor((double) ((float) ((currentColor %= 360.0) / 360.0)) < 0.5 ? -((float) (currentColor / 360.0)) : (float) (currentColor / 360.0), st, bright).getRGB();
+    }
+
 }
