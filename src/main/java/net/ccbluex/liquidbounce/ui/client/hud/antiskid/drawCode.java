@@ -859,7 +859,8 @@ public class drawCode {
         int n845 = ~(n831 - 1);
         int n885 = (int)73750442L;
         int n886 = (n885 | ~73750370) - ~73750370;
-        FontLoaders.F14.DisplayFonts("Armor " + (PlayerUtils.INSTANCE.getAr(target) * 100) + "%", Float.intBitsToFloat((int)1110704128), Float.intBitsToFloat((int)1103101952), new Color(200,200,200).getRGB(), FontLoaders.F14);
+        DecimalFormat df = new DecimalFormat("0.00");
+        FontLoaders.F14.DisplayFonts("Armor " + (df.format(PlayerUtils.INSTANCE.getAr(target) * 100)) + "%", Float.intBitsToFloat((int)1110704128), Float.intBitsToFloat((int)1103101952), new Color(200,200,200).getRGB(), FontLoaders.F14);
         int n921 = (int)-1928256763L;
         int n922 = -1928256763 + ~((n921 | ~-1928256763) - ~-1928256763 - n921 - 1) + 1;
         int n923 = (n922 & ~1) * 2 - (n922 ^ 1);
