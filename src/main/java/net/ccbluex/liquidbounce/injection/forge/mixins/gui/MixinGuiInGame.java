@@ -70,7 +70,7 @@ public abstract class MixinGuiInGame extends MixinGui {
         }
 
         if (Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityPlayer) {
-            boolean canBetterHotbar = hud.getState() && hud.getBetterHotbarValue().get();
+            boolean canBetterHotbar = hud.getState() && hud.getBetterHotbarValue().get() && !hud.getNohotbar().get();
             mc.getTextureManager().bindTexture(widgetsTexPath);
             EntityPlayer entityplayer = (EntityPlayer) mc.getRenderViewEntity();
             int i = sr.getScaledWidth() / 2;
@@ -105,9 +105,8 @@ public abstract class MixinGuiInGame extends MixinGui {
                 GlStateManager.disableRescaleNormal();
                 GlStateManager.disableBlend();
             }
+            LiquidBounce.eventManager.callEvent(new Render2DEvent(partialTicks, StaticStorage.scaledResolution));
         }
-
-        LiquidBounce.eventManager.callEvent(new Render2DEvent(partialTicks, StaticStorage.scaledResolution));
     }
 
     @Inject(method = "renderPumpkinOverlay", at = @At("HEAD"), cancellable = true)
