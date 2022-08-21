@@ -1256,4 +1256,15 @@ public final class RenderUtils extends MinecraftInstance {
         GL11.glEnable(2929);
     }
 
+    public static void drawTexturedRect(float x, float y, float width, float height, String image, ScaledResolution sr) {
+        GL11.glPushMatrix();
+        GlStateManager.enableBlend();
+        GlStateManager.disableAlpha();
+        mc.getTextureManager().bindTexture(new ResourceLocation("fdpclient/image/" + image + ".png"));
+        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        Gui.drawModalRectWithCustomSizedTexture((int)x, (int)y, 0.0f, 0.0f, (int)width, (int)height, (int)width, (int)height);
+        GlStateManager.disableBlend();
+        GlStateManager.enableAlpha();
+        GL11.glPopMatrix();
+    }
 }
