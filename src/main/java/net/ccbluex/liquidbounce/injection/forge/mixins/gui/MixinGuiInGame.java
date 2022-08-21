@@ -79,30 +79,32 @@ public abstract class MixinGuiInGame extends MixinGui {
             int itemX = i - 91 + HUD.INSTANCE.getHotbarEasePos(entityplayer.inventory.currentItem * 20);
             if (canBetterHotbar) {
                 //GlStateManager.disableTexture2D();
-                Hotbar.render(sr, itemX,partialTicks);
+                Hotbar.render(sr, itemX, partialTicks);
                 //GlStateManager.enableTexture2D();
             }
-            GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            if (!hud.getNohotbar().get()) {
+                GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
-            GlStateManager.enableRescaleNormal();
-            GlStateManager.enableBlend();
-            GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-            if (!canBetterHotbar) {
-                this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
-                this.drawTexturedModalRect(itemX - 1, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
+                GlStateManager.enableRescaleNormal();
+                GlStateManager.enableBlend();
+                GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+                if (!canBetterHotbar) {
+                    this.drawTexturedModalRect(i - 91, sr.getScaledHeight() - 22, 0, 0, 182, 22);
+                    this.drawTexturedModalRect(itemX - 1, sr.getScaledHeight() - 22 - 1, 0, 22, 24, 22);
+                }
+                this.zLevel = f;
+                RenderHelper.enableGUIStandardItemLighting();
+
+                for (int j = 0; j < 9; ++j) {
+                    int k = sr.getScaledWidth() / 2 - 90 + j * 20 + 2;
+                    int l = sr.getScaledHeight() - 16 - 3;
+                    this.renderHotbarItem(j, k, l, partialTicks, entityplayer);
+                }
+
+                RenderHelper.disableStandardItemLighting();
+                GlStateManager.disableRescaleNormal();
+                GlStateManager.disableBlend();
             }
-            this.zLevel = f;
-            RenderHelper.enableGUIStandardItemLighting();
-
-            for (int j = 0; j < 9; ++j) {
-                int k = sr.getScaledWidth() / 2 - 90 + j * 20 + 2;
-                int l = sr.getScaledHeight() - 16 - 3;
-                this.renderHotbarItem(j, k, l, partialTicks, entityplayer);
-            }
-
-            RenderHelper.disableStandardItemLighting();
-            GlStateManager.disableRescaleNormal();
-            GlStateManager.disableBlend();
         }
 
         LiquidBounce.eventManager.callEvent(new Render2DEvent(partialTicks, StaticStorage.scaledResolution));
