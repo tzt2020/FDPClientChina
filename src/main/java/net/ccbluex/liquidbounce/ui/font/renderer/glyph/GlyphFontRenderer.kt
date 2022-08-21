@@ -15,8 +15,12 @@ class GlyphFontRenderer(font: Font) : AbstractAwtFontRender(font) {
      */
     private fun renderCharImage(char: String): CachedGlyphFont {
         val charWidth = fontMetrics.stringWidth(char)
-
-        val image = BufferedImage(charWidth, fontHeight, BufferedImage.TYPE_INT_ARGB)
+        val image:BufferedImage = try {
+            BufferedImage(charWidth, fontHeight, BufferedImage.TYPE_INT_ARGB)
+        }catch (e:Exception){
+            e.printStackTrace()
+            BufferedImage(fontMetrics.stringWidth("?"), fontHeight, BufferedImage.TYPE_INT_ARGB)
+        }
         val graphics = image.createGraphics()
 
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
