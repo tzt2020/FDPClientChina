@@ -18,9 +18,9 @@ class hotbarutil {
             if (lvt_7_1_ > 0.0f) {
                 GlStateManager.pushMatrix()
                 val lvt_8_1_ = 1.0f + lvt_7_1_ / 5.0f
-                GlStateManager.translate((xPos + 8).toFloat(), (yPos + 12).toFloat(), 0.0f)
+                GlStateManager.translate((xPos + 8), (yPos + 12), 0.0f)
                 GlStateManager.scale(1.0f / lvt_8_1_, (lvt_8_1_ + 1.0f) / 2.0f, 1.0f)
-                GlStateManager.translate((-(xPos + 8)).toFloat(), (-(yPos + 12)).toFloat(), 0.0f)
+                GlStateManager.translate((-(xPos + 8)), (-(yPos + 12)), 0.0f)
             }
             RenderUtils.drawTexturedRect(
                 xPos - 2,
@@ -29,7 +29,7 @@ class hotbarutil {
                 20f,
                 "hotbar",
                 ScaledResolution(Minecraft.getMinecraft())
-            );
+            )
             RenderUtils.drawTexturedRect(
                 xPos - 2,
                 yPos - -3,
@@ -37,7 +37,7 @@ class hotbarutil {
                 20f,
                 "hotbar",
                 ScaledResolution(Minecraft.getMinecraft())
-            );
+            )
 
             //RenderUtils.drawTexturedRect(xPos - 7, yPos -7,30f,30f,"hotbar",  ScaledResolution(Minecraft.getMinecraft()));
             //RenderUtils.drawTexturedRect(xPos - 7, yPos -7,30f,30f,"hotbar",  ScaledResolution(Minecraft.getMinecraft()));
