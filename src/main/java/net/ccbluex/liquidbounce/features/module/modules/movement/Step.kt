@@ -31,14 +31,14 @@ class Step : Module() {
      */
 
     private val modeValue = ListValue("Mode", arrayOf("Vanilla", "Jump", "Matrix6.7.0",
-                                                      "NCP", "NCPNew", "MotionNCP", "OldNCP",
-                                                      "OldAAC", "LAAC", "AAC3.3.4", "AAC3.6.4", "AAC4.4.0",
-                                                      "Spartan", "Rewinside", "Vulcan"), "NCP")
+        "NCP", "NCPNew", "MotionNCP", "OldNCP",
+        "OldAAC", "LAAC", "AAC3.3.4", "AAC3.6.4", "AAC4.4.0",
+        "Spartan", "Rewinside", "Vulcan", "Verus"), "NCP")
     private val heightValue = FloatValue("Height", 1F, 0.6F, 10F)
     private val jumpHeightValue = FloatValue("JumpMotion", 0.42F, 0.37F, 0.42F).displayable { modeValue.equals("Jump") || modeValue.equals("TimerJump") }
     private val delayValue = IntegerValue("Delay", 0, 0, 500)
-    private val timerValue = FloatValue("Timer", 1F, 0.05F, 1F).displayable { !modeValue.equals("Matrix6.7.0") }
-    private val timerDynValue = BoolValue("UseDynamicTimer", false).displayable { !modeValue.equals("Matrix6.7.0") }
+    private val timerValue = FloatValue("Timer", 1F, 0.05F, 1F).displayable { !modeValue.equals("Matrix6.7.0") && !modeValue.equals("Verus") }
+    private val timerDynValue = BoolValue("UseDynamicTimer", false).displayable { !modeValue.equals("Matrix6.7.0") && !modeValue.equals("Verus")}
 
     /**
      * VALUES
@@ -79,9 +79,9 @@ class Step : Module() {
             canStep = false
             mc.thePlayer.stepHeight = 0.6F
         }
-        
+
         lastOnGround = mc.thePlayer.onGround
-        
+
         if (wasTimer) {
             wasTimer = false
             if(modeValue.equals("AAC4.4.0")) {
@@ -91,7 +91,7 @@ class Step : Module() {
             mc.timer.timerSpeed = 1.0F
         }
         val mode = modeValue.get()
-        
+
 
         // Motion steps
         when {
@@ -245,17 +245,17 @@ class Step : Module() {
             val height = heightValue.get()
 
             // Detect possible step
-            
+
             mc.thePlayer.stepHeight = height
             event.stepHeight = height
-            
+
             if (event.stepHeight > 0.6F) {
                 isStep = true
                 stepX = mc.thePlayer.posX
                 stepY = mc.thePlayer.posY
                 stepZ = mc.thePlayer.posZ
             }
-            
+
         } else {
             if (!isStep) { // Check if step
                 return
@@ -280,7 +280,7 @@ class Step : Module() {
                             stepY + 0.7531999805212, stepZ, false))
                         timer.reset()
                     }
-                    
+
                     mode.equals("NCPNew", ignoreCase = true) -> {
                         val rstepHeight = mc.thePlayer.entityBoundingBox.minY - stepY
                         fakeJump()
@@ -294,7 +294,7 @@ class Step : Module() {
                                 mc.thePlayer.motionX = 0.0
                                 mc.thePlayer.motionZ = 0.0
                             }
-                            
+
                             rstepHeight <= 2.019 && rstepHeight > 1.869 -> {
                                 val stpPacket = arrayOf(0.425, 0.821, 0.699, 0.599, 1.022, 1.372, 1.652, 1.869)
                                 stpPacket.forEach {
@@ -304,7 +304,7 @@ class Step : Module() {
                                 mc.thePlayer.motionX = 0.0
                                 mc.thePlayer.motionZ = 0.0
                             }
-                            
+
                             rstepHeight <= 1.869 && rstepHeight > 1.5 -> {
                                 val stpPacket = arrayOf(0.425, 0.821, 0.699, 0.599, 1.022, 1.372, 1.652)
                                 stpPacket.forEach {
@@ -314,7 +314,7 @@ class Step : Module() {
                                 mc.thePlayer.motionX = 0.0
                                 mc.thePlayer.motionZ = 0.0
                             }
-                            
+
                             rstepHeight <= 1.5 && rstepHeight > 1.015 -> {
                                 val stpPacket = arrayOf(0.42, 0.7532, 1.01, 1.093, 1.015)
                                 stpPacket.forEach {
@@ -322,7 +322,7 @@ class Step : Module() {
                                         stepY + it, stepZ, false))
                                 }
                             }
-                            
+
                             rstepHeight <= 1.015 && rstepHeight > 0.875 -> {
                                 val stpPacket = arrayOf(0.41999998688698, 0.7531999805212)
                                 stpPacket.forEach {
@@ -330,7 +330,7 @@ class Step : Module() {
                                         stepY + it, stepZ, false))
                                 }
                             }
-                            
+
                             rstepHeight <= 0.875 && rstepHeight > 0.6 -> {
                                 val stpPacket = arrayOf(0.39, 0.6938)
                                 stpPacket.forEach {
@@ -341,7 +341,18 @@ class Step : Module() {
                         }
                         timer.reset()
                     }
-                    
+
+                    mode.equals("Verus", ignoreCase = true) -> {
+                        val rstepHeight = mc.thePlayer.entityBoundingBox.minY - stepY
+                        mc.timer.timerSpeed = 0.42f
+                        var stpHight = 0.0
+                        fakeJump()
+                        repeat ((Math.ceil(rstepHeight * 2.0) - 1.0).toInt()) {
+                            stpHight += 0.5
+                            mc.thePlayer.sendQueue.addToSendQueue(C03PacketPlayer.C04PacketPlayerPosition(stepX, stepY + stpHight, stepZ, true))
+                        }
+                    }
+
                     mode.equals("Vulcan", ignoreCase = true) -> {
                         val rstepHeight = mc.thePlayer.entityBoundingBox.minY - stepY
                         fakeJump()
@@ -353,7 +364,7 @@ class Step : Module() {
                                         stepY + it, stepZ, true))
                                 }
                             }
-                            
+
                             rstepHeight <= 2.0 && rstepHeight > 1.5 -> {
                                 val stpPacket = arrayOf(0.5, 1.0, 1.5)
                                 stpPacket.forEach {
@@ -361,7 +372,7 @@ class Step : Module() {
                                         stepY + it, stepZ, true))
                                 }
                             }
-                            
+
                             rstepHeight <= 1.5 && rstepHeight > 1.0 -> {
                                 val stpPacket = arrayOf(0.5, 1.0)
                                 stpPacket.forEach {
@@ -369,7 +380,7 @@ class Step : Module() {
                                         stepY + it, stepZ, true))
                                 }
                             }
-                            
+
                             rstepHeight <= 1.0 && rstepHeight > 0.6 -> {
                                 val stpPacket = arrayOf(0.5)
                                 stpPacket.forEach {
@@ -380,7 +391,7 @@ class Step : Module() {
                         }
                         timer.reset()
                     }
-                    
+
                     mode.equals("Matrix6.7.0", ignoreCase = true) -> {
                         val rstepHeight = mc.thePlayer.entityBoundingBox.minY - stepY
                         fakeJump()
@@ -399,7 +410,7 @@ class Step : Module() {
                                 mc.timer.timerSpeed = 0.11f
                                 wasTimer = true
                             }
-                            
+
                             rstepHeight <= 2.95 && rstepHeight > 2.83 -> {
                                 val stpPacket = arrayOf(0.41951, 0.75223, 0.99990, 1.42989, 1.77289, 2.04032, 2.23371, 2.35453)
                                 stpPacket.forEach {
@@ -414,7 +425,7 @@ class Step : Module() {
                                 mc.timer.timerSpeed = 0.12f
                                 wasTimer = true
                             }
-                            
+
                             rstepHeight <= 2.83 && rstepHeight > 2.64 -> {
                                 val stpPacket = arrayOf(0.41951, 0.75223, 0.99990, 1.42989, 1.77289, 2.04032, 2.23371)
                                 stpPacket.forEach {
@@ -429,7 +440,7 @@ class Step : Module() {
                                 mc.timer.timerSpeed = 0.13f
                                 wasTimer = true
                             }
-                            
+
                             rstepHeight <= 2.64 && rstepHeight > 2.37 -> {
                                 val stpPacket = arrayOf(0.41951, 0.75223, 0.99990, 1.42989, 1.77289, 2.04032)
                                 stpPacket.forEach {
@@ -444,7 +455,7 @@ class Step : Module() {
                                 mc.timer.timerSpeed = 0.14f
                                 wasTimer = true
                             }
-                            
+
                             rstepHeight <= 2.37 && rstepHeight > 2.02 -> {
                                 val stpPacket = arrayOf(0.41951, 0.75223, 0.99990, 1.42989, 1.77289)
                                 stpPacket.forEach {
@@ -459,7 +470,7 @@ class Step : Module() {
                                 mc.timer.timerSpeed = 0.16f
                                 wasTimer = true
                             }
-                            
+
                             rstepHeight <= 2.02 && rstepHeight > 1.77 -> {
                                 val stpPacket = arrayOf(0.41951, 0.75223, 0.99990, 1.42989)
                                 stpPacket.forEach {
@@ -474,7 +485,7 @@ class Step : Module() {
                                 mc.timer.timerSpeed = 0.21f
                                 wasTimer = true
                             }
-                            
+
                             rstepHeight <= 1.77 && rstepHeight > 1.6 -> {
                                 val stpPacket = arrayOf(0.41999998688698, 0.7531999805212, 1.17319996740818)
                                 stpPacket.forEach {
@@ -489,7 +500,7 @@ class Step : Module() {
                                 mc.timer.timerSpeed = 0.28f
                                 wasTimer = true
                             }
-                            
+
                             rstepHeight <= 1.6 && rstepHeight > 1.3525 -> {
                                 val stpPacket = arrayOf(0.41999998688698, 0.7531999805212, 1.001335979112147)
                                 stpPacket.forEach {
@@ -499,7 +510,7 @@ class Step : Module() {
                                 mc.timer.timerSpeed = 0.28f
                                 wasTimer = true
                             }
-                            
+
                             rstepHeight <= 1.3525 && rstepHeight > 1.02 -> {
                                 val stpPacket = arrayOf(0.41999998688698, 0.7531999805212)
                                 stpPacket.forEach {
@@ -509,7 +520,7 @@ class Step : Module() {
                                 mc.timer.timerSpeed = 0.34f
                                 wasTimer = true
                             }
-                            
+
                             rstepHeight <= 1.02 && rstepHeight > 0.6 -> {
                                 val stpPacket = arrayOf(0.41999998688698)
                                 stpPacket.forEach {
@@ -595,10 +606,8 @@ class Step : Module() {
                             }
                         }
                         /*
-
                             AAC4 Step Code By Co丶Dynamic
                             NO SKIDDER PLEASE
-
                         */
                     }
 
