@@ -10,6 +10,7 @@ import net.ccbluex.liquidbounce.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.features.special.AutoDisable
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.Notification
 import net.ccbluex.liquidbounce.ui.client.hud.element.elements.NotifyType
+import net.ccbluex.liquidbounce.value.BoolValue
 import net.ccbluex.liquidbounce.value.IntegerValue
 import net.ccbluex.liquidbounce.value.ListValue
 import net.minecraft.event.ClickEvent
@@ -24,17 +25,23 @@ import kotlin.concurrent.schedule
 @ModuleInfo(name = "AutoPlay", category = ModuleCategory.MISC)
 class AutoPlay : Module() {
 
-    private val modeValue = ListValue("Server", arrayOf("RedeSky", "BlocksMC", "Minemora", "Hypixel", "Jartex", "HyCraft"), "RedeSky")
+    private val modeValue = ListValue("Server", arrayOf("RedeSky", "BlocksMC", "Minemora", "Hypixel", "Jartex", "HyCraft", "HyDracraft", "Pika", "MineFC/HeroMC_Bedwars", "Supercraft"), "RedeSky")
+    private val bwModeValue = ListValue("Mode", arrayOf("SOLO", "4v4v4v4"), "4v4v4v4").displayable { modeValue.equals("MineFC/HeroMC_Bedwars") }
+    private val autoStartValue = BoolValue("AutoStartAtLobby", true).displayable { modeValue.equals("MineFC/HeroMC_Bedwars") }
+    private val replayWhenKickedValue = BoolValue("ReplayWhenKicked", true).displayable { modeValue.equals("MineFC/HeroMC_Bedwars") }
+    private val showGuiWhenFailedValue = BoolValue("ShowGuiWhenFailed", true).displayable { modeValue.equals("MineFC/HeroMC_Bedwars") }
     private val delayValue = IntegerValue("JoinDelay", 3, 0, 7)
 
     private var clicking = false
     private var queued = false
     private var clickState = 0
+    private var waitForLobby = false
 
     override fun onEnable() {
         clickState = 0
         clicking = false
         queued = false
+        waitForLobby = false
     }
 
     @EventTarget
@@ -142,6 +149,67 @@ class AutoPlay : Module() {
                                     mc.thePlayer.sendChatMessage(clickEvent.value)
                                 }
                             }
+                        }
+                    }
+                }
+                "hydracraft" -> {
+                    if (text.contains("Has ganado ¿Qué quieres hacer?", true)) {
+                        queueAutoPlay {
+                            mc.thePlayer.sendChatMessage("/playagain")
+                        }
+                    }
+                }
+                "pika" -> {
+                    if (text.contains("Click here to play again", true)) {
+                        component.siblings.forEach { sib ->
+                            val clickEvent = sib.chatStyle.chatClickEvent
+                            if(clickEvent != null && clickEvent.action == ClickEvent.Action.RUN_COMMAND && clickEvent.value.startsWith("/")) {
+                                queueAutoPlay {
+                                    mc.thePlayer.sendChatMessage(clickEvent.value)
+                                }
+                            }
+                        }
+                    }
+                    if (text.contains(mc.getSession().username + " has been") || text.contains(mc.getSession().username + " died.")) {
+                        queueAutoPlay {
+                            mc.thePlayer.sendChatMessage("/skywars-normal-solo")
+                        }
+                    }
+                }
+                "minefc/heromc_bedwars" -> {
+                    if (text.contains("Bạn đã bị loại!", false) || text.contains("đã thắng trò chơi", false)) {
+                        mc.thePlayer.sendChatMessage("/bw leave")
+                        waitForLobby = true
+                    }
+
+                    if (
+                        ( (    waitForLobby || autoStartValue.get()) && text.contains("¡Hiển thị", false) ) ||
+                        ( replayWhenKickedValue.get()                && text.contains("[Anticheat] You have been kicked from the server!", false))
+                    ) {
+
+                        queueAutoPlay {
+                            mc.thePlayer.sendChatMessage("/bw join ${bwModeValue.get()}")
+                        }
+                        waitForLobby = false
+                    }
+
+                    if (showGuiWhenFailedValue.get() && text.contains("giây", false) && text.contains("thất bại", false)) {
+                        LiquidBounce.hud.addNotification(Notification(this.name, "Failed to join, showing GUI...", NotifyType.ERROR, 1000))
+                        mc.thePlayer.sendChatMessage("/bw gui ${bwModeValue.get()}")
+                    }
+                }
+                "supercraft" -> {
+                    if (text.contains("Ganador: " + mc.session.username, true) || text.contains(mc.session.username + " fue asesinado", true)) {
+                        queueAutoPlay {
+                            mc.thePlayer.sendChatMessage("/sw leave")
+                            mc.thePlayer.sendChatMessage("/sw randomjoin solo")
+                        }
+                    }
+                    if (text.contains("El juego ya fue iniciado.", true)) {
+                        LiquidBounce.hud.addNotification(Notification(this.name, "Failed to join, retrying...", NotifyType.ERROR, 1755))
+                        queueAutoPlay {
+                            mc.thePlayer.sendChatMessage("/sw leave")
+                            mc.thePlayer.sendChatMessage("/sw randomjoin solo")
                         }
                     }
                 }
