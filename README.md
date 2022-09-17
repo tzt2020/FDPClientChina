@@ -1,4 +1,4 @@
-# FDPClient
+# FDPCNClient - Closed
 [![State-of-the-art Shitcode](https://img.shields.io/static/v1?label=State-of-the-art&message=Shitcode&color=7B5804)](https://github.com/trekhleb/state-of-the-art-shitcode)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/UnlegitMinecraft/FDPClientChina)
 ![GitHub lines of code](https://tokei.rs/b1/github/UnlegitMinecraft/FDPClientChina)
@@ -13,13 +13,9 @@ Website: https://FDPClient.club
 Latest: [github-actions](https://github.com/UnlegitMinecraft/FDPClientChina/actions/workflows/build.yml?query=event%3Apush)    
 Discord: https://discord.gg/55x7TaHWXG  
 
-## About Website
-OOps 因为使用OVHCloud的服务器，众所周知，OVH以耐造著称（物理 如着火(Just kidding)），所以很不幸，FDPCNClient的网站因为一些不可抗力，死亡了。ooooops
-
-
-## About SkidderMC
-SkidderMC并不是原先的开发人员，而是谋权篡位的非中国人。辱华客户端滚出去！
-
+## Running aways!
+要中考 上学威龙了 跑路了 去下载SkidderMC的版本吧
+I got fucking crazy exam so go to dowanload skiddermc verison (https://github.com/SkidderMC/FDPClient).
 ## Issues
 If you notice any bugs or missing features, you can let us know by opening an issue [here](https://github.com/UnlegitMinecraft/FDPClientChina/issues).
 
