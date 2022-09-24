@@ -9,6 +9,7 @@ import net.ccbluex.liquidbounce.event.EventTarget;
 import net.ccbluex.liquidbounce.event.Listenable;
 import net.ccbluex.liquidbounce.event.PacketEvent;
 import net.ccbluex.liquidbounce.event.TickEvent;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,6 +23,7 @@ import java.util.Random;
 public final class RotationUtils extends MinecraftInstance implements Listenable {
 
     private static Random random = new Random();
+    public static float[] prevRotations = new float[2];
 
     private static int keepLength;
     private static int revTick;
@@ -613,6 +615,20 @@ public final class RotationUtils extends MinecraftInstance implements Listenable
         final double dist = MathHelper.sqrt_double(xDiff * xDiff + zDiff * zDiff);
         return new Rotation((float) (Math.atan2(zDiff, xDiff) * 180D / Math.PI) - 90F, (float) -(Math.atan2(yDiff, dist) * 180D / Math.PI));
     }
+
+    public static float[] getRotationToLocation(final Vec3 loc) {
+        double xDiff = loc.xCoord - Minecraft.getMinecraft().thePlayer.posX;
+        double yDiff = loc.yCoord - (Minecraft.getMinecraft().thePlayer.posY + Minecraft.getMinecraft().thePlayer.getEyeHeight());
+        double zDiff = loc.zCoord - Minecraft.getMinecraft().thePlayer.posZ;
+
+        double distance = MathHelper.sqrt_double(xDiff * xDiff + zDiff * zDiff);
+
+        float yaw = (float) (Math.atan2(zDiff, xDiff) * 180.0D / Math.PI) - 90.0F;
+        float pitch = (float) (-(Math.atan2(yDiff, distance) * 180.0D / Math.PI));
+
+        return new float[]{yaw, pitch};
+    }
+
 
     /**
      * @return YESSSS!!!
