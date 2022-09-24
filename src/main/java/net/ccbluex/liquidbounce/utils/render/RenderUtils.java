@@ -1267,4 +1267,100 @@ public final class RenderUtils extends MinecraftInstance {
         GlStateManager.enableAlpha();
         GL11.glPopMatrix();
     }
+
+    public static void drawGradientSideways(final double left, final double top, final double right, final double bottom, final int col1, final int col2) {
+        final float f = (col1 >> 24 & 0xFF) / 255.0f;
+        final float f2 = (col1 >> 16 & 0xFF) / 255.0f;
+        final float f3 = (col1 >> 8 & 0xFF) / 255.0f;
+        final float f4 = (col1 & 0xFF) / 255.0f;
+        final float f5 = (col2 >> 24 & 0xFF) / 255.0f;
+        final float f6 = (col2 >> 16 & 0xFF) / 255.0f;
+        final float f7 = (col2 >> 8 & 0xFF) / 255.0f;
+        final float f8 = (col2 & 0xFF) / 255.0f;
+        glEnable(3042);
+        glDisable(3553);
+        glBlendFunc(770, 771);
+        glEnable(2848);
+        glShadeModel(7425);
+        glPushMatrix();
+        glBegin(7);
+        glColor4f(f2, f3, f4, f);
+        glVertex2d(left, top);
+        glVertex2d(left, bottom);
+        glColor4f(f6, f7, f8, f5);
+        glVertex2d(right, bottom);
+        glVertex2d(right, top);
+        glEnd();
+        glPopMatrix();
+        glEnable(3553);
+        glDisable(3042);
+        glDisable(2848);
+        glShadeModel(7424);
+    }
+
+    public static void drawCircleRect(float x, float y, float x1, float y1, float radius, int color){
+        GlStateManager.enableBlend();
+        GlStateManager.disableTexture2D();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        glColor(color);
+
+        quickRenderCircle(x1-radius,y1-radius,0,90,radius,radius);
+        quickRenderCircle(x+radius,y1-radius,90,180,radius,radius);
+        quickRenderCircle(x+radius,y+radius,180,270,radius,radius);
+        quickRenderCircle(x1-radius,y+radius,270,360,radius,radius);
+
+        quickDrawRect(x+radius,y+radius,x1-radius,y1-radius);
+        quickDrawRect(x,y+radius,x+radius,y1-radius);
+        quickDrawRect(x1-radius,y+radius,x1,y1-radius);
+        quickDrawRect(x+radius,y,x1-radius,y+radius);
+        quickDrawRect(x+radius,y1-radius,x1-radius,y1);
+
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableBlend();
+    }
+
+    public static void drawOutlinedRect(float x, float y, float width, float height, float lineSize, int lineColor) {
+        RenderUtils.drawRect(x, y, width, y + lineSize, lineColor);
+        RenderUtils.drawRect(x, height - lineSize, width, height, lineColor);
+        RenderUtils.drawRect(x, y + lineSize, x + lineSize, height - lineSize, lineColor);
+        RenderUtils.drawRect(width - lineSize, y + lineSize, width, height - lineSize, lineColor);
+    }
+    public static double getAnimationStateSmooth(double target, double current, double speed) {
+        boolean larger;
+        boolean bl = larger = target > current;
+        if (speed < 0.0) {
+            speed = 0.0;
+        } else if (speed > 1.0) {
+            speed = 1.0;
+        }
+        if (target == current){
+            return target;
+        }
+        double dif = Math.max(target, current) - Math.min(target, current);
+        double factor = Math.max((dif * speed),1);
+        if (factor < 0.1) {
+            factor = 0.1;
+        }
+        if (larger){
+            if (current + factor>target){
+                current = target;
+            }else {
+                current += factor;
+            }
+        }else {
+            if (current - factor<target) {
+                current = target;
+            }else {
+                current -= factor;
+            }
+        }
+        return current;
+    }
+    public static void prepareScissorBox(float x, float y, float x2, float y2) {
+        ScaledResolution scale = new ScaledResolution(mc);
+        int factor = scale.getScaleFactor();
+        GL11.glScissor((int) (x * (float) factor),
+                (int) (((float) scale.getScaledHeight() - y2) * (float) factor),
+                (int) ((x2 - x) * (float) factor), (int) ((y2 - y) * (float) factor));
+    }
 }
