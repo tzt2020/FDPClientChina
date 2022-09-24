@@ -12,12 +12,12 @@ import net.ccbluex.liquidbounce.features.module.ModuleCategory
 import net.ccbluex.liquidbounce.features.module.ModuleInfo
 import net.ccbluex.liquidbounce.features.module.modules.movement.Speed
 import net.ccbluex.liquidbounce.injection.access.StaticStorage
+import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.ui.i18n.LanguageManager
 import net.ccbluex.liquidbounce.utils.*
 import net.ccbluex.liquidbounce.utils.block.BlockUtils
 import net.ccbluex.liquidbounce.utils.block.PlaceInfo
 import net.ccbluex.liquidbounce.utils.block.PlaceInfo.Companion.get
-import net.ccbluex.liquidbounce.utils.extensions.drawCenteredString
 import net.ccbluex.liquidbounce.utils.extensions.rayTraceWithServerSideRotation
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.ccbluex.liquidbounce.utils.timer.MSTimer
@@ -28,6 +28,7 @@ import net.ccbluex.liquidbounce.value.FloatValue
 import net.ccbluex.liquidbounce.value.IntegerValue
 import net.ccbluex.liquidbounce.value.ListValue
 import net.minecraft.block.BlockAir
+import net.minecraft.client.gui.ScaledResolution
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.RenderHelper
 import net.minecraft.client.settings.GameSettings
@@ -40,6 +41,7 @@ import net.minecraft.network.play.client.C03PacketPlayer.C04PacketPlayerPosition
 import net.minecraft.stats.StatList
 import net.minecraft.util.*
 import org.lwjgl.input.Keyboard
+import org.lwjgl.opengl.GL11
 import java.awt.Color
 import kotlin.math.*
 
@@ -218,6 +220,11 @@ class Scaffold : Module() {
     
     //Other
     private var doSpoof = false
+
+    //Render
+    private var spinYaw: Float = 0f
+    private val lastMS = 0L
+    private var progress = 0f
 
     /**
      * Enable module
@@ -757,35 +764,66 @@ class Scaffold : Module() {
      *
      * @param event
      */
+    private fun renderItemStack(stack: ItemStack, x: Int, y: Int) {
+        GlStateManager.pushMatrix()
+        GlStateManager.enableRescaleNormal()
+        GlStateManager.enableBlend()
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0)
+        RenderHelper.enableGUIStandardItemLighting()
+        mc.renderItem.renderItemAndEffectIntoGUI(stack, x, y)
+        mc.renderItem.renderItemOverlays(mc.fontRendererObj, stack, x, y)
+        RenderHelper.disableStandardItemLighting()
+        GlStateManager.disableRescaleNormal()
+        GlStateManager.disableBlend()
+        GlStateManager.popMatrix()
+    }
     @EventTarget
     fun onRender2D(event: Render2DEvent) {
+        progress = (System.currentTimeMillis() - lastMS).toFloat() / 100f
+        if (progress >= 1) progress = 1f
+        val scaledResolution = ScaledResolution(mc)
+        val info = LanguageManager.getAndFormat("ui.scaffold.blocks", blocksAmount)
+        val infoWidth = Fonts.font35.getStringWidth(info)
         if (counterDisplayValue.get()) {
-            GlStateManager.pushMatrix()
-            val info = LanguageManager.getAndFormat("ui.scaffold.blocks", blocksAmount)
-            val slot = InventoryUtils.findAutoBlockBlock()
-            val height = event.scaledResolution.scaledHeight
-            val width = event.scaledResolution.scaledWidth
-            var stack = barrier
-            //RenderUtils.drawRoundedCornerRect()
-            if (slot != -1) {
-                if (mc.thePlayer.inventory.getCurrentItem() != null) {
-                    val handItem = mc.thePlayer.inventory.getCurrentItem().item
-                    if (handItem is ItemBlock && InventoryUtils.canPlaceBlock(handItem.block)) {
-                        stack = mc.thePlayer.inventory.getCurrentItem()
-                    }
-                }
-                if (stack == barrier) {
-                    stack = mc.thePlayer.inventory.getStackInSlot(InventoryUtils.findAutoBlockBlock() - 36)
-                    if (stack == null) {
-                        stack = barrier
-                    }
-                }
-            }
-            RenderHelper.enableGUIStandardItemLighting()
-            mc.renderItem.renderItemIntoGUI(stack, width / 2 - mc.fontRendererObj.getStringWidth(info), (height * 0.6 - mc.fontRendererObj.FONT_HEIGHT * 0.5).toInt())
-            RenderHelper.disableStandardItemLighting()
-            mc.fontRendererObj.drawCenteredString(info, width / 2f, height * 0.6f, Color.WHITE.rgb, false)
-            GlStateManager.popMatrix()
+            GlStateManager.translate(0f, -14f - progress * 4f, 0f)
+            //GL11.glPushMatrix();
+            GL11.glEnable(GL11.GL_BLEND)
+            GL11.glDisable(GL11.GL_TEXTURE_2D)
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
+            GL11.glEnable(GL11.GL_LINE_SMOOTH)
+            GL11.glColor4f(0.25f, 0.25f, 0.25f, progress)
+            GL11.glBegin(GL11.GL_TRIANGLE_FAN)
+            GL11.glVertex2d(
+                (scaledResolution.scaledWidth / 2 - 3).toDouble(),
+                (scaledResolution.scaledHeight - 60).toDouble()
+            )
+            GL11.glVertex2d(
+                (scaledResolution.scaledWidth / 2).toDouble(),
+                (scaledResolution.scaledHeight - 57).toDouble()
+            )
+            GL11.glVertex2d(
+                (scaledResolution.scaledWidth / 2 + 3).toDouble(),
+                (scaledResolution.scaledHeight - 60).toDouble()
+            )
+            GL11.glEnd()
+            GL11.glEnable(GL11.GL_TEXTURE_2D)
+            GL11.glDisable(GL11.GL_BLEND)
+            GL11.glDisable(GL11.GL_LINE_SMOOTH)
+            //GL11.glPopMatrix();
+            RenderUtils.drawRoundedCornerRect(
+                (scaledResolution.scaledWidth / 2 - infoWidth / 2 - 4).toFloat(),
+                (scaledResolution.scaledHeight - 60).toFloat(),
+                (scaledResolution.scaledWidth / 2 + infoWidth / 2 + 4).toFloat(),
+                (scaledResolution.scaledHeight - 74).toFloat(),
+                1.5f,
+                Color(0.25f, 0.25f, 0.25f, progress).rgb
+            )
+            GlStateManager.resetColor()
+            Fonts.font35.drawCenteredString(
+                info, scaledResolution.scaledWidth / 2 + 0.1f,
+                (scaledResolution.scaledHeight - 70).toFloat(), Color(1f, 1f, 1f, 0.8f * progress).rgb, false
+            )
+            GlStateManager.translate(0f, 14f + progress * 4f, 0f)
         }
     }
 

@@ -38,7 +38,7 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
             "FDP",
             "Novoline",
             "Novoline2",
-            "NovoLine3",
+            "Novoline3",
             "Astolfo",
             "Liquid",
             "Flux",
@@ -893,7 +893,7 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
             "zamorozka" -> Border(0F, 0F, 150F, 55F)
             "arris" -> Border(0F, 0F, 120F, 40F)
             "tenacity" -> Border(0F, 0F, 120F, 40F)
-            "Hanabi" -> Border(0F, 0F, 140F, 40F)
+            "hanabi" -> Border(0F, 0F, 140F, 40F)
             else -> null
         }
     }
