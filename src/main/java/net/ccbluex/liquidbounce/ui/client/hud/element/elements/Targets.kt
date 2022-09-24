@@ -855,7 +855,7 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
         font.drawStringWithShadow("❤", 112F, 28F, hurt.rgb)
         font.drawStringWithShadow(healthStr, 120F, 28F, Color.WHITE.rgb)
         font.drawString(
-            "XYZ:" + target.posX.toInt() + " " + target.posY.toInt() + " " + target.posZ.toInt() + " | " + "Hurt:" + (target.hurtTime > 0),
+            "Hurt:" + (target.hurtTime > 0),
             38,
             15,
             blackcolor2
@@ -876,7 +876,9 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
 
     private fun getTBorder(): Border? {
         return when (modeValue.get().lowercase()) {
-            "novoline" -> Border(-1F, -2F, 108F, 38F)
+            "novoline" -> Border(-1F, -2F, 110F, 38F)
+            "novoline2" -> Border(-1F, -2F, 110F, 38F)
+            "novoline3" -> Border(-1F, -2F, 110F, 38F)
             "astolfo" -> Border(0F, 0F, 140F, 60F)
             "liquid" -> Border(
                 0F,
