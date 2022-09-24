@@ -764,25 +764,12 @@ class Scaffold : Module() {
      *
      * @param event
      */
-    private fun renderItemStack(stack: ItemStack, x: Int, y: Int) {
-        GlStateManager.pushMatrix()
-        GlStateManager.enableRescaleNormal()
-        GlStateManager.enableBlend()
-        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0)
-        RenderHelper.enableGUIStandardItemLighting()
-        mc.renderItem.renderItemAndEffectIntoGUI(stack, x, y)
-        mc.renderItem.renderItemOverlays(mc.fontRendererObj, stack, x, y)
-        RenderHelper.disableStandardItemLighting()
-        GlStateManager.disableRescaleNormal()
-        GlStateManager.disableBlend()
-        GlStateManager.popMatrix()
-    }
     @EventTarget
     fun onRender2D(event: Render2DEvent) {
         progress = (System.currentTimeMillis() - lastMS).toFloat() / 100f
         if (progress >= 1) progress = 1f
         val scaledResolution = ScaledResolution(mc)
-        val info = LanguageManager.getAndFormat("ui.scaffold.blocks", blocksAmount)
+        val info = "$blocksAmount blocks"
         val infoWidth = Fonts.font35.getStringWidth(info)
         if (counterDisplayValue.get()) {
             GlStateManager.translate(0f, -14f - progress * 4f, 0f)
@@ -819,7 +806,7 @@ class Scaffold : Module() {
                 Color(0.25f, 0.25f, 0.25f, progress).rgb
             )
             GlStateManager.resetColor()
-            Fonts.font35.drawCenteredString(
+            Fonts.font35.drawString(
                 info, scaledResolution.scaledWidth / 2 + 0.1f,
                 (scaledResolution.scaledHeight - 70).toFloat(), Color(1f, 1f, 1f, 0.8f * progress).rgb, false
             )
