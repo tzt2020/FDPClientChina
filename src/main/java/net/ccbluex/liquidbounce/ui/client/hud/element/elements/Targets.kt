@@ -43,7 +43,7 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
             "Liquid",
             "Flux",
             "Rise",
-            "RiseNew",
+//            "RiseNew",
             "Zamorozka",
             "Arris",
             "Tenacity",
@@ -187,7 +187,7 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
             "astolfo" -> drawAstolfo(prevTarget!!)
             "liquid" -> drawLiquid(prevTarget!!)
             "flux" -> drawFlux(prevTarget!!)
-            "risenew" -> drawRiseNew(prevTarget!!)
+//            "risenew" -> drawRiseNew(prevTarget!!)
             "rise" -> drawRise(prevTarget!!)
             "zamorozka" -> drawZamorozka(prevTarget!!)
             "arris" -> drawArris(prevTarget!!)
@@ -220,7 +220,15 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
 
     private fun drawNovo(target: EntityLivingBase) {
         val font = fontValue.get()
-        val mainColor = Color(redValue.get(), greenValue.get(), blueValue.get())
+        val customColor = Color(redValue.get(), greenValue.get(), blueValue.get(), 255)
+        val customColor1 = Color(gredValue.get(), ggreenValue.get(), gblueValue.get(), 255)
+        val counter1 = intArrayOf(50)
+        val counter2 = intArrayOf(80)
+        counter1[0] += 1
+        counter2[0] += 1
+        counter1[0] = counter1[0].coerceIn(0, 50)
+        counter2[0] = counter2[0].coerceIn(0, 80)
+//        val mainColor = Color(redValue.get(), greenValue.get(), blueValue.get())
         val percent = target.health.toInt()
         val nameLength = (font.getStringWidth(target.name)).coerceAtLeast(
             font.getStringWidth(
@@ -239,8 +247,16 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
         val animateThingy =
             (easingHP.coerceIn(target.health, target.maxHealth) / target.maxHealth) * (nameLength - 2F)
         if (easingHP > target.health)
-            RenderUtils.drawRect(38F, 15F, 38F + animateThingy, 23F, mainColor.darker().rgb)
-        RenderUtils.drawRect(38F, 15F, 38F + barWidth, 23F, mainColor.rgb)
+            RenderUtils.drawGradientSideways(
+                38.0, 15.0, 38.0 + animateThingy, 23.0, Palette.fade2(customColor, counter1[0], font.FONT_HEIGHT).rgb,
+                Palette.fade2(customColor1, counter2[0], font.FONT_HEIGHT).rgb
+            )
+//            RenderUtils.drawRect(38F, 15F, 38F + animateThingy, 23F, mainColor.darker().rgb)
+        RenderUtils.drawGradientSideways(
+            38.0, 15.0, 38.0 + barWidth, 23.0, Palette.fade2(customColor, counter1[0], font.FONT_HEIGHT).rgb,
+            Palette.fade2(customColor1, counter2[0], font.FONT_HEIGHT).rgb
+        )
+//        RenderUtils.drawRect(38F, 15F, 38F + barWidth, 23F, mainColor.rgb)
         Fonts.minecraftFont.drawStringWithShadow("${decimalFormat.format(percent)}", 38F, 26F, Color.WHITE.rgb)
         font.drawStringWithShadow(
             "❤",
@@ -252,6 +268,14 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
 
     private fun drawNovo2(target: EntityLivingBase) {
         val font = fontValue.get()
+        val customColor = Color(redValue.get(), greenValue.get(), blueValue.get(), 255)
+        val customColor1 = Color(gredValue.get(), ggreenValue.get(), gblueValue.get(), 255)
+        val counter1 = intArrayOf(50)
+        val counter2 = intArrayOf(80)
+        counter1[0] += 1
+        counter2[0] += 1
+        counter1[0] = counter1[0].coerceIn(0, 50)
+        counter2[0] = counter2[0].coerceIn(0, 80)
         val width = (38 + font.getStringWidth(target.name)).coerceAtLeast(118).toFloat()
         RenderUtils.drawRect(0f, 0f, width + 14f, 44f, Color(0, 0, 0, backgroundalpha.get()).rgb)
         drawPlayerHead(target.skin, 3, 3, 30, 30)
@@ -263,8 +287,13 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
             24,
             Color.WHITE.rgb
         )
-        RenderUtils.drawRect(2.5f, 35.5f, width + 11.5f, 37.5f, Color(0, 0, 0, 200).rgb)
-        RenderUtils.drawRect(3f, 36f, 3f + (easingHP / target.maxHealth) * (width + 8f), 37f, Color(redValue.get(), greenValue.get(), blueValue.get()))
+//        RenderUtils.drawRect(2.5f, 35.5f, width + 11.5f, 37.5f, Color(0, 0, 0, 200).rgb)
+        RenderUtils.drawGradientSideways(
+            3.0, 36.0, 3.0 + (easingHP / target.maxHealth) * (width + 8.0), 37.0,
+            Palette.fade2(customColor, counter1[0], font.FONT_HEIGHT).rgb,
+            Palette.fade2(customColor1, counter2[0], font.FONT_HEIGHT).rgb
+        )
+//        RenderUtils.drawRect(3f, 36f, 3f + (easingHP / target.maxHealth) * (width + 8f), 37f, Color(redValue.get(), greenValue.get(), blueValue.get()))
         RenderUtils.drawRect(2.5f, 39.5f, width + 11.5f, 41.5f, Color(0, 0, 0, 200).rgb)
         RenderUtils.drawRect(
             3f,
@@ -512,87 +541,87 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
         }
     }
 
-    private fun drawRiseNew(target: EntityLivingBase) {
-        val font = fontValue.get()
-
-        RenderUtils.drawRoundedCornerRect(0f, 0f, 150f, 50f, 5f, Color(0, 0, 0, 100).rgb)
-
-        val hurtPercent = target.hurtPercent
-        val scale = if (hurtPercent == 0f) {
-            1f
-        } else if (hurtPercent < 0.5f) {
-            1 - (0.2f * hurtPercent * 2)
-        } else {
-            0.8f + (0.2f * (hurtPercent - 0.5f) * 2)
-        }
-        val size = 38
-
-        GL11.glPushMatrix()
-        GL11.glTranslatef(5f, 7f, 0f)
-        // 受伤的缩放效果
-        GL11.glScalef(scale, scale, scale)
-        GL11.glTranslatef(((size * 0.5f * (1 - scale)) / scale), ((size * 0.5f * (1 - scale)) / scale), 0f)
-        // 受伤的红色效果
-        GL11.glColor4f(1f, 1 - hurtPercent, 1 - hurtPercent, 1f)
-        // 绘制头部图片
-        RenderUtils.quickDrawHead(target.skin, 0, 0, size, size)
-        GL11.glPopMatrix()
-
-        font.drawString("${target.name}", 48, 8, Color.WHITE.rgb)
-
-        // 渐变血量条
-        GL11.glEnable(3042)
-        GL11.glDisable(3553)
-        GL11.glBlendFunc(770, 771)
-        GL11.glEnable(2848)
-        GL11.glShadeModel(7425)
-        val stopPos = 48 + ((easingHP / target.maxHealth) * 97f).toInt()
-        for (i in 48..stopPos step 5) {
-            val x1 = (i + 5).coerceAtMost(stopPos).toDouble()
-            RenderUtils.quickDrawGradientSidewaysH(
-                i.toDouble(), (13 + font.FONT_HEIGHT).toDouble(), x1, 45.0,
-                ColorUtils.hslRainbow(i, indexOffset = 10).rgb, ColorUtils.hslRainbow(x1.toInt(), indexOffset = 10).rgb
-            )
-        }
-        GL11.glEnable(3553)
-        GL11.glDisable(3042)
-        GL11.glDisable(2848)
-        GL11.glShadeModel(7424)
-        GL11.glColor4f(1f, 1f, 1f, 1f)
-
-        if (target.hurtTime >= 9) {
-            for (i in 0 until riseCountValue.get()) {
-                riseParticleList.add(RiseParticle())
-            }
-        }
-
-        val curTime = System.currentTimeMillis()
-        riseParticleList.map { it }.forEach { rp ->
-            if ((curTime - rp.time) > ((riseMoveTimeValue.get() + riseFadeTimeValue.get()) * 50)) {
-                riseParticleList.remove(rp)
-            }
-            val movePercent = if ((curTime - rp.time) < riseMoveTimeValue.get() * 50) {
-                (curTime - rp.time) / (riseMoveTimeValue.get() * 50f)
-            } else {
-                1f
-            }
-            val x = (movePercent * rp.x * 0.5f * riseDistanceValue.get()) + 20
-            val y = (movePercent * rp.y * 0.5f * riseDistanceValue.get()) + 20
-            val alpha = if ((curTime - rp.time) > riseMoveTimeValue.get() * 50) {
-                1f - ((curTime - rp.time - riseMoveTimeValue.get() * 50) / (riseFadeTimeValue.get() * 50f)).coerceAtMost(
-                    1f
-                )
-            } else {
-                1f
-            } * riseAlphaValue.get()
-            RenderUtils.drawCircle(
-                x,
-                y,
-                riseSizeValue.get() * 2,
-                Color(rp.color.red, rp.color.green, rp.color.blue, (alpha * 255).toInt()).rgb
-            )
-        }
-    }
+//    private fun drawRiseNew(target: EntityLivingBase) {
+//        val font = fontValue.get()
+//
+//        RenderUtils.drawRoundedCornerRect(0f, 0f, 150f, 50f, 5f, Color(0, 0, 0, 100).rgb)
+//
+//        val hurtPercent = target.hurtPercent
+//        val scale = if (hurtPercent == 0f) {
+//            1f
+//        } else if (hurtPercent < 0.5f) {
+//            1 - (0.2f * hurtPercent * 2)
+//        } else {
+//            0.8f + (0.2f * (hurtPercent - 0.5f) * 2)
+//        }
+//        val size = 38
+//
+//        GL11.glPushMatrix()
+//        GL11.glTranslatef(5f, 7f, 0f)
+//        // 受伤的缩放效果
+//        GL11.glScalef(scale, scale, scale)
+//        GL11.glTranslatef(((size * 0.5f * (1 - scale)) / scale), ((size * 0.5f * (1 - scale)) / scale), 0f)
+//        // 受伤的红色效果
+//        GL11.glColor4f(1f, 1 - hurtPercent, 1 - hurtPercent, 1f)
+//        // 绘制头部图片
+//        RenderUtils.quickDrawHead(target.skin, 0, 0, size, size)
+//        GL11.glPopMatrix()
+//
+//        font.drawString("${target.name}", 48, 8, Color.WHITE.rgb)
+//
+//        // 渐变血量条
+//        GL11.glEnable(3042)
+//        GL11.glDisable(3553)
+//        GL11.glBlendFunc(770, 771)
+//        GL11.glEnable(2848)
+//        GL11.glShadeModel(7425)
+//        val stopPos = 48 + ((easingHP / target.maxHealth) * 97f).toInt()
+//        for (i in 48..stopPos step 5) {
+//            val x1 = (i + 5).coerceAtMost(stopPos).toDouble()
+//            RenderUtils.quickDrawGradientSidewaysH(
+//                i.toDouble(), (13 + font.FONT_HEIGHT).toDouble(), x1, 45.0,
+//                ColorUtils.hslRainbow(i, indexOffset = 10).rgb, ColorUtils.hslRainbow(x1.toInt(), indexOffset = 10).rgb
+//            )
+//        }
+//        GL11.glEnable(3553)
+//        GL11.glDisable(3042)
+//        GL11.glDisable(2848)
+//        GL11.glShadeModel(7424)
+//        GL11.glColor4f(1f, 1f, 1f, 1f)
+//
+//        if (target.hurtTime >= 9) {
+//            for (i in 0 until riseCountValue.get()) {
+//                riseParticleList.add(RiseParticle())
+//            }
+//        }
+//
+//        val curTime = System.currentTimeMillis()
+//        riseParticleList.map { it }.forEach { rp ->
+//            if ((curTime - rp.time) > ((riseMoveTimeValue.get() + riseFadeTimeValue.get()) * 50)) {
+//                riseParticleList.remove(rp)
+//            }
+//            val movePercent = if ((curTime - rp.time) < riseMoveTimeValue.get() * 50) {
+//                (curTime - rp.time) / (riseMoveTimeValue.get() * 50f)
+//            } else {
+//                1f
+//            }
+//            val x = (movePercent * rp.x * 0.5f * riseDistanceValue.get()) + 20
+//            val y = (movePercent * rp.y * 0.5f * riseDistanceValue.get()) + 20
+//            val alpha = if ((curTime - rp.time) > riseMoveTimeValue.get() * 50) {
+//                1f - ((curTime - rp.time - riseMoveTimeValue.get() * 50) / (riseFadeTimeValue.get() * 50f)).coerceAtMost(
+//                    1f
+//                )
+//            } else {
+//                1f
+//            } * riseAlphaValue.get()
+//            RenderUtils.drawCircle(
+//                x,
+//                y,
+//                riseSizeValue.get() * 2,
+//                Color(rp.color.red, rp.color.green, rp.color.blue, (alpha * 255).toInt()).rgb
+//            )
+//        }
+//    }
 
     class RiseParticle {
         val color = ColorUtils.rainbow(RandomUtils.nextInt(0, 30))
@@ -682,6 +711,14 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
 
     private fun drawFlux(target: EntityLivingBase) {
         val font = fontValue.get()
+        val customColor = Color(redValue.get(), greenValue.get(), blueValue.get(), 255)
+        val customColor1 = Color(gredValue.get(), ggreenValue.get(), gblueValue.get(), 255)
+        val counter1 = intArrayOf(50)
+        val counter2 = intArrayOf(80)
+        counter1[0] += 1
+        counter2[0] += 1
+        counter1[0] = counter1[0].coerceIn(0, 50)
+        counter2[0] = counter2[0].coerceIn(0, 80)
         val hp = decimalFormat.format(easingHP)
         val additionalWidth = font.getStringWidth("${target.name}  ${hp} hp").coerceAtLeast(75)
         RenderUtils.drawCircleRect(
@@ -693,7 +730,11 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
             Color(0, 0, 0, backgroundalpha.get()).rgb
         )
         drawPlayerHead(target.skin, 5, 3, 29, 28)
-        RenderUtils.drawOutlinedRect(5f, 2f, 35f, 32f, 1f, Color(redValue.get(), greenValue.get(), blueValue.get()).rgb)
+        RenderUtils.drawGradientSideways(
+            5.0, 2.0, 35.0, 32.0, Palette.fade2(customColor, counter1[0], font.FONT_HEIGHT).rgb,
+            Palette.fade2(customColor1, counter2[0], font.FONT_HEIGHT).rgb
+        )
+//        RenderUtils.drawOutlinedRect(5f, 2f, 35f, 32f, 1f, Color(redValue.get(), greenValue.get(), blueValue.get()).rgb)
         // info text
         font.drawString(target.name, 40, 5, Color.WHITE.rgb)
         "$hp hp".also {
@@ -715,13 +756,18 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
                 BlendUtils.getHealthColor(target.health, target.maxHealth)
             )
         }
-        RenderUtils.drawRect(
-            40f,
-            yPos,
-            40 + (target.health / target.maxHealth) * additionalWidth,
-            yPos + 3.5f,
-            Color(redValue.get(), greenValue.get(), blueValue.get())
+        RenderUtils.drawGradientSideways(
+            40.0, yPos.toDouble(), 40.0 + (target.health / target.maxHealth) * additionalWidth,
+            yPos + 3.5, Palette.fade2(customColor, counter1[0], font.FONT_HEIGHT).rgb,
+            Palette.fade2(customColor1, counter2[0], font.FONT_HEIGHT).rgb
         )
+//        RenderUtils.drawRect(
+//            40f,
+//            yPos,
+//            40 + (target.health / target.maxHealth) * additionalWidth,
+//            yPos + 3.5f,
+//            Color(redValue.get(), greenValue.get(), blueValue.get())
+//        )
         RenderUtils.drawRect(
             40f,
             yPos + 9,
@@ -889,7 +935,7 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
             "fdp" -> Border(0F, 0F, 150F, 47F)
             "flux" -> Border(0F, 0F, 135F, 32F)
             "rise" -> Border(0F, 0F, 150F, 50F)
-            "risenew" -> Border(0F, 0F, 150F, 50F)
+//            "risenew" -> Border(0F, 0F, 150F, 50F)
             "zamorozka" -> Border(0F, 0F, 150F, 55F)
             "arris" -> Border(0F, 0F, 120F, 40F)
             "tenacity" -> Border(0F, 0F, 120F, 40F)

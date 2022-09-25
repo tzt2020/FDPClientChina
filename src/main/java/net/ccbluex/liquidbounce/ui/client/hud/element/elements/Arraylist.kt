@@ -17,11 +17,13 @@ import net.ccbluex.liquidbounce.ui.client.hud.element.Side.Horizontal
 import net.ccbluex.liquidbounce.ui.client.hud.element.Side.Vertical
 import net.ccbluex.liquidbounce.ui.font.Fonts
 import net.ccbluex.liquidbounce.ui.i18n.LanguageManager
+import net.ccbluex.liquidbounce.utils.Palette
 import net.ccbluex.liquidbounce.utils.render.Animation
 import net.ccbluex.liquidbounce.utils.render.ColorManager
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.ccbluex.liquidbounce.value.BoolValue
 import net.ccbluex.liquidbounce.value.FontValue
+import net.ccbluex.liquidbounce.value.IntegerValue
 import net.ccbluex.liquidbounce.value.ListValue
 import net.minecraft.client.renderer.GlStateManager
 import java.awt.Color
@@ -40,6 +42,12 @@ class Arraylist(
 ) : Element(x, y, scale, side) {
 
     private val ModeValue = ListValue("Mode", arrayOf("None", "Outline", "FDPNew"), "FDPNew")
+    private val redValue = IntegerValue("Red", 255, 0, 255)
+    private val greenValue = IntegerValue("Green", 255, 0, 255)
+    private val blueValue = IntegerValue("Blue", 255, 0, 255)
+    private val gredValue = IntegerValue("GradientRed", 255, 0, 255)
+    private val ggreenValue = IntegerValue("GradientGreen", 255, 0, 255)
+    private val gblueValue = IntegerValue("GradientBlue", 255, 0, 255)
     //private val colorRedValue = IntegerValue("Text-R", 0, 0, 255)
     //private val colorGreenValue = IntegerValue("Text-G", 111, 0, 255)
     //private val colorBlueValue = IntegerValue("Text-B", 255, 0, 255)
@@ -218,6 +226,14 @@ class Arraylist(
                 }
             }
             "fdpnew" -> {
+                val customColor = Color(redValue.get(), greenValue.get(), blueValue.get(), 255)
+                val customColor1 = Color(gredValue.get(), ggreenValue.get(), gblueValue.get(), 255)
+                val counter1 = intArrayOf(50)
+                val counter2 = intArrayOf(80)
+                counter1[0] += 1
+                counter2[0] += 1
+                counter1[0] = counter1[0].coerceIn(0, 50)
+                counter2[0] = counter2[0].coerceIn(0, 80)
                 modules.forEachIndexed { index, module ->
                     val xPos = -module.slide - 2
                     val a= (if (side.vertical == Vertical.DOWN) index + 1f else index).toFloat()
@@ -237,13 +253,20 @@ class Arraylist(
                         Color(0,0,0,150).rgb,
                         Color(0,0,0,200).rgb
                     )
-                    RenderUtils.drawRect(
-                        -1f,
-                        yPos-1,
-                        0f,
-                        yPos+11,
-                        Color(52, 97, 237).rgb
+                    RenderUtils.drawGradientSideways(
+                        -1.0,
+                        yPos-1.0,
+                        0.0,
+                        yPos+11.0, Palette.fade2(customColor, counter1[0], fontRenderer.FONT_HEIGHT).rgb,
+                        Palette.fade2(customColor1, counter2[0], fontRenderer.FONT_HEIGHT).rgb
                     )
+//                    RenderUtils.drawRect(
+//                        -1f,
+//                        yPos-1,
+//                        0f,
+//                        yPos+11,
+//                        Color(52, 97, 237).rgb
+//                    )
                     val mName = changeCase(getModuleName(module))
                     val mTag = changeCase(getModuleTag(module))
                     fontRenderer.drawString(mName, xPos - 3, yPos + 2.4f,
