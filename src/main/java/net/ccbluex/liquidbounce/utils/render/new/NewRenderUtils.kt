@@ -3,12 +3,15 @@ package skidunion.destiny.utils.render
 import net.ccbluex.liquidbounce.LiquidBounce
 import net.ccbluex.liquidbounce.features.module.modules.client.HUD
 import net.ccbluex.liquidbounce.ui.RenderLeave
+import net.ccbluex.liquidbounce.utils.Palette
+import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.ResourceLocation
 import org.lwjgl.opengl.GL11.*
+import java.awt.Color
 
 
 object NewRenderUtils {
@@ -20,8 +23,8 @@ object NewRenderUtils {
     private val DISPLAY_LISTS_2D = IntArray(4)
     @JvmStatic
     fun drawShadowWithCustomAlpha(x: Float, y: Float, width: Float, height: Float, alpha: Float) {
-        if(LiquidBounce.RENDERLEAVE== RenderLeave.LOW) return;
-        if(!HUD.shadowValue.get()) return;
+        if(LiquidBounce.RENDERLEAVE== RenderLeave.LOW) return
+        if(!HUD.shadowValue.get()) return
         drawTexturedRectWithCustomAlpha(x - 9, y - 9, 9f, 9f, "paneltopleft", alpha)
         drawTexturedRectWithCustomAlpha(x - 9, y + height, 9f, 9f, "panelbottomleft", alpha)
         drawTexturedRectWithCustomAlpha(x + width, y + height, 9f, 9f, "panelbottomright", alpha)
@@ -31,6 +34,50 @@ object NewRenderUtils {
         drawTexturedRectWithCustomAlpha(x, y - 9, width, 9f, "paneltop", alpha)
         drawTexturedRectWithCustomAlpha(x, y + height, width, 9f, "panelbottom", alpha)
     }
+//    @JvmStatic
+//    fun drawShadowWithCustomColor(x: Float, y: Float, width: Float, height: Float, alpha: Float) {
+//        if(LiquidBounce.RENDERLEAVE== RenderLeave.LOW) return
+//        val customColor = Color(HUD.redValue.get(), HUD.greenValue.get(), HUD.blueValue.get(), 255)
+//        val customColor1 = Color(HUD.gredValue.get(), HUD.ggreenValue.get(), HUD.gblueValue.get(), 255)
+//        val counter1 = intArrayOf(50)
+//        val counter2 = intArrayOf(80)
+//        counter1[0] += 1
+//        counter2[0] += 1
+//        counter1[0] = counter1[0].coerceIn(0, 50)
+//        counter2[0] = counter2[0].coerceIn(0, 80)
+//        RenderUtils.drawfloatGradientSideways(
+//            x - 9, y - 9, 9f, 9f, Palette.fade2(customColor, counter1[0], 50).rgb,
+//            Palette.fade2(customColor1, counter2[0], 50).rgb
+//        )
+//        RenderUtils.drawfloatGradientSideways(
+//            x - 9, y + height, 9f, 9f, Palette.fade2(customColor, counter1[0], 50).rgb,
+//            Palette.fade2(customColor1, counter2[0], 50).rgb
+//        )
+//        RenderUtils.drawfloatGradientSideways(
+//            x + width, y + height, 9f, 9f, Palette.fade2(customColor, counter1[0], 50).rgb,
+//            Palette.fade2(customColor1, counter2[0], 50).rgb
+//        )
+//        RenderUtils.drawfloatGradientSideways(
+//            x + width, y - 9, 9f, 9f, Palette.fade2(customColor, counter1[0], 50).rgb,
+//            Palette.fade2(customColor1, counter2[0], 50).rgb
+//        )
+//        RenderUtils.drawfloatGradientSideways(
+//            x - 9, y, 9f, height, Palette.fade2(customColor, counter1[0], 50).rgb,
+//            Palette.fade2(customColor1, counter2[0], 50).rgb
+//        )
+//        RenderUtils.drawfloatGradientSideways(
+//            x + width, y, 9f, height, Palette.fade2(customColor, counter1[0], 50).rgb,
+//            Palette.fade2(customColor1, counter2[0], 50).rgb
+//        )
+//        RenderUtils.drawfloatGradientSideways(
+//            x, y - 9, width, 9f, Palette.fade2(customColor, counter1[0], 50).rgb,
+//            Palette.fade2(customColor1, counter2[0], 50).rgb
+//        )
+//        RenderUtils.drawfloatGradientSideways(
+//            x, y + height, width, 9f, Palette.fade2(customColor, counter1[0], 50).rgb,
+//            Palette.fade2(customColor1, counter2[0], 50).rgb
+//        )
+//    }
     @JvmStatic
     fun drawTexturedRectWithCustomAlpha(x: Float, y: Float, width: Float, height: Float, image: String, alpha: Float) {
         glPushMatrix()
@@ -62,7 +109,7 @@ object NewRenderUtils {
         val disableAlpha = !glIsEnabled(GL_ALPHA_TEST)
         if (!enableBlend) glEnable(GL_BLEND)
         if (!disableAlpha) glDisable(GL_ALPHA_TEST)
-        Minecraft.getMinecraft().textureManager.bindTexture(ResourceLocation("destiny/shadow/$image.png"))
+        Minecraft.getMinecraft().textureManager.bindTexture(ResourceLocation("fdpclient/shadow/$image.png"))
         GlStateManager.color(1f, 1f, 1f, 1f)
         drawModalRectWithCustomSizedTexture(
             x,

@@ -20,6 +20,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import skidunion.destiny.utils.render.NewRenderUtils;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -180,6 +181,7 @@ public abstract class MixinGuiChat extends MixinGuiScreen {
     @Inject(method = "drawScreen", at = @At("HEAD"), cancellable = true)
     public void drawScreen(int mouseX, int mouseY, float partialTicks,CallbackInfo ci) {
         //RenderUtils.drawRect(10,10,20,20,new Color(255,255,255,255).getRGB());
+        NewRenderUtils.drawShadowWithCustomAlpha(1f, this.height - fade - 2f, this.width - 4f, this.height - 1f, 255f);
         RenderUtils.drawRoundedCornerRect(1, this.height - (int) fade - 2, this.width - 4, this.height - 1 , 2f, new Color(255,255,255,50).getRGB());
         RenderUtils.drawRoundedCornerRect(2, this.height - (int) fade - 1, this.width - 3, this.height - 2 ,3f, new Color(0,0,0,200).getRGB());
 

@@ -24,6 +24,7 @@ import net.minecraft.util.MathHelper
 import net.minecraft.util.ResourceLocation
 import org.lwjgl.opengl.Display
 import org.lwjgl.opengl.GL11
+import skidunion.destiny.utils.render.NewRenderUtils
 import java.awt.Color
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -238,6 +239,7 @@ class Targets : Element(-46.0, -40.0, 1F, Side(Side.Horizontal.MIDDLE, Side.Vert
             )
         ).toFloat() + 20F
         val barWidth = (target.health / target.maxHealth).coerceIn(0F, target.maxHealth) * (nameLength - 2F)
+        NewRenderUtils.drawShadowWithCustomAlpha(-1F, -1F, 2F + nameLength + 36F, 1F + 36F, 255f)
         RenderUtils.drawRect(-2F, -2F, 3F + nameLength + 36F, 2F + 36F, Color(50, 50, 50, 150).rgb)
         RenderUtils.drawRect(-1F, -1F, 2F + nameLength + 36F, 1F + 36F, Color(0, 0, 0, 100).rgb)
         drawPlayerHead(target.skin, 0, 0, 36, 36)

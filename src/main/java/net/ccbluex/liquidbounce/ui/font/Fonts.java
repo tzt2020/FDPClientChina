@@ -26,8 +26,14 @@ public class Fonts {
     @FontDetails(fontName = "Light", fontSize = 32, fileName = "misans.ttf")
     public static GameFontRenderer font32;
 
+    @FontDetails(fontName = "Light", fontSize = 28, fileName = "misans.ttf")
+    public static GameFontRenderer font28;
+
     @FontDetails(fontName = "Medium", fontSize = 40, fileName = "misans.ttf")
     public static GameFontRenderer font40;
+
+    @FontDetails(fontName = "NotiFicationIcon", fontSize = 80, fileName = "NotiFicationIcon.ttf")
+    public static GameFontRenderer Nicon80;
 
 //    @FontDetails(fontName = "Huge", fontSize = 60, fileName = "misans.ttf")
 //    public static GameFontRenderer font60;
@@ -100,6 +106,7 @@ public class Fonts {
     private static void initFonts() {
         try {
             initSingleFont("misans.ttf","assets/minecraft/fdpclient/font/misans.ttf");
+            initSingleFont("NotiFicationIcon.ttf", "assets/minecraft/fdpclient/font/NotiFicationIcon.ttf");
         }catch(IOException e) {
             e.printStackTrace();
         }

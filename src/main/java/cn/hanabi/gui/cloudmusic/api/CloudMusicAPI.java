@@ -160,7 +160,7 @@ public enum CloudMusicAPI {
         obj.addProperty("id", songId);
         obj.addProperty("lv", -1);
         obj.addProperty("tv", -1);
-        return (String) httpRequest("https://music.163.com/weapi/song/lyric", encryptRequest(obj.toString()), RequestType.POST)[0];
+        return (String) httpRequest("https://music.163.com/api/song/lyric", encryptRequest(obj.toString()), RequestType.POST)[0];
     }
 
     public String[] requestLyric(String result) {
@@ -241,7 +241,7 @@ public enum CloudMusicAPI {
         }
     }
 
-    //字符串转毫秒
+    // 字符串转毫秒
     public long strToLong(String min, String sec, String mill) {
         int minInt = Integer.parseInt(min);
         int secInt = Integer.parseInt(sec);

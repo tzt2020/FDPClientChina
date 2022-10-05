@@ -1,48 +1,28 @@
-/*
- * FDPClient Hacked Client
- * A free open source mixin-based injection hacked client for Minecraft using Minecraft Forge by LiquidBounce.
- * https://github.com/UnlegitMinecraft/FDPClientChina/
- */
 package net.ccbluex.liquidbounce.ui.client.hud.element.elements
 
 import net.ccbluex.liquidbounce.LiquidBounce
-import net.ccbluex.liquidbounce.font.CFontRenderer
-import net.ccbluex.liquidbounce.font.FontLoaders
-import net.ccbluex.liquidbounce.ui.client.GuiSelectPerformance
+import net.ccbluex.liquidbounce.features.module.modules.client.HUD
 import net.ccbluex.liquidbounce.ui.client.hud.designer.GuiHudDesigner
 import net.ccbluex.liquidbounce.ui.client.hud.element.Border
 import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
 import net.ccbluex.liquidbounce.ui.client.hud.element.Side
-import net.ccbluex.liquidbounce.utils.render.BlurUtils
+import net.ccbluex.liquidbounce.ui.font.Fonts
+import net.ccbluex.liquidbounce.utils.RenderUtil.drawCircle
 import net.ccbluex.liquidbounce.utils.render.EaseUtils
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
-import net.ccbluex.liquidbounce.value.BoolValue
-import net.ccbluex.liquidbounce.value.IntegerValue
+import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.opengl.GL11
 import skidunion.destiny.utils.render.NewRenderUtils
 import java.awt.Color
-import kotlin.math.max
-
+import java.math.BigDecimal
 
 /**
  * CustomHUD Notification element
  */
 @ElementInfo(name = "Notifications", blur = true)
-class Notifications(
-    x: Double = 0.0,
-    y: Double = 0.0,
-    scale: Float = 1F,
-    side: Side = Side(Side.Horizontal.RIGHT, Side.Vertical.DOWN)
-) : Element(x, y, scale, side) {
-
-    private val backGroundAlphaValue = IntegerValue("BackGroundAlpha", 235, 0, 255)
-
-    private val TitleShadow = BoolValue("Title Shadow", false)
-    private val MotionBlur = BoolValue("Motion blur", false)
-    private val ContentShadow = BoolValue("Content Shadow", true)
-    //private val fontValue = FontValue("Font", Fonts.font35)
-
+class Notifications(x: Double = 0.0, y: Double = 0.0, scale: Float = 1F,
+                    side: Side = Side(Side.Horizontal.RIGHT, Side.Vertical.DOWN)) : Element(x, y, scale, side) {
     /**
      * Example notification for CustomHUD designer
      */
@@ -51,81 +31,75 @@ class Notifications(
     /**
      * Draw element
      */
+    // Notification By GK
     override fun drawElement(partialTicks: Float): Border? {
-        // bypass java.util.ConcurrentModificationException
-        LiquidBounce.hud.notifications.map { it }.forEachIndexed { index, notify ->
+        val notifications = mutableListOf<Notification>()
+        //FUCK YOU java.util.ConcurrentModificationException
+        for ((index, notify) in LiquidBounce.hud.notifications.withIndex()) {
             GL11.glPushMatrix()
 
-            if (notify.drawNotification(index, FontLoaders.C16, backGroundAlphaValue.get(), blurValue.get(), this.renderX.toFloat(), this.renderY.toFloat(), scale,ContentShadow.get(),TitleShadow.get(),MotionBlur.get())) {
-                LiquidBounce.hud.notifications.remove(notify)
+            if (notify.drawNotification(index)) {
+                notifications.add(notify)
             }
 
             GL11.glPopMatrix()
         }
+        for (notify in notifications) {
+            LiquidBounce.hud.notifications.remove(notify)
+        }
 
         if (mc.currentScreen is GuiHudDesigner) {
-            if (!LiquidBounce.hud.notifications.contains(exampleNotification)) {
+            if (!LiquidBounce.hud.notifications.contains(exampleNotification))
                 LiquidBounce.hud.addNotification(exampleNotification)
-            }
 
             exampleNotification.fadeState = FadeState.STAY
             exampleNotification.displayTime = System.currentTimeMillis()
 //            exampleNotification.x = exampleNotification.textLength + 8F
 
-            return Border(-exampleNotification.width.toFloat(), -exampleNotification.height.toFloat(), 0F, 0F)
+            return Border(-exampleNotification.width.toFloat() + 80, -exampleNotification.height.toFloat()-24.5f, 80F, -24.5F)
         }
 
         return null
     }
 
-    override fun drawBoarderBlur(blurRadius: Float) {}
 }
 
-class Notification(
-    val title: String,
-    val content: String,
-    val type: NotifyType,
-    val time: Int = 1500,
-    val animeTime: Int = 500
-) {
-    var width = 100
-    val height = 25
-
+class Notification(val title: String, val content: String, val type: NotifyType, val time: Int = 2000, val animeTime: Int = 500) {
+    val height = 30
     var fadeState = FadeState.IN
     var nowY = -height
+    var typestring = ""
     var displayTime = System.currentTimeMillis()
     var animeXTime = System.currentTimeMillis()
     var animeYTime = System.currentTimeMillis()
+    val width = Fonts.font32.getStringWidth(content) + 53
 
     /**
      * Draw notification
      */
-    fun drawNotification(index: Int, font: CFontRenderer, alpha: Int, blurRadius: Float, x: Float, y: Float, scale: Float,ContentShadow: Boolean,TitleShadow: Boolean,MotionBlur: Boolean): Boolean {
-        this.width = 100.coerceAtLeast(FontLoaders.C12.DisplayFontWidths(font,content)
-            .coerceAtLeast(font.getStringWidth(title)) + 15)
-        val realY = -(index+1) * height
+    fun drawNotification(index: Int): Boolean {
+        val realY = -(index + 1) * (height + 10)
         val nowTime = System.currentTimeMillis()
-        var transY = nowY.toDouble()
-
-        // Y-Axis Animation
+        //Y-Axis Animation
         if (nowY != realY) {
             var pct = (nowTime - animeYTime) / animeTime.toDouble()
-            if (pct> 1) {
+            if (pct > 1) {
                 nowY = realY
                 pct = 1.0
             } else {
                 pct = EaseUtils.easeOutExpo(pct)
             }
-            transY += (realY - nowY) * pct
+            GL11.glTranslated(0.0, (realY - nowY) * pct, 0.0)
         } else {
             animeYTime = nowTime
         }
+        GL11.glTranslated(0.0, nowY.toDouble(), 0.0)
 
-        // X-Axis Animation
+        //X-Axis Animation
         var pct = (nowTime - animeXTime) / animeTime.toDouble()
         when (fadeState) {
             FadeState.IN -> {
-                if (pct> 1) {
+                if (pct > 1) {
                     fadeState = FadeState.STAY
                     animeXTime = nowTime
                     pct = 1.0
@@ -135,77 +109,61 @@ class Notification(
 
             FadeState.STAY -> {
                 pct = 1.0
-                if ((nowTime - animeXTime)> time) {
+                if ((nowTime - animeXTime) > time) {
                     fadeState = FadeState.OUT
                     animeXTime = nowTime
                 }
             }
 
             FadeState.OUT -> {
-                if (pct> 1) {
+                if (pct > 1) {
                     fadeState = FadeState.END
                     animeXTime = nowTime
                     pct = 1.0
                 }
-                pct = 1 - EaseUtils.easeInExpo(pct)
+                pct = 1 - EaseUtils.easeOutExpo(pct)
             }
 
             FadeState.END -> {
                 return true
             }
         }
-        val transX = width - (width * pct) - width
-        GL11.glTranslated(transX, transY, 0.0)
-        if (blurRadius != 0f) {
-            if(!GuiSelectPerformance.offblur) BlurUtils.draw(4 + (x + transX).toFloat() * scale, (y + transY).toFloat() * scale, (width * scale) , (height.toFloat()-5f) * scale, blurRadius)
+        if (type.toString() == "SUCCESS") {
+            typestring = "a"
         }
+        if (type.toString() == "ERROR") {
+            typestring = "B"
+        }
+        if (type.toString() == "WARNING") {
+            typestring = "D"
+        }
+        if (type.toString() == "INFO") {
+            typestring = "C"
+        }
+        GL11.glScaled(pct,pct,pct)
+        GL11.glTranslatef(-width.toFloat()/2 , -height.toFloat()/2, 0F)
+        NewRenderUtils.drawShadowWithCustomAlpha(0F, 0F, width.toFloat(), height.toFloat(), 255f)
+        RenderUtils.drawRect(0F, 0F, width.toFloat(), height.toFloat(), Color(63, 63, 63, 100))
+        RenderUtils.drawGradientSideways(0.0, height - 1.7,
+            (width * ((nowTime - displayTime) / (animeTime * 2F + time))).toDouble(), height.toDouble(), Color(HUD.redValue.get(),HUD.greenValue.get(),HUD.blueValue.get()).rgb, Color(HUD.gredValue.get(),HUD.ggreenValue.get(),HUD.gblueValue.get()).rgb)
+        Fonts.font35.drawStringWithShadow("$title", 24.5F, 7F, Color.WHITE.rgb)
+        Fonts.font32.drawStringWithShadow("$content" + " (" + BigDecimal(((time - time * ((nowTime - displayTime) / (animeTime * 2F + time))) / 1000).toDouble()).setScale(1, BigDecimal.ROUND_HALF_UP).toString() + "s)", 24.5F, 17.3F, Color.WHITE.rgb)
+//        RenderUtils.drawFilledCircle(13, 15, 8.5F,Color.BLACK)
+        Fonts.Nicon80.drawString(typestring, 3, 8, Color.WHITE.rgb)
+        drawCircle(12.7f,15.1f,9.0f, 0,360)
+        GlStateManager.resetColor()
 
-        // draw notify
-//        GL11.glPushMatrix()
-//        GL11.glEnable(GL11.GL_SCISSOR_TEST)
-//        GL11.glScissor(width-(width*pct).toFloat(),0F, width.toFloat(),height.toFloat())
-        var colors=Color(type.renderColor.red,type.renderColor.green,type.renderColor.blue,alpha/3);
 
-        NewRenderUtils.drawShadowWithCustomAlpha(2f,
-            0F,
-            width.toFloat() + 5f,
-            height.toFloat() - 5f, 250f)
-
-        RenderUtils.drawRect(
-            2.0,
-            0.0,
-            4.0,
-            height.toFloat() - 5.0,
-            colors.rgb,
-        )
-        RenderUtils.drawRect(
-            3F,
-            0F,
-            width.toFloat() + 5f,
-            height.toFloat() - 5f,
-            Color(0,0,0,150)
-        )
-        RenderUtils.drawGradientSidewaysH(
-            3.0,
-            0.0,
-            20.0,
-            height.toFloat() - 5.0,
-            colors.rgb,
-            Color(0,0,0,0).rgb
-        )
-        RenderUtils.drawRect(2f, height.toFloat()-6f, max(width - width * ((nowTime - displayTime) / (animeTime * 2F + time))+5f, 0F), height.toFloat()-5f ,Color(52, 97, 237).rgb)
-
-        FontLoaders.C12.DisplayFont2(FontLoaders.C12,title, 4F, 3F, Color(245,245,245).rgb,TitleShadow)
-        font.DisplayFont2(font,content, 4F, 10F, Color(255,255,255).rgb,ContentShadow)
         return false
     }
 }
 
-enum class NotifyType(var renderColor: Color) {
-    SUCCESS(Color(0x36D399)),
-    ERROR(Color(0xF87272)),
-    WARNING(Color(0xFBBD23)),
-    INFO(Color(0xF2F2F2));
+enum class NotifyType(var icon: String) {
+    SUCCESS("check-circle"),
+    ERROR("close-circle"),
+    WARNING("warning"),
+    INFO("information");
 }
+
 
 enum class FadeState { IN, STAY, OUT, END }

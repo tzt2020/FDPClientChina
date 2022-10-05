@@ -98,7 +98,7 @@ ClientUtils : MinecraftInstance() {
     }
 
     fun displayAlert(message: String) {
-        displayChatMessage("§8[" + LiquidBounce.COLORED_NAME + "§8] §f" + message)
+        displayChatMessage("§8[FDPClient§8] §f$message")
     }
 
     fun displayChatMessage(message: String) {

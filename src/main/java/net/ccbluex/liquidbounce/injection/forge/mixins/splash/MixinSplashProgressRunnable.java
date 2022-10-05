@@ -86,12 +86,14 @@ public abstract class MixinSplashProgressRunnable {
 
             if(progress != 1f) {
                 GL11.glColor4f(0f, 0f, 0f, 0.3f);
-                RenderUtils.drawRoundedCornerRect(rectX, rectY, rectX2, rectY2, rectRadius);
+                RenderUtils.drawRect(rectX, rectY, rectX2, rectY2, (int) rectRadius);
+//                RenderUtils.drawRoundedCornerRect(rectX, rectY, rectX2, rectY2, rectRadius);
             }
 
             if(progress != 0f) {
                 GL11.glColor4f(1f, 1f, 1f, 1f);
-                RenderUtils.drawRoundedCornerRect(rectX, rectY, rectX + (width * 0.6f * progress), rectY2, rectRadius);
+                RenderUtils.drawRect(rectX, rectY, rectX + (width * 0.6f * progress), rectY2, (int) rectRadius);
+//                RenderUtils.drawRoundedCornerRect(rectX, rectY, rectX + (width * 0.6f * progress), rectY2, rectRadius);
             }
 
             SplashProgress.mutex.acquireUninterruptibly();
