@@ -8,14 +8,13 @@ import net.ccbluex.liquidbounce.ui.client.hud.element.Element
 import net.ccbluex.liquidbounce.ui.client.hud.element.ElementInfo
 import net.ccbluex.liquidbounce.ui.client.hud.element.Side
 import net.ccbluex.liquidbounce.ui.font.Fonts
-import net.ccbluex.liquidbounce.utils.RenderUtil.drawCircle
-import net.ccbluex.liquidbounce.utils.render.EaseUtils
 import net.ccbluex.liquidbounce.utils.render.RenderUtils
 import net.minecraft.client.renderer.GlStateManager
 import org.lwjgl.opengl.GL11
 import skidunion.destiny.utils.render.NewRenderUtils
 import java.awt.Color
 import java.math.BigDecimal
+import kotlin.math.pow
 
 /**
  * CustomHUD Notification element
@@ -31,7 +30,6 @@ class Notifications(x: Double = 0.0, y: Double = 0.0, scale: Float = 1F,
     /**
      * Draw element
      */
-    // Notification By GK
     override fun drawElement(partialTicks: Float): Border? {
         val notifications = mutableListOf<Notification>()
         //FUCK YOU java.util.ConcurrentModificationException
@@ -74,8 +72,12 @@ class Notification(val title: String, val content: String, val type: NotifyType,
     var animeYTime = System.currentTimeMillis()
     val width = Fonts.font32.getStringWidth(content) + 53
 
+
     /**
      * Draw notification
+     */
+    /**
+     * SpaceKing OpenSource Free Share
      */
     fun drawNotification(index: Int): Boolean {
         val realY = -(index + 1) * (height + 10)
@@ -87,7 +89,7 @@ class Notification(val title: String, val content: String, val type: NotifyType,
                 nowY = realY
                 pct = 1.0
             } else {
-                pct = EaseUtils.easeOutExpo(pct)
+                pct = easeOutBack(pct)
             }
             GL11.glTranslated(0.0, (realY - nowY) * pct, 0.0)
         } else {
@@ -104,7 +106,7 @@ class Notification(val title: String, val content: String, val type: NotifyType,
                     animeXTime = nowTime
                     pct = 1.0
                 }
-                pct = EaseUtils.easeOutExpo(pct)
+                pct = easeOutBack(pct)
             }
 
             FadeState.STAY -> {
@@ -121,7 +123,7 @@ class Notification(val title: String, val content: String, val type: NotifyType,
                     animeXTime = nowTime
                     pct = 1.0
                 }
-                pct = 1 - EaseUtils.easeOutExpo(pct)
+                pct = 1 - easeInBack(pct)
             }
 
             FadeState.END -> {
@@ -142,28 +144,39 @@ class Notification(val title: String, val content: String, val type: NotifyType,
         }
         GL11.glScaled(pct,pct,pct)
         GL11.glTranslatef(-width.toFloat()/2 , -height.toFloat()/2, 0F)
-        NewRenderUtils.drawShadowWithCustomAlpha(0F, 0F, width.toFloat(), height.toFloat(), 255f)
-        RenderUtils.drawRect(0F, 0F, width.toFloat(), height.toFloat(), Color(63, 63, 63, 100))
+        RenderUtils.drawRect(0F, 0F, width.toFloat(), height.toFloat(), Color(63, 63, 63, 140))
         RenderUtils.drawGradientSideways(0.0, height - 1.7,
             (width * ((nowTime - displayTime) / (animeTime * 2F + time))).toDouble(), height.toDouble(), Color(HUD.redValue.get(),HUD.greenValue.get(),HUD.blueValue.get()).rgb, Color(HUD.gredValue.get(),HUD.ggreenValue.get(),HUD.gblueValue.get()).rgb)
         Fonts.font35.drawStringWithShadow("$title", 24.5F, 7F, Color.WHITE.rgb)
         Fonts.font32.drawStringWithShadow("$content" + " (" + BigDecimal(((time - time * ((nowTime - displayTime) / (animeTime * 2F + time))) / 1000).toDouble()).setScale(1, BigDecimal.ROUND_HALF_UP).toString() + "s)", 24.5F, 17.3F, Color.WHITE.rgb)
-//        RenderUtils.drawFilledCircle(13, 15, 8.5F,Color.BLACK)
+        NewRenderUtils.drawFilledCircle(13, 15, 8.5F,Color.BLACK)
         Fonts.Nicon80.drawString(typestring, 3, 8, Color.WHITE.rgb)
-        drawCircle(12.7f,15.1f,9.0f, 0,360)
+        NewRenderUtils.drawCircle(11.5f,15.0f,8.8f, 0,360)
         GlStateManager.resetColor()
-
 
         return false
     }
+
+    fun easeInBack(x: Double): Double {
+        val c1 = 1.70158
+        val c3 = c1 + 1
+
+        return c3 * x * x * x - c1 * x * x
+    }
+
+    fun easeOutBack(x: Double): Double {
+        val c1 = 1.70158
+        val c3 = c1 + 1
+
+        return 1 + c3 * (x - 1).pow(3) + c1 * (x - 1).pow(2)
+    }
 }
 
-enum class NotifyType(var icon: String) {
-    SUCCESS("check-circle"),
-    ERROR("close-circle"),
-    WARNING("warning"),
-    INFO("information");
+enum class NotifyType() {
+    SUCCESS(),
+    ERROR(),
+    WARNING(),
+    INFO();
 }
-
 
 enum class FadeState { IN, STAY, OUT, END }

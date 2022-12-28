@@ -3,13 +3,13 @@ package skidunion.destiny.utils.render
 import net.ccbluex.liquidbounce.LiquidBounce
 import net.ccbluex.liquidbounce.features.module.modules.client.HUD
 import net.ccbluex.liquidbounce.ui.RenderLeave
-import net.ccbluex.liquidbounce.utils.Palette
-import net.ccbluex.liquidbounce.utils.render.RenderUtils
+import net.ccbluex.liquidbounce.utils.render.GLUtils
 import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.GlStateManager
 import net.minecraft.client.renderer.Tessellator
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats
 import net.minecraft.util.ResourceLocation
+import org.lwjgl.opengl.GL11
 import org.lwjgl.opengl.GL11.*
 import java.awt.Color
 
@@ -156,5 +156,69 @@ object NewRenderUtils {
         worldrenderer.pos(x.toDouble(), y.toDouble(), 0.0).tex((u * f).toDouble(), (v * f1).toDouble()).endVertex()
         tessellator.draw()
     }
+    @JvmStatic
+    fun drawCircle(x: Float, y: Float, radius: Float, start: Int, end: Int) {
+        GlStateManager.enableBlend()
+        GlStateManager.disableTexture2D()
+        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO)
+        GL11.glEnable(GL11.GL_LINE_SMOOTH)
+        GL11.glLineWidth(2f)
+        GL11.glBegin(GL11.GL_LINE_STRIP)
+        var i = end.toFloat()
+        while (i >= start) {
+            var c = getGradientOffset(Color(HUD.redValue.get(),HUD.greenValue.get(),HUD.blueValue.get()), Color(HUD.gredValue.get(),HUD.ggreenValue.get(),HUD.gblueValue.get(), 1), (Math.abs(System.currentTimeMillis() / 360.0 + (i* 34 / 360) * 56 / 100) / 10))!!.rgb
+            val f2 = (c shr 24 and 255).toFloat() / 255.0f
+            val f22 = (c shr 16 and 255).toFloat() / 255.0f
+            val f3 = (c shr 8 and 255).toFloat() / 255.0f
+            val f4 = (c and 255).toFloat() / 255.0f
+            GlStateManager.color(f22, f3, f4, f2)
+            GL11.glVertex2f(
+                (x + Math.cos(i * Math.PI / 180) * (radius * 1.001f)).toFloat(),
+                (y + Math.sin(i * Math.PI / 180) * (radius * 1.001f)).toFloat()
+            )
+            i -= 360f / 90.0f
+        }
+        GL11.glEnd()
+        GL11.glDisable(GL11.GL_LINE_SMOOTH)
+        GlStateManager.enableTexture2D()
+        GlStateManager.disableBlend()
+    }
 
+    @JvmStatic
+    fun drawFilledCircle(xx: Int, yy: Int, radius: Float, color: Color) {
+        val sections = 50
+        val dAngle = 2 * Math.PI / sections
+        var x: Float
+        var y: Float
+        GL11.glPushAttrib(GL11.GL_ENABLE_BIT)
+        GLUtils.glEnable(GL11.GL_BLEND)
+        GLUtils.glDisable(GL11.GL_TEXTURE_2D)
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA)
+        GLUtils.glEnable(GL11.GL_LINE_SMOOTH)
+        GL11.glBegin(GL11.GL_TRIANGLE_FAN)
+        for (i in 0 until sections) {
+            x = (radius * Math.sin(i * dAngle)).toFloat()
+            y = (radius * Math.cos(i * dAngle)).toFloat()
+            GL11.glColor4f(color.red / 255f, color.green / 255f, color.blue / 255f, color.alpha / 255f)
+            GL11.glVertex2f(xx + x, yy + y)
+        }
+        GlStateManager.color(0f, 0f, 0f)
+        GL11.glEnd()
+        GL11.glPopAttrib()
+    }
+
+    @JvmStatic
+    fun getGradientOffset(color1: Color, color2: Color, gident: Double): Color? {
+        var gident = gident
+        if (gident > 1.0) {
+            val f1 = gident % 1.0
+            val f2 = gident.toInt()
+            gident = if (f2 % 2 == 0) f1 else 1.0 - f1
+        }
+        val f3 = 1.0 - gident
+        val f4 = (color1.red.toDouble() * f3 + color2.red.toDouble() * gident).toInt()
+        val f5 = (color1.green.toDouble() * f3 + color2.green.toDouble() * gident).toInt()
+        val f6 = (color1.blue.toDouble() * f3 + color2.blue.toDouble() * gident).toInt()
+        return Color(f4, f5, f6)
+    }
 }

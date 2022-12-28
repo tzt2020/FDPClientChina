@@ -268,4 +268,18 @@ object MovementUtils : MinecraftInstance() {
         mc.thePlayer.motionZ = moveEvent.z
     }
 
+    fun getPredictionYaw(x: Double, z: Double): Float {
+        if (mc.thePlayer == null) {
+            lastX = -999999.0
+            lastZ = -999999.0
+            return 0f
+        }
+        if (lastX == -999999.0) lastX = mc.thePlayer.prevPosX
+        if (lastZ == -999999.0) lastZ = mc.thePlayer.prevPosZ
+        val returnValue = (Math.atan2(z - lastZ, x - lastX) * 180f / Math.PI).toFloat()
+        lastX = x
+        lastZ = z
+        return returnValue
+    }
+
 }
