@@ -151,7 +151,7 @@ class Notification(val title: String, val content: String, val type: NotifyType,
         Fonts.font32.drawStringWithShadow("$content" + " (" + BigDecimal(((time - time * ((nowTime - displayTime) / (animeTime * 2F + time))) / 1000).toDouble()).setScale(1, BigDecimal.ROUND_HALF_UP).toString() + "s)", 24.5F, 17.3F, Color.WHITE.rgb)
         NewRenderUtils.drawFilledCircle(13, 15, 8.5F,Color.BLACK)
         Fonts.Nicon80.drawString(typestring, 3, 8, Color.WHITE.rgb)
-        NewRenderUtils.drawCircle(11.5f,15.0f,8.8f, 0,360)
+        NewRenderUtils.drawCircle(12.3f,15.0f,8.8f, 0,360)
         GlStateManager.resetColor()
 
         return false
